@@ -204,7 +204,15 @@ public class Connexion extends JFrame {
 		Connection conn = null;
 		try {
 			conn = bdutile.getCon();
-			Utilisateur userCourant = queryLogin.login(conn, user);
+			Utilisateur userCourant = null ;
+			if(user instanceof Etudiant) {
+				userCourant = queryLogin.loginEtu(conn, user);
+			}else if(user instanceof Enseignant) {
+				userCourant = queryLogin.loginEn(conn, user);
+			}else {
+				userCourant = queryLogin.loginAdmin(conn, user);
+			}
+			
 			if(StringUtil.isEmpty(txtId.getText()) || StringUtil.isEmpty(String.valueOf(passwordField.getPassword()))) {
 				JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe ne peut pas \u00EAtre vide!");
 			}else {
