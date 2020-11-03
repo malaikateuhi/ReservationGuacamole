@@ -1,10 +1,34 @@
 package GestionUtilisateurs;
 
+import java.util.ArrayList;
+
+import GestionReservations.Reservation;
+import GestionReservations.Seance;
+
 public class Etudiant extends Utilisateur {
+	private ArrayList<Seance> lstSeanceEtu;
+	private ArrayList<Reservation> lstReser;
+	
 	public Etudiant() {
 		
 	}
 	
+	public ArrayList<Seance> getLstSeanceEtu() {
+		return lstSeanceEtu;
+	}
+
+	public void setLstSeanceEtu(ArrayList<Seance> lstSeanceEtu) {
+		this.lstSeanceEtu = lstSeanceEtu;
+	}
+
+	public ArrayList<Reservation> getLstReser() {
+		return lstReser;
+	}
+
+	public void setLstReser(ArrayList<Reservation> lstReser) {
+		this.lstReser = lstReser;
+	}
+
 	public String getIdentifiant() {
 		return super.getIdentifiant();
 	}
