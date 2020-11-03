@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class BDutile {
-	private String bdurl="jdbc:mysql://127.0.0.1:3306/projet_doit_bd?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false";
+	private String bdurl="jdbc:mysql://127.0.0.1:3306/projet_guacamole_bd?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false";
 	private String username="root";
 	private String mdp="";
 	private String jdbcname="com.mysql.cj.jdbc.Driver";
