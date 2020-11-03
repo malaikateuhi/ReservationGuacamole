@@ -9,6 +9,9 @@ import GestionUtilisateurs.*;
 
 
 public class QueryLogin {
+	public QueryLogin() {
+		
+	}
 	// cette methode permet de trouver les infos de client en fonction de son email et mot de passe
 	public Utilisateur login(Connection con,Utilisateur user)throws Exception{
 		Utilisateur resUser=null;
