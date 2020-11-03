@@ -1,12 +1,35 @@
 package GestionUtilisateurs;
 
 public class Admin extends Utilisateur{
-
-
 	
-	public Admin(String identifiant, String mdp, String nom, String prenom) {
-		super(identifiant, mdp, nom, prenom);
-		// TODO Auto-generated constructor stub
+	public Admin() {
+		
+	}
+	
+	public String getIdentifiant() {
+		return super.getIdentifiant();
+	}
+
+	public void setIdentifiant(String identifiant) {
+		super.setIdentifiant(identifiant);;
+	}
+	public String getMdp() {
+		return super.getMdp();
+	}
+	public void setMdp(String mdp) {
+		super.setMdp(mdp);;
+	}
+	public String getNom() {
+		return super.getNom();
+	}
+	public void setNom(String nom) {
+		super.setNom(nom);;
+	}
+	public String getPrenom() {
+		return super.getPrenom();
+	}
+	public void setPrenom(String prenom) {
+		super.setPrenom(prenom);;
 	}
 	public void ajouterMachine() {
 		
@@ -14,7 +37,7 @@ public class Admin extends Utilisateur{
 	public void supprimerMachine() {
 		
 	}
-	public void modifierMachine() {
+	public void ModifierMachine() {
 		
 	}
 	public void ajouterSalle() {
