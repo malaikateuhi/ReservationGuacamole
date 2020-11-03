@@ -7,7 +7,6 @@ public abstract class Utilisateur {
 	private String prenom;
 	
 	public Utilisateur(String identifiant, String mdp, String nom, String prenom) {
-		super();
 		this.identifiant = identifiant;
 		this.mdp = mdp;
 		this.nom = nom;
