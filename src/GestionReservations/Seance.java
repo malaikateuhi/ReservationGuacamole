@@ -8,6 +8,6 @@ public class Seance {
 	private String nomCours;
 	private String etat;
 	
-	private Groupe groupeEtu;
-	private Enseignant ensignant;
+//	private Groupe groupeEtu;
+//	private Enseignant ensignant;
 }
