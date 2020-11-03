@@ -13,6 +13,10 @@ public class Etudiant extends Utilisateur {
 		
 	}
 	
+	public Etudiant(String id, String mdp) {
+		super(id,mdp);
+	}
+
 	public ArrayList<Seance> getLstSeanceEtu() {
 		return lstSeanceEtu;
 	}
