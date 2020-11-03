@@ -1,7 +1,11 @@
 package GestionUtilisateurs;
 
+import java.util.ArrayList;
+
+import GestionReservations.Seance;
+
 public class Enseignant extends Utilisateur {
-	
+	private ArrayList<Seance> lstSeanceEn;
 	public Enseignant() {
 		
 	}
