@@ -2,14 +2,42 @@ package GestionReservations;
 import java.util.Date;
 
 public class Reservation {
-	private String jour;
-	private String heureDeb;
-	private String heureFin;
-	private String etat;
+	protected String numma;
+	protected String idee;
+	protected String jour;
+	protected String heureDeb;
+	protected String heureFin;
+	protected String etat;
 	//private int duree; //en heure
 	
 	public Reservation() {
 	}
+
+	
+	
+	public String getNumma() {
+		return numma;
+	}
+
+
+
+	public void setNumma(String numma) {
+		this.numma = numma;
+	}
+
+
+
+	public String getIdee() {
+		return idee;
+	}
+
+
+
+	public void setIdee(String idee) {
+		this.idee = idee;
+	}
+
+
 
 	public String getJour() {
 		return jour;
