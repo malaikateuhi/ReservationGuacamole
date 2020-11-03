@@ -2,13 +2,17 @@ package GestionUtilisateurs;
 
 public class Admin extends Utilisateur{
 
+	public Admin(String identifiant, String mdp, String nom, String prenom) {
+		super(identifiant, mdp, nom, prenom);
+	}
+	
 	public void ajouterMachine() {
 		
 	}
 	public void supprimerMachine() {
 		
 	}
-	public void ModifierMachine() {
+	public void modifierMachine() {
 		
 	}
 	public void ajouterSalle() {

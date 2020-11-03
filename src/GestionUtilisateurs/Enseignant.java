@@ -1,14 +1,17 @@
 package GestionUtilisateurs;
 
+import java.util.ArrayList;
+
+import GestionReservations.Seance;
+
 public class Enseignant extends Utilisateur {
 	
+	private ArrayList<Seance> seances;
 	
-	public void reserver() {
-		
+	public Enseignant(String identifiant, String mdp, String nom, String prenom) {
+		super(identifiant, mdp, nom, prenom);
 	}
-	public void annulerReservation() {
-		
-	}
+	
 	public void annulerSeance() {
 		
 	}
