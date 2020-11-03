@@ -6,6 +6,7 @@ public abstract class Utilisateur {
 	private String nom;
 	private String prenom;
 	
+	
 	public Utilisateur(String identifiant, String mdp, String nom, String prenom) {
 		this.identifiant = identifiant;
 		this.mdp = mdp;
@@ -13,17 +14,34 @@ public abstract class Utilisateur {
 		this.prenom = prenom;
 	}
 	
-	protected String getIdentifiant() {
+	
+	public Utilisateur() {
+		
+	}
+	public String getIdentifiant() {
 		return identifiant;
 	}
-	protected String getMdp() {
+	public void setIdentifiant(String identifiant) {
+		this.identifiant = identifiant;
+	}
+	public String getMdp() {
 		return mdp;
 	}
-	protected String getNom() {
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
+	}
+	public String getNom() {
 		return nom;
 	}
-	protected String getPrenom() {
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	public String getPrenom() {
 		return prenom;
 	}
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
 	
 }

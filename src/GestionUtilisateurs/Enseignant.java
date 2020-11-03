@@ -12,7 +12,6 @@ public class Enseignant extends Utilisateur {
 		super(identifiant, mdp, nom, prenom);
 	}
 	
-	public void annulerSeance() {
-		
+	public void annulerSeance() {	
 	}
 }
