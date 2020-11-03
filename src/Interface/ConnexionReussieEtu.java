@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class ConnexionReussieEtu extends JFrame {
 
@@ -40,21 +41,27 @@ public class ConnexionReussieEtu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		lblId = new JLabel("New label");
+		lblId = new JLabel("...");
+		
+		JLabel lblNewLabel = new JLabel("Bonjour,");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(261, Short.MAX_VALUE)
-					.addComponent(lblId, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-					.addGap(108))
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(262, Short.MAX_VALUE)
+					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblId, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(20)
-					.addComponent(lblId)
-					.addContainerGap(218, Short.MAX_VALUE))
+					.addGap(19)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblId)
+						.addComponent(lblNewLabel))
+					.addContainerGap(219, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
