@@ -1,5 +1,7 @@
 package BD;
 
+//C'est uniquement ¨¤ des fins de test. Enfin, cette classe peut ¨ºtre supprim¨¦e.
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class BDutile {
-	private String bdurl="jdbc:mysql://localhost:8081/";
+	private String bdurl="jdbc:mysql://localhost:3306/bd";
 	private String username="root";
 	private String mdp="";
 	private String jdbcname="com.mysql.cj.jdbc.Driver";
