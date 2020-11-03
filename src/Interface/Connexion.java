@@ -1,6 +1,5 @@
 package Interface;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -121,6 +120,11 @@ public class Connexion extends JFrame {
 		buttonGroup.add(rdbtnNewRadioButton_2);
 		
 		JButton btnValider = new JButton("Valider");
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				login(e);
+			}
+		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -186,7 +190,7 @@ public class Connexion extends JFrame {
 	public void login(ActionEvent evt) {
 		String id = this.txtId.getText();
 		String mdp=new String(String.valueOf(this.passwordField.getPassword()));
-		Utilisateur user;
+		Utilisateur user = null;
 		if(typeUtilisateur == 0) {
 			JOptionPane.showMessageDialog(null, "Veuillez choisir votre rôle!");
 		}else if(typeUtilisateur == 1) {
