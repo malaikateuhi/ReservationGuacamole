@@ -5,7 +5,9 @@ public class Admin extends Utilisateur{
 	public Admin() {
 		
 	}
-	
+	public Admin(String id, String mdp) {
+		super(id,mdp);
+	}
 	public String getIdentifiant() {
 		return super.getIdentifiant();
 	}
