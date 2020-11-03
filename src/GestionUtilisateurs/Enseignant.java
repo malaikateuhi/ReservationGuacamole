@@ -9,7 +9,9 @@ public class Enseignant extends Utilisateur {
 	public Enseignant() {
 		
 	}
-	
+	public Enseignant(String id, String mdp) {
+		super(id,mdp);
+	}
 	public String getIdentifiant() {
 		return super.getIdentifiant();
 	}
