@@ -26,20 +26,16 @@ public class AdminDao {
 	    parameter.add(password);
 	    afferentSQL(sqladmin);
 	    List<Object> objs = Select();
-	    System.out.println(objs.get(0));
+	    
 	    Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
-
            if (objs.size()!=0) {
-	
 	    	  ares = new Admin();
 	          ares.setIdentifiant((String) rowData.get("ida"));
 	          ares.setMdp((String)rowData.get("passwoda"));
 	          ares.setNom((String)rowData.get("noma"));
 	          ares.setPrenom((String)rowData.get("prenoma"));
-	     
 	    	System.out.println("welcom "+rowData.get("noma"));
-	    	return ares;
-	    	  
+	    	return ares;  
 	    }
 	    else {
 	    return null;}

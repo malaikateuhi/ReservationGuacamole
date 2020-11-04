@@ -8,13 +8,38 @@ public class Reservation {
 	protected String heureDeb;
 	protected String heureFin;
 	protected String etat;
+	protected int creaneau;
 	//private int duree; //en heure
 	
+	
+	
 	public Reservation() {
+	}
+	
+	public Reservation(String numma, String idee, String jour, String heureDeb, String heureFin, String etat,int creaneau) {
+	
+		this.numma = numma;
+		this.idee = idee;
+		this.jour = jour;
+		this.heureDeb = heureDeb;
+		this.heureFin = heureFin;
+		this.etat = etat;
+		this.creaneau=creaneau;
 	}
 
 	
 	
+public int getCreaneau() {
+		return creaneau;
+	}
+
+
+
+	public void setCreaneau(int creaneau) {
+		this.creaneau = creaneau;
+	}
+
+
 	public String getNumma() {
 		return numma;
 	}

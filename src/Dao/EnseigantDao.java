@@ -30,14 +30,12 @@ public class EnseigantDao {
 		    List<Object> objs = Select();
 		    Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
 		    if (objs.size()!=0) {
-		    	/*
 		    	  enres = new Enseignant();
-		          enres.setNuma((String) rowData.get("iden"));
-		          enres.setPassword((String)rowData.get("passwoden"));
+		          enres.setIdentifiant((String) rowData.get("iden"));
+		          enres.setMdp((String)rowData.get("passwoden"));
 		          enres.setNom((String)rowData.get("nomen"));
 		          enres.setPrenom((String)rowData.get("prenomen"));
-		         */ 
-		    	System.out.println("welcom "+rowData.get("nomE"));
+		    	System.out.println("welcom "+rowData.get("nomen"));
 		    	return enres;    	  
 		    }
 		    else {
@@ -96,7 +94,7 @@ public class EnseigantDao {
 		public static void main(String[] args) {
 			// TODO Auto-generated method stub
 			EnseigantDao en1 = new EnseigantDao();	
-			en1.login("22","00");
+			en1.login("en1","en1");
 		}
 
 }

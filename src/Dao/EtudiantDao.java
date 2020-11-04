@@ -30,17 +30,14 @@ public Etudiant login(String id,String password) {
     parameter.add(password);
     afferentSQL(sqlclient);
     List<Object> objs = Select();
-    System.out.println(objs.get(0));
     Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
   
     if (objs.size()!=0) {
-
     	  etures = new Etudiant();
           etures.setIdentifiant((String) rowData.get("ide"));
           etures.setMdp((String)rowData.get("passwode"));
           etures.setNom((String)rowData.get("nome"));
-          etures.setPrenom((String)rowData.get("prenome"));
-        
+          etures.setPrenom((String)rowData.get("prenome"));   
     	System.out.println("welcom "+rowData.get("nome"));
     	return etures;
     	  
@@ -144,8 +141,8 @@ public Etudiant login(String id,String password) {
 	   else {return null;}
 	 }
  
- /*public void prendreserver(Reservation reservation) {
-	 String sql="insert into reserver values(?,?,?,?,?,?)";
+     public void prendreserver(Reservation reservation) {
+	 String sql="insert into reserver values(?,?,?,?,?,?,?)";
 	  Query();
       afferentSQL(sql);
       parameter.add(reservation.getNumma());
@@ -154,26 +151,34 @@ public Etudiant login(String id,String password) {
       parameter.add(reservation.getHeureDeb());
       parameter.add(reservation.getHeureFin());
       parameter.add(reservation.getEtat());
+      parameter.add(reservation.getCreaneau());
       int ligne=Update();
       if(ligne>=1){ //Nombre de lignes affect¨¦es (c'est-¨¤-dire le nombre de mises ¨¤ jour
           System.out.println("succcess");
       };  
 	
-	 
- }*/ 
+	 System.out.println();
+ }
  
  
 public static void main(String[] args) {
 	// TODO Auto-generated method stub
 	EtudiantDao t1 = new EtudiantDao();	
 	Etudiant e1= new Etudiant();
+	t1.login("1","1");
+	
 	e1.setIdentifiant("1");
-		//t1.login("a","b");
+		//	t1.login("a","b");
 		Salle salle1=new Salle();
 		salle1.setNomSalle("M1");
 		//t1.machinelibre(salle1, "2020-11-10", 0);
 			//t1.recommande(e1, "2020-11-10", 0);
-		t1.choisi(e1, "2020-11-10", 0);
+		//t1.choisi(e1, "2020-11-10", 0);
+		//Reservation r1= new Reservation("ma1","1","2020-11-10","9:30","10:30","reserve",0);
+		//t1.prendreserver(r1);
 }
+
+
+
 
 }
