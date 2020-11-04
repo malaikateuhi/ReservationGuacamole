@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import GestionReservations.Reservation;
 import GestionReservations.Seance;
 import GestionSallesMachines.Machine;
 import GestionSallesMachines.Salle;
@@ -115,6 +116,38 @@ public class EnseigantDao {
 		}
 		
 		
+		//Quelles machines sont r¨¦serv¨¦es pour le jour de seance dans le salle et le seance indique
+		ArrayList<Reservation> lstreservation1;
+		public ArrayList<Reservation> machineReserver(Salle salle){
+			String sql ="select * from reserver,machine,salle,passer "
+					+ "where reserver.numma = machine.numma and machine.numsalle =salle.numsalle "
+					+ "and salle.numsalle = passer.numsalle and passer.jour=reserver.jour "
+					+ "and passer.creneau=reserver.creneau and salle.numsalle = ?";
+			Query(); 
+			 parameter.add(salle.getNomSalle());
+	    	 afferentSQL(sql);
+	    	 this.lstreservation1=new  ArrayList<Reservation>();
+	    	  List<Object> objs = Select();
+		        for (int i = 0; i < objs.size(); i++) {
+		        	Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+		        	Reservation rr= new Reservation();
+		        	rr.setNumma((String)rowData.get("numma"));
+		        	rr.setCreaneau((int)rowData.get("creneau"));
+		        	rr.setHeureDeb((String)rowData.get("heuredeb"));
+		        	rr.setHeureFin((String)rowData.get("heurefinr"));
+		        	rr.setEtat((String)rowData.get("etatr"));
+		        	rr.setIdee((String)rowData.get("ide"));
+		        	rr.setJour((String)rowData.get("jour"));
+		        	lstreservation1.add(rr);
+		        }
+		        System.out.println(lstreservation1);
+		        return lstreservation1;
+	     }
+			
+			
+			
+			
+			
 		
 		
 		public static void main(String[] args) {
@@ -126,6 +159,9 @@ public class EnseigantDao {
 			s1.setNumSeance("TP1");
 			en1.groupetudiant(s1);
 		    en1.salleoccupe(s1);
+		    Salle sa1 =new Salle();
+		    sa1.setNomSalle("M1");
+		    en1.machineReserver(sa1);
 		}
 
 }
