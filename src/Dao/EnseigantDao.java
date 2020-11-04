@@ -146,10 +146,6 @@ public class EnseigantDao {
 			
 			
 			
-			
-			
-		
-		
 		public static void main(String[] args) {
 			// TODO Auto-generated method stub
 			EnseigantDao en1 = new EnseigantDao();	

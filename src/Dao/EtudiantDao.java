@@ -186,6 +186,25 @@ public Etudiant login(String id,String password) {
 			 System.out.println();
 		 }
      
+
+		     public void annuler(Reservation reservation) {
+			 String sql="DELETE FROM `reserver` WHERE `reserver`.`numma` = '?' AND `reserver`.`ide` = '?' AND `reserver`.`jour` = '?' AND `reserver`.`creneau` = ?";
+			  Query();
+		      afferentSQL(sql);
+		      parameter.add(reservation.getNumma());
+		      parameter.add(reservation.getIdee());
+		      parameter.add(reservation.getJour());
+		      parameter.add(reservation.getCreaneau());
+		      int ligne=Update();
+		      if(ligne>=1){ //Nombre de lignes affect¨¦es (c'est-¨¤-dire le nombre de mises ¨¤ jour
+		          System.out.println("succcess");
+		      };  
+			
+			 System.out.println();
+		 }
+		     
+		     
+		     
 		     
 		     ArrayList<Reservation> lstreservation;
 		     public  ArrayList<Reservation> inforeserver(Etudiant etudiant) {
@@ -226,10 +245,11 @@ public Etudiant login(String id,String password) {
 							//t1.recommande(e1, "2020-11-10", 0);
 						t1.avoirseance(e1, "2020-11-10", 0);
 						//t1.choisi(e1, "2020-11-10", 0);
-						//Reservation r1= new Reservation("ma1","1","2020-11-10","9:30","10:30","reserve",0);
-						//t1.prendreserver(r1);
+						Reservation r1= new Reservation("ma1","1","2020-11-10","9:30","10:30","reserve",0);
 						
-						t1.inforeserver(e1);
+						t1.annuler(r1);
+						//t1.prendreserver(r1);
+						//t1.inforeserver(e1);
 				}
 
 
