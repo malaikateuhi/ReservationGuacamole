@@ -38,7 +38,7 @@ public class Connexion extends JFrame {
 	private BDutile bdutile = new BDutile();
 	private QueryLogin queryLogin = new QueryLogin();
 	public int typeUtilisateur = 0; //1-->etu, 2-->enseignant, 3-->admin 
-	private BackgroundPanel bgp;
+	//private BackgroundPanel bgp;
 	/**
 	 * Launch the application.
 	 */
@@ -61,7 +61,7 @@ public class Connexion extends JFrame {
 	public Connexion() {
 		setTitle("Connexion");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 516, 360);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -72,15 +72,13 @@ public class Connexion extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 426, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 258, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
 		);
 		
 		JLabel lblNewLabel = new JLabel("Bienvenue");
@@ -136,29 +134,29 @@ public class Connexion extends JFrame {
 							.addComponent(lblNewLabel))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(91)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(passwordField))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(txtId, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addGap(68)
-									.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(47)
-							.addComponent(rdbtnNewRadioButton, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(rdbtnNewRadioButton_1, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(rdbtnNewRadioButton_2, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(passwordField)
+								.addComponent(txtId, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(160)
-							.addComponent(btnValider, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addGap(177)
+							.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(rdbtnNewRadioButton, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(rdbtnNewRadioButton_1, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
+								.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+									.addGap(160)
+									.addComponent(btnValider, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)))
+							.addGap(6)
+							.addComponent(rdbtnNewRadioButton_2, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(17, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -173,24 +171,27 @@ public class Connexion extends JFrame {
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_2)
 						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblNewLabel_3)
-					.addGap(18)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(rdbtnNewRadioButton)
-						.addComponent(rdbtnNewRadioButton_1)
-						.addComponent(rdbtnNewRadioButton_2))
-					.addGap(18)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(26)
+							.addComponent(lblNewLabel_3))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(51)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(rdbtnNewRadioButton_2)
+								.addComponent(rdbtnNewRadioButton_1)
+								.addComponent(rdbtnNewRadioButton))))
+					.addGap(27)
 					.addComponent(btnValider)
-					.addContainerGap(20, Short.MAX_VALUE))
+					.addContainerGap(48, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 		//font
-		panel.setOpaque(false);
-		bgp=new BackgroundPanel(new ImageIcon(".//img.jpg")); 
-	    bgp.setBounds(0, 0, this.getSize().width, this.getSize().height);  
-        contentPane.add(bgp);
+//		panel.setOpaque(false);
+//		bgp=new BackgroundPanel(new ImageIcon(".//img.jpg")); 
+//	    bgp.setBounds(0, 0, this.getSize().width, this.getSize().height);  
+//        contentPane.add(bgp);
 	}
 	
 	public void login(ActionEvent evt) {

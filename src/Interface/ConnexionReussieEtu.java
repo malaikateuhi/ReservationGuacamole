@@ -87,7 +87,7 @@ public class ConnexionReussieEtu extends JFrame {
 		});
 		comboBoxCreneau.setModel(new DefaultComboBoxModel(new String[] {"09:30-11:00", "11:00-12:30", "14:00-15:30", "15:30-17:00"}));
 		
-		JButton btnNewButton = new JButton("Valider");
+		JButton btnNewButton = new JButton("Chercher");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//

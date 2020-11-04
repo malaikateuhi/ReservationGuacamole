@@ -91,6 +91,11 @@ public class ConsultationReservation extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("Liste des R\u00E9servations");
 		
 		JButton btnRetour = new JButton("Retour");
+		btnRetour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		
 		listReser = new JList();
 		GroupLayout gl_panel = new GroupLayout(panel);
