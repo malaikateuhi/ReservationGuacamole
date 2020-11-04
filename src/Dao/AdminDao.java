@@ -32,7 +32,7 @@ public class AdminDao {
            if (objs.size()!=0) {
 	
 	    	  ares = new Admin();
-	          ares.setIdentifiant(((String) rowData.get("ida"));
+	          ares.setIdentifiant((String) rowData.get("ida"));
 	          ares.setMdp((String)rowData.get("passwoda"));
 	          ares.setNom((String)rowData.get("noma"));
 	          ares.setPrenom((String)rowData.get("prenoma"));

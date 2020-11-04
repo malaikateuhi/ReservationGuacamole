@@ -5,8 +5,10 @@ import static BD.Query.Update;
 import static BD.Query.afferentSQL;
 import static BD.Query.parameter;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +50,7 @@ public Etudiant login(String id,String password) {
     }
 
   
-	//Historique des r¨¦servations de l'¨¦tudiant
+/*	//Historique des r¨¦servations de l'¨¦tudiant
 	ArrayList<Reservation> lstreservation;
 	public ArrayList<Reservation> hisreserver (Etudiant etudiant)
 	{
@@ -68,23 +70,24 @@ public Etudiant login(String id,String password) {
 	            lstreservation.add(reserver);
 	        }
 		return lstreservation;
-	}
+	}*/
 
 	// Si l'¨¦l¨¨ve a une classe, recommander une machine 
-			public Salle recommande(Etudiant etudiant,Date jour,String time) {
-			 String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup and seance.numseance =passer.numseance and ide=?";
+			public Salle recommande(Etudiant etudiant, String jour,int time) {
+			 String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? ";
 			        Query(); 
 			        parameter.add(etudiant.getIdentifiant());
 			        parameter.add(jour);
 			        parameter.add(time);
 			        afferentSQL(avoircours);
 			        List<Object> objs = Select();
-			        System.out.println(objs.get(0));
-			        
+			    
+			      
 			            if (objs.size()!=0) {
 			        	 Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
 			        	 Salle salle = new Salle();
 			             salle.setNomSalle((String)rowData.get("numsalle"));   
+			             System.out.println(salle.getNomSalle());
 			             return salle;
 			        }
 			        else 
@@ -93,23 +96,23 @@ public Etudiant login(String id,String password) {
 			
 			
 			
-			public Machine machinelibre (Salle salle,Date jour,String time)
+			public Machine machinelibre (Salle salle,String jour,int time)
 			{
 				String sqlmachine = "select * from machine where numsalle=? "
 						+ "and numma not in (select numma from reserver where jour=? and creneau=?)";
 				Query(); 
 				parameter.add(salle.getNomSalle());
 				parameter.add(jour);
+				
 		        parameter.add(time);
 			    afferentSQL(sqlmachine);
-			   
 				  List<Object> objs = Select();
 				       if (objs.size()!=0) {
 			        	Map<String, Object> rowData =(Map<String, Object>) objs.get(0);
 			        	Machine machine = new Machine();
 		                machine.numMachine=((String)rowData.get("numma")); 
 			            machine.setEtat(((String)rowData.get("etatm")));
-			            System.out.println(salle.getNomSalle());
+			            System.out.println(machine.getNumMachine());
 			            return machine;
 		       }
 				return null;
@@ -117,7 +120,7 @@ public Etudiant login(String id,String password) {
 			  
 			
 
-	 public Machine choisi(Etudiant etudiant,Date jour,String time) {
+	 /*public Machine choisi(Etudiant etudiant,Date jour,String time) {
 	 String pascours ="select * from machine where machine.numma not in(select * from reserver where ide=? and jour=? and creneau=?)"
 	 		+ "and numsalle not in (select * from passer and jour=? and creneau=?)";
 	    parameter.add(etudiant.getIdentifiant());
@@ -137,9 +140,9 @@ public Etudiant login(String id,String password) {
 	       return machine;
 	   }
 	   else {return null;}
-	 }
+	 }*/
  
- public void prendreserver(Reservation reservation) {
+ /*public void prendreserver(Reservation reservation) {
 	 String sql="insert into reserver values(?,?,?,?,?,?)";
 	  Query();
       afferentSQL(sql);
@@ -153,17 +156,21 @@ public Etudiant login(String id,String password) {
       if(ligne>=1){ //Nombre de lignes affect¨¦es (c'est-¨¤-dire le nombre de mises ¨¤ jour
           System.out.println("succcess");
       };  
+	
 	 
-	 
- }
+ }*/ 
  
  
 public static void main(String[] args) {
 	// TODO Auto-generated method stub
 	EtudiantDao t1 = new EtudiantDao();	
-	t1.login("a","b");
-	t1.machinelibre("M1", "2020-11-10", 0);
-	
+	Etudiant e1= new Etudiant();
+	e1.setIdentifiant("1");
+		//t1.login("a","b");
+		Salle salle1=new Salle();
+		salle1.setNomSalle("M1");
+		//t1.machinelibre(salle1, "2020-11-10", 0);
+			t1.recommande(e1, "2020-11-10", 0);
 }
 
 }
