@@ -188,7 +188,7 @@ public Etudiant login(String id,String password) {
      
 
 		     public void annuler(Reservation reservation) {
-			 String sql="DELETE FROM `reserver` WHERE `reserver`.`numma` = '?' AND `reserver`.`ide` = '?' AND `reserver`.`jour` = '?' AND `reserver`.`creneau` = ?";
+			 String sql="DELETE FROM reserver WHERE numma= ? AND ide = ? AND jour = ? AND creneau= ?";
 			  Query();
 		      afferentSQL(sql);
 		      parameter.add(reservation.getNumma());
