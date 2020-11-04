@@ -170,7 +170,7 @@ public Etudiant login(String id,String password) {
 		  String sql="insert into reserver values(?,?,?,?,?,?,?)";
 		   Query();
 		      afferentSQL(sql);
-		      parameter.add(reservation.getNumma());
+		      parameter.add(reservation.getMachine().getNumMachine());
 		      parameter.add(reservation.getIdee());
 		      parameter.add(reservation.getJour());
 		      parameter.add(reservation.getHeureDeb());
@@ -188,7 +188,7 @@ public Etudiant login(String id,String password) {
      public  ArrayList<Reservation> inforeserver(Etudiant etudiant) {
     	 ArrayList<Reservation> lstreservation = new  ArrayList();
     	 
-    	 String sql="select * from reserver where ide=? order by jour,creneau";
+    	 String sql="select * from reserver,machine where machine.numma = reserver.numma and ide=? order by jour,creneau";
 		 Query();
 		 parameter.add(etudiant.getIdentifiant());
 		 afferentSQL(sql);
@@ -197,9 +197,12 @@ public Etudiant login(String id,String password) {
 		 for (int i = 0; i < objs.size(); i++) {
 	         Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
 	         Reservation rr= new Reservation();
-	         rr.setNumma((String)rowData.get("numma"));
+	         Salle sa = new Salle((String)rowData.get("numsalle"));
+	         Machine ma = new Machine((String)rowData.get("numma"),sa);
+	         rr.setMachine(ma);
+	        // rr.setMachine(new Machine((String)rowData.get("numma"),new Salle((String)rowData.get("numsalle"))));
 	         rr.setCreaneau((int)rowData.get("creneau"));
-	         rr.setHeureDeb((String)rowData.get("heuredeb"));
+	         rr.setHeureDeb((String)rowData.get("heuredebr"));
 	         rr.setHeureFin((String)rowData.get("heurefinr"));
 	         rr.setEtat((String)rowData.get("etatr"));
 	         rr.setIdee((String)rowData.get("ide"));

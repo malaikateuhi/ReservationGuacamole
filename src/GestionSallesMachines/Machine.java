@@ -16,6 +16,13 @@ public class Machine {
 	
 	}
 
+	public Machine(String numM) {
+		this.numMachine = numM;
+	}
+	public Machine(String numM,Salle salle) {
+		this(numM);
+		this.salle = salle;
+	}
 	public String getEtat() {
 		return etat;
 	}

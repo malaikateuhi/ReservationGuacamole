@@ -20,10 +20,13 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListModel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
@@ -161,14 +164,18 @@ public class ConnexionReussieEtu extends JFrame {
 		
 		ConsultationReservation pageConsultation = new ConsultationReservation();
 		pageConsultation.setVisible(true);
-		
+		pageConsultation.lblId3.setText(this.lblId.getText());
 		//ArrayList<Reservation> lstReser = new ArrayList();
 		EtudiantDao ed = new EtudiantDao();
-				
+		DefaultListModel listModel = new DefaultListModel();
+		int i = 0;
 		for(Reservation reser : ed.inforeserver(new Etudiant(this.lblId.getText()))) {
 			//pageConsultation.comboBox.addItem(reser);
+			String detail = reser.getJour()+", "+reser.getHeureDeb()+"-"+reser.getHeureFin()+", "+reser.getMachine().getSalle().getNomSalle()+", "+reser.getMachine().getNumMachine()+", "+ reser.getEtat();
+			listModel.add(i, detail);
+			i++;
 		}
-		
+		pageConsultation.listReser.setModel(listModel);
 	}
 
 	public void btnValiderAction(ActionEvent evt) {

@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import Dao.EtudiantDao;
 import GestionReservations.Reservation;
+import GestionSallesMachines.Machine;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -61,7 +62,7 @@ public class RechercherMachineDispo extends JFrame {
 	 */
 	public RechercherMachineDispo() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 574, 415);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -70,23 +71,7 @@ public class RechercherMachineDispo extends JFrame {
 		
 		lblId2 = new JLabel("...");
 		
-		JLabel lblNewLabel_1 = new JLabel("Salle:");
-		
 		JLabel lblNewLabel_2 = new JLabel("Nous vous proposons une salle et une machine:");
-		
-		lblNumSalle = new JLabel("...");
-		
-		JLabel lblNewLabel_4 = new JLabel("Machine:");
-		
-		lblNumMa = new JLabel("...");
-		
-		JLabel lblNewLabel_3 = new JLabel("Jour:");
-		
-		lblJour = new JLabel("...");
-		
-		JLabel lblLabel_4 = new JLabel("Heure:");
-		
-		lblHeure = new JLabel("...");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -98,28 +83,8 @@ public class RechercherMachineDispo extends JFrame {
 					.addGap(44))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(65)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 285, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblJour, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNumSalle, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblLabel_4, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(lblNumMa, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblHeure, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))))
-					.addContainerGap(59, Short.MAX_VALUE))
+					.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 285, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(69, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -130,19 +95,7 @@ public class RechercherMachineDispo extends JFrame {
 						.addComponent(lblId2))
 					.addGap(22)
 					.addComponent(lblNewLabel_2)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_3)
-						.addComponent(lblJour)
-						.addComponent(lblLabel_4)
-						.addComponent(lblHeure))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNumSalle)
-						.addComponent(lblNewLabel_1)
-						.addComponent(lblNewLabel_4)
-						.addComponent(lblNumMa))
-					.addContainerGap(141, Short.MAX_VALUE))
+					.addContainerGap(306, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 		
@@ -175,44 +128,97 @@ public class RechercherMachineDispo extends JFrame {
         		btnReserverAction(e);
         	}
         });
+        
+        JLabel lblNewLabel_1 = new JLabel("Salle:");
+        
+        JLabel lblNewLabel_3 = new JLabel("Jour:");
+        
+        lblNumSalle = new JLabel("...");
+        
+        lblJour = new JLabel("...");
+        
+        lblNumMa = new JLabel("...");
+        
+        JLabel lblNewLabel_4 = new JLabel("Machine:");
+        
+        JLabel lblLabel_4 = new JLabel("Heure:");
+        
+        lblHeure = new JLabel("...");
         GroupLayout gl_bgp = new GroupLayout(bgp);
         gl_bgp.setHorizontalGroup(
         	gl_bgp.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_bgp.createSequentialGroup()
         			.addGap(70)
         			.addGroup(gl_bgp.createParallelGroup(Alignment.LEADING)
-        				.addComponent(lblAvoirCours, GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
         				.addGroup(gl_bgp.createSequentialGroup()
-        					.addComponent(lblCours)
+        					.addGroup(gl_bgp.createParallelGroup(Alignment.LEADING)
+        						.addGroup(gl_bgp.createSequentialGroup()
+        							.addComponent(lblCours)
+        							.addPreferredGap(ComponentPlacement.RELATED, 261, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(Alignment.TRAILING, gl_bgp.createSequentialGroup()
+        							.addGap(158)
+        							.addComponent(lblNomCours, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)))
+        					.addContainerGap())
+        				.addGroup(gl_bgp.createSequentialGroup()
+        					.addComponent(lblSeance, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
+        					.addGap(33)
+        					.addComponent(lblNumSeance, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
         					.addContainerGap())
         				.addGroup(gl_bgp.createParallelGroup(Alignment.LEADING)
+        					.addGroup(gl_bgp.createSequentialGroup()
+        						.addComponent(lblAvoirCours, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+        						.addContainerGap())
         					.addGroup(Alignment.TRAILING, gl_bgp.createSequentialGroup()
         						.addComponent(btnReserver, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
         						.addPreferredGap(ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
         						.addComponent(btnRetour, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
         						.addGap(72))
         					.addGroup(gl_bgp.createSequentialGroup()
-        						.addComponent(lblSeance, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
-        						.addGap(33)
         						.addGroup(gl_bgp.createParallelGroup(Alignment.LEADING)
-        							.addComponent(lblNumSeance, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
-        							.addComponent(lblNomCours, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))
-        						.addContainerGap(106, Short.MAX_VALUE)))))
+        							.addGroup(gl_bgp.createSequentialGroup()
+        								.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+        								.addPreferredGap(ComponentPlacement.RELATED)
+        								.addComponent(lblNumSalle, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+        								.addGap(18)
+        								.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+        							.addGroup(gl_bgp.createSequentialGroup()
+        								.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+        								.addPreferredGap(ComponentPlacement.RELATED)
+        								.addComponent(lblJour, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+        								.addPreferredGap(ComponentPlacement.RELATED)
+        								.addComponent(lblLabel_4, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)))
+        						.addGap(31)
+        						.addGroup(gl_bgp.createParallelGroup(Alignment.LEADING)
+        							.addComponent(lblHeure, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+        							.addComponent(lblNumMa, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
+        						.addGap(181)))))
         );
         gl_bgp.setVerticalGroup(
         	gl_bgp.createParallelGroup(Alignment.TRAILING)
         		.addGroup(gl_bgp.createSequentialGroup()
-        			.addContainerGap(135, Short.MAX_VALUE)
-        			.addComponent(lblAvoirCours)
+        			.addContainerGap(91, Short.MAX_VALUE)
+        			.addGroup(gl_bgp.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblNewLabel_3)
+        				.addComponent(lblJour)
+        				.addComponent(lblLabel_4)
+        				.addComponent(lblHeure))
         			.addGap(18)
+        			.addGroup(gl_bgp.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblNewLabel_1)
+        				.addComponent(lblNumSalle)
+        				.addComponent(lblNumMa)
+        				.addComponent(lblNewLabel_4))
+        			.addGap(31)
+        			.addComponent(lblAvoirCours)
+        			.addGap(26)
         			.addGroup(gl_bgp.createParallelGroup(Alignment.BASELINE)
         				.addComponent(lblNumSeance)
         				.addComponent(lblSeance))
-        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGap(30)
         			.addGroup(gl_bgp.createParallelGroup(Alignment.BASELINE)
         				.addComponent(lblCours)
         				.addComponent(lblNomCours))
-        			.addGap(18)
+        			.addGap(66)
         			.addGroup(gl_bgp.createParallelGroup(Alignment.BASELINE)
         				.addComponent(btnRetour)
         				.addComponent(btnReserver))
@@ -246,14 +252,14 @@ public class RechercherMachineDispo extends JFrame {
 				System.out.println("Erreur, pas de creneau");
 			}
 			//creer une nouvelle reservation
-			Reservation reser = new Reservation(this.lblNumMa.getText(),this.lblId2.getText(),this.lblJour.getText(),heureDeb,heureFin,"Réservée",this.creneauSuite);
+			Reservation reser = new Reservation(new Machine(this.lblNumMa.getText()),this.lblId2.getText(),this.lblJour.getText(),heureDeb,heureFin,"Réservée",this.creneauSuite);
 			//reserve ok?
 			if(ed1.prendreReservation(reser)) {
 				dispose();
-				JOptionPane.showMessageDialog(null, "Réservation réussie");
+				JOptionPane.showMessageDialog(null, "R\u00E9servation r\u00E9ussie");
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "Réservation échec");
+				JOptionPane.showMessageDialog(null, "R\u00E9servation \u00E9chec");
 			}
 			
 		}

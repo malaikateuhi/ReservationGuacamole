@@ -1,8 +1,10 @@
 package GestionReservations;
 import java.util.Date;
 
+import GestionSallesMachines.Machine;
+
 public class Reservation {
-	 private String numma;
+	 private Machine machine;
 	 private String idee;
 	 private String jour;
 	 private String heureDeb;
@@ -16,9 +18,9 @@ public class Reservation {
 	 public Reservation() {
 	 }
 	 
-	 public Reservation(String numma, String idee, String jour, String heureDeb, String heureFin, String etat,int creaneau) {
+	 public Reservation(Machine numma, String idee, String jour, String heureDeb, String heureFin, String etat,int creaneau) {
 	 
-	  this.numma = numma;
+	  this.machine = numma;
 	  this.idee = idee;
 	  this.jour = jour;
 	  this.heureDeb = heureDeb;
@@ -40,14 +42,14 @@ public class Reservation {
 	 }
 	
 	
-	 public String getNumma() {
-	  return numma;
+	 public Machine getNumma() {
+	  return machine;
 	 }
 	
 	
 	
-	 public void setNumma(String numma) {
-	  this.numma = numma;
+	 public void setNumma(Machine numma) {
+	  this.machine = numma;
 	 }
 	
 	
@@ -95,6 +97,13 @@ public class Reservation {
 	 public void setEtat(String etat) {
 	  this.etat = etat;
 	 }
-	 
+
+	public Machine getMachine() {
+		// TODO Auto-generated method stub
+		return this.machine;
+	}
+	 public void setMachine(Machine ma) {
+		 this.machine = ma;
+	 }
  
 }
