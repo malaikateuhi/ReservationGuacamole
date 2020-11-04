@@ -92,7 +92,7 @@ public class EnseigantDao {
 		}
 		
 		
-		
+		//Voir les salles de classe occup¨¦es par la s¨¦ance
 	    ArrayList<Salle> lstsalle;
 		public ArrayList<Salle> salleoccupe(Seance seance)
 		{
@@ -113,6 +113,8 @@ public class EnseigantDao {
 		        System.out.println(lstsalle);
 			     return lstsalle;
 		}
+		
+		
 		
 		
 		public static void main(String[] args) {
