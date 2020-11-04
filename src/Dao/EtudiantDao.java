@@ -110,8 +110,8 @@ public Etudiant login(String id,String password) {
 				       if (objs.size()!=0) {
 			        	Map<String, Object> rowData =(Map<String, Object>) objs.get(0);
 			        	Machine machine = new Machine();
-		                machine.numMachine=((String)rowData.get("numma")); 
-			            machine.setEtat(((String)rowData.get("etatm")));
+		                machine.setNumMachine((String)rowData.get("numma")); 
+			            machine.setEtat((String)rowData.get("etatm"));
 			            System.out.println(machine.getNumMachine());
 			            return machine;
 		       }
