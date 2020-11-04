@@ -166,7 +166,7 @@ public Etudiant login(String id,String password) {
 		    else {return null;}
   }
  
-     public void prendreReserver(Reservation reservation) {
+     public void prendreeserver(Reservation reservation) {
   String sql="insert into reserver values(?,?,?,?,?,?,?)";
    Query();
       afferentSQL(sql);

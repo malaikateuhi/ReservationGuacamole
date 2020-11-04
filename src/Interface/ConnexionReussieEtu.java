@@ -17,6 +17,7 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -161,30 +162,36 @@ public class ConnexionReussieEtu extends JFrame {
 		pageRecherche.lblHeure.setText(str);
 		
 		Etudiant etu = new Etudiant(lblId.getText());
-		Salle salle = new Salle();
-		Machine machine = new Machine();
+		
 		EtudiantDao ed1 = new EtudiantDao();
 		
-		;
+		Salle salle = ed1.recommande(etu,jour,this.creneau);
+		 		
+		Machine machineSansCours = ed1.choisi(etu,jour,this.creneau);
+		
 		//si une étudiant a cours ce jour et ce créneau là
-		if ((salle = ed1.recommande(etu,jour,this.creneau)) != null && (machine = ed1.machinelibre(salle, this.jour, this.creneau)) != null) {
+		if (salle != null && ed1.machinelibre(salle,jour,this.creneau) != null) {
 			pageRecherche.lblNumSalle.setText(salle.getNomSalle());
-			System.out.println(machine.getNumMachine());
-			pageRecherche.lblNumMa.setText(machine.getNumMachine());
+			pageRecherche.lblNumMa.setText(ed1.machinelibre(salle,jour,this.creneau).getNumMachine());
 			pageRecherche.lblNumSeance.setText(ed1.avoirseance(etu, jour, this.creneau).getNumSeance());
 			pageRecherche.lblNomCours.setText(ed1.avoirseance(etu,jour,this.creneau).getNomCours());
 			
 		//sinon, on lui propose une salle libre
-		}else {
+		}
+		else if (machineSansCours != null){
 			pageRecherche.lblAvoirCours.setVisible(false);
 			pageRecherche.lblSeance.setVisible(false);
 			pageRecherche.lblNumSeance.setVisible(false);
 			pageRecherche.lblCours.setVisible(false);
 			pageRecherche.lblNomCours.setVisible(false);
 			
-			//A modifier, s'il n'a pas de cours
-			System.out.println("salle libre");
-			//pageRecherche.lblNumSalle.setText(salle.getNomSalle());
+			pageRecherche.lblNumSalle.setText(machineSansCours.getSalle().getNomSalle());
+			pageRecherche.lblNumMa.setText(machineSansCours.getNumMachine());
+			
+		}
+		else {
+			dispose();
+			JOptionPane.showMessageDialog(null, "Oups! Pas de machine disponble");
 		}
 		
 	}
