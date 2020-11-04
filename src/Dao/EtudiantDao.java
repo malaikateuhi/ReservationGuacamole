@@ -203,9 +203,7 @@ public Etudiant login(String id,String password) {
 			 System.out.println();
 		 }
 		     
-		     
-		     
-		     
+		         
 		     ArrayList<Reservation> lstreservation;
 		     public  ArrayList<Reservation> inforeserver(Etudiant etudiant) {
 		    	 String sql="select * from reserver where ide=? order by jour,creneau";
@@ -251,8 +249,6 @@ public Etudiant login(String id,String password) {
 						//t1.prendreserver(r1);
 						//t1.inforeserver(e1);
 				}
-
-
 
 
 }

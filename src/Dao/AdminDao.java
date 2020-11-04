@@ -2,6 +2,7 @@ package Dao;
 
 import static BD.Query.Query;
 import static BD.Query.Select;
+import static BD.Query.Update;
 import static BD.Query.afferentSQL;
 import static BD.Query.parameter;
 
@@ -86,14 +87,50 @@ public class AdminDao {
 	        }
 		return lstEtudiant;
 	}
+	
+	
+    public void supprimerEtudiant(Etudiant etu) {
+			 String sql="DELETE FROM etudiant WHERE ide=?";
+			  Query();
+		      afferentSQL(sql);
+		      parameter.add(etu.getIdentifiant());
+		      int ligne=Update();
+		      if(ligne>=1){ //Nombre de lignes affect¨¦es (c'est-¨¤-dire le nombre de mises ¨¤ jour
+		          System.out.println("succcess");
+		      };  
+			
+			 
+		 }
+	
+	
+	
+    public void supprimermachine(Machine machine) {
+			 String sql="DELETE FROM machine WHERE numma=?";
+			  Query();
+		      afferentSQL(sql);
+		      parameter.add(machine.getNumMachine());
+		      int ligne=Update();
+		      if(ligne>=1){ //Nombre de lignes affect¨¦es (c'est-¨¤-dire le nombre de mises ¨¤ jour
+		          System.out.println("succcess");
+		      };  
+			
+		 }
+	
 
 	// tester
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		AdminDao a1 = new AdminDao();	
-		a1.login("1","2");
-		a1.tousmachine();
-		a1.tousetudiant();
+		//a1.login("1","2");
+		//a1.tousmachine();
+		//a1.tousetudiant();
+		Etudiant etu1 =new Etudiant();
+	   // etu1.setIdentifiant("e4");
+	   // a1.supprimerEtudiant(etu1);
+	    
+		Machine  ma1 = new Machine();
+		ma1.setNumMachine("ma7");
+        a1.supprimermachine(ma1);
 	}
 
 	

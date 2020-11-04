@@ -37,6 +37,9 @@ import GestionSallesMachines.Salle;
 	        System.out.println(lstmachine);
 		return lstmachine;
 	}
+	
+	
+	
 	  
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
