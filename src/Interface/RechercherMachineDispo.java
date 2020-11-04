@@ -230,7 +230,7 @@ public class RechercherMachineDispo extends JFrame {
 	public void btnReserverAction(ActionEvent evt) {
 		EtudiantDao ed1 = new EtudiantDao();
 		//calculer le creneau
-		if(this.lblNumMa.getText() != "..." && this.lblNumSalle.getText() != "...") {
+		if(this.lblNumMa.getText() != "..." && this.lblNumSalle.getText() != "..." && this.creneauSuite!= 4) {
 			String heureDeb = null;
 			String heureFin = null;
 			if(this.creneauSuite == 0) {
@@ -248,8 +248,6 @@ public class RechercherMachineDispo extends JFrame {
 			else if(this.creneauSuite == 3) {
 				heureDeb = "15:30";
 				heureFin = "17:00";
-			}else {
-				System.out.println("Erreur, pas de creneau");
 			}
 			//creer une nouvelle reservation
 			Reservation reser = new Reservation(new Machine(this.lblNumMa.getText()),this.lblId2.getText(),this.lblJour.getText(),heureDeb,heureFin,"Réservée",this.creneauSuite);
@@ -260,7 +258,11 @@ public class RechercherMachineDispo extends JFrame {
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "R\u00E9servation \u00E9chec");
+				System.out.println("-----"+reser.getHeureDeb());
 			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Veuillez choisir un cr\u00E9neau");
 			
 		}
 		

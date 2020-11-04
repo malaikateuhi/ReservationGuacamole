@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import BD.BDutile;
 import BD.QueryLogin;
 import BD.StringUtil;
+import Dao.EnseignantDao;
 import Dao.EtudiantDao;
 import GestionUtilisateurs.*;
 
@@ -217,6 +218,8 @@ public class Connexion extends JFrame {
 				userCourant = ed1.login(this.txtId.getText(),String.valueOf(passwordField.getPassword()));
 			}else if(user instanceof Enseignant) {
 				//userCourant = queryLogin.loginEn(conn, user);
+				EnseignantDao end = new EnseignantDao();
+				userCourant = end.login(this.txtId.getText(),String.valueOf(passwordField.getPassword()));
 			}else {
 				//userCourant = queryLogin.loginAdmin(conn, user);
 			}

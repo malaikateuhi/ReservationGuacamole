@@ -80,18 +80,18 @@ public class ConnexionReussieEtu extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("Choisir un cr\u00E9neau");
 		
 		comboBoxCreneau = new JComboBox();
-		comboBoxCreneau.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				creneau = comboBoxCreneau.getSelectedIndex();
-			}
-		});
+//		comboBoxCreneau.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				creneau = comboBoxCreneau.getSelectedIndex();
+//			}
+//		});
 		comboBoxCreneau.setModel(new DefaultComboBoxModel(new String[] {"09:30-11:00", "11:00-12:30", "14:00-15:30", "15:30-17:00"}));
 		
 		JButton btnNewButton = new JButton("Chercher");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//
-				btnValiderAction(e);
+				btnChercherAction(e);
 			}
 		});
 		
@@ -165,13 +165,12 @@ public class ConnexionReussieEtu extends JFrame {
 		ConsultationReservation pageConsultation = new ConsultationReservation();
 		pageConsultation.setVisible(true);
 		pageConsultation.lblId3.setText(this.lblId.getText());
-		//ArrayList<Reservation> lstReser = new ArrayList();
 		EtudiantDao ed = new EtudiantDao();
 		DefaultListModel listModel = new DefaultListModel();
 		int i = 0;
 		for(Reservation reser : ed.inforeserver(new Etudiant(this.lblId.getText()))) {
-			//pageConsultation.comboBox.addItem(reser);
-			String detail = reser.getJour()+", "+reser.getHeureDeb()+"-"+reser.getHeureFin()+", "+reser.getMachine().getSalle().getNomSalle()+", "+reser.getMachine().getNumMachine()+", "+ reser.getEtat();
+			
+			String detail = reser.getJour()+", "+reser.getHeureDeb()+"-"+reser.getHeureFin()+", "+reser.getMachine().getSalle().getNomSalle()+",Machine "+reser.getMachine().getNumMachine()+", "+ reser.getEtat();
 			listModel.add(i, detail);
 			i++;
 			pageConsultation.lstReser.add(reser);
@@ -179,9 +178,20 @@ public class ConnexionReussieEtu extends JFrame {
 		pageConsultation.listReser.setModel(listModel);
 	}
 
-	public void btnValiderAction(ActionEvent evt) {
+	public void btnChercherAction(ActionEvent evt) {
 		this.jour = txtDate.getText();
-		
+		if(this.comboBoxCreneau.getSelectedItem() == "09:30-11:00") {
+			this.creneau = 0;
+		}
+		else if(this.comboBoxCreneau.getSelectedItem() == "11:00-12:30") {
+			this.creneau = 1;
+		}
+		else if(this.comboBoxCreneau.getSelectedItem() == "14:00-15:30") {
+			this.creneau = 2;
+		}
+		else if(this.comboBoxCreneau.getSelectedItem() == "15:30-17:00") {
+			this.creneau = 3;
+		}
 		RechercherMachineDispo pageRecherche = new RechercherMachineDispo();
 		pageRecherche.setVisible(true);
 		pageRecherche.lblId2.setText(this.lblId.getText());

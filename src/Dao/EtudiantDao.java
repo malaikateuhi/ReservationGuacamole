@@ -200,7 +200,7 @@ public Etudiant login(String id,String password) {
 	         Salle sa = new Salle((String)rowData.get("numsalle"));
 	         Machine ma = new Machine((String)rowData.get("numma"),sa);
 	         rr.setMachine(ma);
-	        // rr.setMachine(new Machine((String)rowData.get("numma"),new Salle((String)rowData.get("numsalle"))));
+	         //rr.setMachine(new Machine((String)rowData.get("numma"),new Salle((String)rowData.get("numsalle"))));
 	         rr.setCreaneau((int)rowData.get("creneau"));
 	         rr.setHeureDeb((String)rowData.get("heuredebr"));
 	         rr.setHeureFin((String)rowData.get("heurefinr"));
