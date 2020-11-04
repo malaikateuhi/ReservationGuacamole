@@ -14,12 +14,17 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.util.Date;
+import java.awt.event.ActionEvent;
 
 public class ConnexionReussieEtu extends JFrame {
 
 	private JPanel contentPane;
 	public static JLabel lblId;
-	private JTextField textField;
+	private JTextField txtDate;
+	private int creneau = 4;
+	private String date ;
 	/**
 	 * Launch the application.
 	 */
@@ -52,15 +57,26 @@ public class ConnexionReussieEtu extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Saisir la date");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtDate = new JTextField();
+		txtDate.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Choisir un cr\u00E9neau");
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"09:30-11:00", "11:00-12:30", "14:00-15:30", "15:30-17:00"}));
+		JComboBox comboBoxCreneau = new JComboBox();
+		comboBoxCreneau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				creneau = comboBoxCreneau.getSelectedIndex();
+			}
+		});
+		comboBoxCreneau.setModel(new DefaultComboBoxModel(new String[] {"09:30-11:00", "11:00-12:30", "14:00-15:30", "15:30-17:00"}));
 		
 		JButton btnNewButton = new JButton("Valider");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//
+				btnAction(e);
+			}
+		});
 		
 		JButton btnNewButton_1 = new JButton("Consulter mes r\u00E9servations");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -85,10 +101,10 @@ public class ConnexionReussieEtu extends JFrame {
 					.addGap(70)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNewLabel_1)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtDate, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
 					.addGap(89)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+						.addComponent(comboBoxCreneau, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE))
 					.addGap(54))
 		);
@@ -107,12 +123,23 @@ public class ConnexionReussieEtu extends JFrame {
 						.addComponent(lblNewLabel_1))
 					.addGap(6)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBoxCreneau, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
 					.addComponent(btnNewButton)
 					.addGap(18))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
+
+	protected void btnAction(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		RechercherMachineDispo pageRecherche = new RechercherMachineDispo();
+		pageRecherche.setVisible(true);
+		pageRecherche.lblId2.setText(this.lblId.getText());
+		
+		date = this.txtDate.getText();
+				}
+
+	
 }
