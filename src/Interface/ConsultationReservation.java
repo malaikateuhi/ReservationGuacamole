@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import GestionReservations.Reservation;
+
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
@@ -14,6 +17,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JList;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
 public class ConsultationReservation extends JFrame {
 
@@ -21,6 +27,7 @@ public class ConsultationReservation extends JFrame {
 	//private BackgroundPanel bgp;
 	public JList listReser;
 	public JLabel lblId3;
+	public ArrayList<Reservation> lstReser = new ArrayList();
 	/**
 	 * Launch the application.
 	 */
@@ -70,6 +77,11 @@ public class ConsultationReservation extends JFrame {
 		lblId3 = new JLabel("...");
 		
 		JButton btnAnnulerReser = new JButton("Annuler la r\u00E9servation");
+		btnAnnulerReser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnAnnulerReserAction(e);
+			}
+		});
 		
 		JLabel lblNewLabel_2 = new JLabel("Liste des R\u00E9servations");
 		
@@ -123,5 +135,14 @@ public class ConsultationReservation extends JFrame {
 //		bgp=new BackgroundPanel(new ImageIcon(".//img.jpg")); 
 //	    bgp.setBounds(0, 0, this.getSize().width, this.getSize().height);  
 //        contentPane.add(bgp);
+	}
+
+	public void btnAnnulerReserAction(ActionEvent evt) {
+		//System.out.println(this.listReser.getSelectedIndex());
+		
+		if(this.listReser.getSelectedIndex() == 0) {
+			
+		}
+		
 	}
 }

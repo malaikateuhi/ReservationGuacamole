@@ -174,6 +174,7 @@ public class ConnexionReussieEtu extends JFrame {
 			String detail = reser.getJour()+", "+reser.getHeureDeb()+"-"+reser.getHeureFin()+", "+reser.getMachine().getSalle().getNomSalle()+", "+reser.getMachine().getNumMachine()+", "+ reser.getEtat();
 			listModel.add(i, detail);
 			i++;
+			pageConsultation.lstReser.add(reser);
 		}
 		pageConsultation.listReser.setModel(listModel);
 	}
