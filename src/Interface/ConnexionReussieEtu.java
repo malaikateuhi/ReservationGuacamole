@@ -176,6 +176,7 @@ public class ConnexionReussieEtu extends JFrame {
 			
 		//sinon, on lui propose une salle libre
 		}else {
+			pageRecherche.lblAvoirCours.setVisible(false);
 			pageRecherche.lblSeance.setVisible(false);
 			pageRecherche.lblNumSeance.setVisible(false);
 			pageRecherche.lblCours.setVisible(false);

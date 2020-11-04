@@ -7,31 +7,38 @@ import GestionUtilisateurs.Etudiant;
 
 public class Machine {
 	private String numMachine;
-	private EtatMachineSalle etat;
+	private String etat;
+	private Salle salle;
 	
 	private HashMap<Etudiant,Reservation> hmReser;
 	
 	public Machine() {
 	
 	}
-	public Machine(String numMachine, EtatMachineSalle etat, HashMap<Etudiant, Reservation> hmReser) {
-		super();
-		this.numMachine = numMachine;
-		this.etat = etat;
-		this.hmReser = hmReser;
+
+	public String getEtat() {
+		return etat;
 	}
+
+	public void setEtat(String etat) {
+		this.etat = etat;
+	}
+
+	public Salle getSalle() {
+		return salle;
+	}
+
+	public void setSalle(Salle salle) {
+		this.salle = salle;
+	}
+
 	public String getNumMachine() {
 		return numMachine;
 	}
 	public void setNumMachine(String numMachine) {
 		this.numMachine = numMachine;
 	}
-	public EtatMachineSalle getEtat() {
-		return etat;
-	}
-	public void setEtat(EtatMachineSalle etat) {
-		this.etat = etat;
-	}
+
 	public HashMap<Etudiant, Reservation> getHmReser() {
 		return hmReser;
 	}

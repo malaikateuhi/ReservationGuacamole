@@ -142,31 +142,33 @@ public Etudiant login(String id,String password) {
 			  
 			
 
-	 /*public Machine choisi(Etudiant etudiant,Date jour,String time) {
-	 String pascours ="select * from machine where machine.numma not in(select * from reserver where ide=? and jour=? and creneau=?)"
-	 		+ "and numsalle not in (select * from passer and jour=? and creneau=?)";
-	    parameter.add(etudiant.getIdentifiant());
-	    parameter.add(jour);
-	    parameter.add(time);
-	    parameter.add(jour);
-	    parameter.add(time);
-	    afferentSQL(pascours);
-	    List<Object> objs = Select();
-	    System.out.println(objs.get(0));
-	    if (objs.size()!=0) {
-	   	 Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
-	   	 Machine machine = new Machine();
-	   	machine.numMachine=((String)rowData.get("numma")); 
-	       machine.setEtat((String)rowData.get("etatm"));
-	       machine.setNumsalle((String)rowData.get("numsalle"));
-	       return machine;
-	   }
-	   else {return null;}
-	 }*/
+	 public Machine choisi(Etudiant etudiant,String jour,int time) {
+		  String pascours ="select * from machine "
+		    + "where machine.numma not in(select numma from reserver where ide=? and jour=?and creneau=?) "
+		    + "and numsalle not in (select numsalle from passer where jour=?and creneau=?)";
+		  Query(); 
+		     parameter.add(etudiant.getIdentifiant());
+		     parameter.add(jour);
+		     parameter.add(time);
+		     parameter.add(jour);
+		     parameter.add(time);
+		     afferentSQL(pascours);
+		     List<Object> objs = Select();
+		     System.out.println(objs.get(0));
+		     if (objs.size()!=0) {
+		    	 Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
+		    	 Machine machine = new Machine();
+		    	 machine.setNumMachine((String)rowData.get("numma")); 
+		    	 machine.setEtat((String)rowData.get("etatm"));
+		    	 machine.setSalle(new Salle((String)rowData.get("numsalle")));
+		    	 return machine;
+		    }
+		    else {return null;}
+  }
  
- /*public void prendreserver(Reservation reservation) {
-	 String sql="insert into reserver values(?,?,?,?,?,?)";
-	  Query();
+     public void prendreReserver(Reservation reservation) {
+  String sql="insert into reserver values(?,?,?,?,?,?,?)";
+   Query();
       afferentSQL(sql);
       parameter.add(reservation.getNumma());
       parameter.add(reservation.getIdee());
@@ -174,13 +176,15 @@ public Etudiant login(String id,String password) {
       parameter.add(reservation.getHeureDeb());
       parameter.add(reservation.getHeureFin());
       parameter.add(reservation.getEtat());
+      parameter.add(reservation.getCreaneau());
       int ligne=Update();
-      if(ligne>=1){ //Nombre de lignes affect¨¦es (c'est-¨¤-dire le nombre de mises ¨¤ jour
+      if(ligne>=1){ //nombre de lignes affectées (c'est-à-dire le nombre de mises à jour
           System.out.println("succcess");
       };  
-	
-	 
- }*/ 
+ 
+  
+ }
+
  
  
 public static void main(String[] args) {

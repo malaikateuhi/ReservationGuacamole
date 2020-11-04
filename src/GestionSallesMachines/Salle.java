@@ -21,6 +21,9 @@ public class Salle {
 		this.etat = etat;
 		this.lstMachines = lstMachines;
 	}
+	public Salle(String nomSalle) {
+		this.nomSalle = nomSalle;
+	}
 	public String getNomSalle() {
 		return nomSalle;
 	}
