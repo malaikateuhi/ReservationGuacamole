@@ -93,30 +93,28 @@ public class EnseigantDao {
 		
 		
 		
-	/*	ArrayList<Salle> lstsalle;
-		public ArrayList<Salle>  (Seance seance)
+	    ArrayList<Salle> lstsalle;
+		public ArrayList<Salle> salleoccupe(Seance seance)
 		{
-			String sql = "SELECT * FROM seance,etudiant Where seance.numgroup=etudiant.numgroup and numseance=? ";
-			Query(); 
-			parameter.add(seance.getNumSeance());
-			afferentSQL(sql);
-			this.lstetudiant = new ArrayList<Etudiant>();
-			  List<Object> objs = Select();
-			  
-		        for (int i = 0; i < objs.size(); i++) {
-		        	Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
-		        	Etudiant etudiant = new Etudiant();
-	                etudiant.setIdentifiant((String)rowData.get("id")); 
-		            etudiant.setMdp((String)rowData.get("passworde"));
-		            etudiant.setNom((String)rowData.get("nome"));
-		            etudiant.setPrenom((String)rowData.get("prenome"));
-	                lstetudiant.add(etudiant);
+				String sql = "select * from passer where numseance = ?";
+				Query(); 
+				parameter.add(seance.getNumSeance());
+				afferentSQL(sql);
+				this.lstsalle = new ArrayList<Salle>();
+				List<Object> objs = Select();
+				  
+			        for (int i = 0; i < objs.size(); i++) {
+			        	Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+			        	Salle salle = new Salle();
+			        	salle.setNomSalle((String)rowData.get("numsalle")); 
+			        	if (lstsalle.contains(salle)==false) {
+		                lstsalle.add(salle);}
 	       }
-		        System.out.println(lstetudiant);
-			     return lstetudiant;
+		        System.out.println(lstsalle);
+			     return lstsalle;
 		}
 		
-		 */ 
+		
 		public static void main(String[] args) {
 			// TODO Auto-generated method stub
 			EnseigantDao en1 = new EnseigantDao();	
@@ -125,6 +123,7 @@ public class EnseigantDao {
 			Seance s1 =new Seance();
 			s1.setNumSeance("TP1");
 			en1.groupetudiant(s1);
+		    en1.salleoccupe(s1);
 		}
 
 }
