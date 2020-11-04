@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -25,6 +26,8 @@ public class ConnexionReussieEtu extends JFrame {
 	private JTextField txtDate;
 	private int creneau = 4;
 	private String date ;
+	
+	private BackgroundPanel bgp;
 	/**
 	 * Launch the application.
 	 */
@@ -130,6 +133,12 @@ public class ConnexionReussieEtu extends JFrame {
 					.addGap(18))
 		);
 		contentPane.setLayout(gl_contentPane);
+		
+		//font
+		contentPane.setOpaque(false);
+		bgp=new BackgroundPanel(new ImageIcon(".//img.jpg")); 
+	    bgp.setBounds(0, 0, this.getSize().width, this.getSize().height);  
+        contentPane.add(bgp);
 	}
 
 	protected void btnAction(ActionEvent evt) {

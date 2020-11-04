@@ -11,8 +11,8 @@ import BD.QueryLogin;
 import BD.StringUtil;
 import GestionUtilisateurs.*;
 
-
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -37,7 +37,7 @@ public class Connexion extends JFrame {
 	private BDutile bdutile = new BDutile();
 	private QueryLogin queryLogin = new QueryLogin();
 	public int typeUtilisateur = 0; //1-->etu, 2-->enseignant, 3-->admin 
-
+	private BackgroundPanel bgp;
 	/**
 	 * Launch the application.
 	 */
@@ -185,6 +185,11 @@ public class Connexion extends JFrame {
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
+		//font
+		panel.setOpaque(false);
+		bgp=new BackgroundPanel(new ImageIcon(".//img.jpg")); 
+	    bgp.setBounds(0, 0, this.getSize().width, this.getSize().height);  
+        contentPane.add(bgp);
 	}
 	
 	public void login(ActionEvent evt) {

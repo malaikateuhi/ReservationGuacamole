@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -16,6 +17,7 @@ public class RechercherMachineDispo extends JFrame {
 
 	private JPanel contentPane;
 	public JLabel lblId2;
+	private BackgroundPanel bgp;
 	/**
 	 * Launch the application.
 	 */
@@ -143,6 +145,12 @@ public class RechercherMachineDispo extends JFrame {
 					.addGap(43))
 		);
 		contentPane.setLayout(gl_contentPane);
+		
+		//font
+		contentPane.setOpaque(false);
+		bgp=new BackgroundPanel(new ImageIcon(".//img.jpg")); 
+	    bgp.setBounds(0, 0, this.getSize().width, this.getSize().height);  
+        contentPane.add(bgp);
 	}
 
 }
