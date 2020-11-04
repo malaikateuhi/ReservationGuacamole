@@ -15,7 +15,7 @@ import javax.swing.JButton;
 public class RechercherMachineDispo extends JFrame {
 
 	private JPanel contentPane;
-
+	public JLabel lblId2;
 	/**
 	 * Launch the application.
 	 */
@@ -44,7 +44,7 @@ public class RechercherMachineDispo extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Bonjour,");
 		
-		JLabel lblId3 = new JLabel("...");
+		lblId2 = new JLabel("...");
 		
 		JLabel lblNewLabel_1 = new JLabel("Salle:");
 		
@@ -78,7 +78,7 @@ public class RechercherMachineDispo extends JFrame {
 					.addContainerGap(262, Short.MAX_VALUE)
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblId3, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+					.addComponent(lblId2, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 					.addGap(44))
 				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 					.addGap(65)
@@ -117,7 +117,7 @@ public class RechercherMachineDispo extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel)
-						.addComponent(lblId3))
+						.addComponent(lblId2))
 					.addGap(22)
 					.addComponent(lblNewLabel_2)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
