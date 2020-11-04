@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import GestionReservations.Reservation;
 import GestionReservations.Seance;
+import GestionReservations.TempsDeSeance;
 import GestionSallesMachines.Machine;
 import GestionSallesMachines.Salle;
 import GestionUtilisateurs.Admin;
@@ -88,6 +90,38 @@ public class EnseigantDao {
 			return lstetudiant;
 		}
 		
+		/**
+		 * Recupere toutes les reservations de machines pour un creneau donne une seance
+		 * @return ArrayList<Reservation>
+		 */
+		public ArrayList<Reservation> reservationsSeance(Seance seance, TempsDeSeance tpSeance) {
+			ArrayList<Reservation> reservations = new ArrayList<Reservation>();
+			
+			String sql = "SELECT r.* FROM reserver r, machine m, passer p "
+					+ "WHERE r.numma = m.numma AND m.numsalle = p.numsalle "
+					+ "AND r.jour = p.jour AND r.heuredebr = p.heuredeb "
+					+ "AND p.numseance=? "
+					+ "AND p.jour = ? "
+					+ "AND p.heuredeb = ?";
+			Query(); 
+			parameter.add(seance.getNumSeance());
+			parameter.add(tpSeance.getJour());
+			parameter.add(tpSeance.getHeureDeb());
+			afferentSQL(sql);
+
+			List<Object> objs = Select();
+
+			for (int i = 0; i < objs.size(); i++) {
+				Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+				Reservation res = new Reservation();
+				res.setJour((String)rowData.get("jour")); 
+				res.setHeureDeb((String)rowData.get("heuredebr"));
+				res.setHeureFin((String)rowData.get("heurefinr"));
+				reservations.add(res);
+			}
+
+			return reservations;
+		}
 		
 		
 		
