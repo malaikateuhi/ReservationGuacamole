@@ -120,9 +120,11 @@ public Etudiant login(String id,String password) {
 			  
 			
 
-	 /*public Machine choisi(Etudiant etudiant,Date jour,String time) {
-	 String pascours ="select * from machine where machine.numma not in(select * from reserver where ide=? and jour=? and creneau=?)"
-	 		+ "and numsalle not in (select * from passer and jour=? and creneau=?)";
+	 public Machine choisi(Etudiant etudiant,String jour,int time) {
+	 String pascours ="select * from machine "
+	 		+ "where machine.numma not in(select numma from reserver where ide=? and jour=?and creneau=?) "
+	 		+ "and numsalle not in (select numsalle from passer where jour=?and creneau=?)";
+	 Query(); 
 	    parameter.add(etudiant.getIdentifiant());
 	    parameter.add(jour);
 	    parameter.add(time);
@@ -140,7 +142,7 @@ public Etudiant login(String id,String password) {
 	       return machine;
 	   }
 	   else {return null;}
-	 }*/
+	 }
  
  /*public void prendreserver(Reservation reservation) {
 	 String sql="insert into reserver values(?,?,?,?,?,?)";
@@ -170,7 +172,8 @@ public static void main(String[] args) {
 		Salle salle1=new Salle();
 		salle1.setNomSalle("M1");
 		//t1.machinelibre(salle1, "2020-11-10", 0);
-			t1.recommande(e1, "2020-11-10", 0);
+			//t1.recommande(e1, "2020-11-10", 0);
+		t1.choisi(e1, "2020-11-10", 0);
 }
 
 }
