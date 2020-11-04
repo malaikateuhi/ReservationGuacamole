@@ -34,15 +34,20 @@ public abstract class Utilisateur {
 		
 	}
 	public Utilisateur(String identifiant, String mdp, String nom, String prenom) {
-		super();
+		
 		this.identifiant = identifiant;
 		this.mdp = mdp;
 		this.nom = nom;
 		this.prenom = prenom;
 	}
 	public Utilisateur(String identifiant, String mdp) {
-		super();
+		
 		this.identifiant = identifiant;
 		this.mdp = mdp;
+	}
+	public Utilisateur(String identifiant) {
+		
+		this.identifiant = identifiant;
+
 	}
 }

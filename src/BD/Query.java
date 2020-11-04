@@ -22,7 +22,7 @@ public class Query {
 	    
 	    public static void Query() {
 	        conn=DB.createConn();
-	      //System.out.println("hello"); Pour examine si connecter reussi ou pas
+	      System.out.println("hello"); //Pour examine si connecter reussi ou pas
 	    } 
 	    
 	    

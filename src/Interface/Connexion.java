@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import BD.BDutile;
 import BD.QueryLogin;
 import BD.StringUtil;
+import Dao.EtudiantDao;
 import GestionUtilisateurs.*;
 
 import javax.swing.GroupLayout;
@@ -211,11 +212,12 @@ public class Connexion extends JFrame {
 			conn = bdutile.getCon();
 			Utilisateur userCourant = null ;
 			if(user instanceof Etudiant) {
-				userCourant = queryLogin.loginEtu(conn, user);
+				EtudiantDao ed1 = new EtudiantDao();
+				userCourant = ed1.login(this.txtId.getText(),String.valueOf(passwordField.getPassword()));
 			}else if(user instanceof Enseignant) {
-				userCourant = queryLogin.loginEn(conn, user);
+				//userCourant = queryLogin.loginEn(conn, user);
 			}else {
-				userCourant = queryLogin.loginAdmin(conn, user);
+				//userCourant = queryLogin.loginAdmin(conn, user);
 			}
 			
 			if(StringUtil.isEmpty(txtId.getText()) || StringUtil.isEmpty(String.valueOf(passwordField.getPassword()))) {

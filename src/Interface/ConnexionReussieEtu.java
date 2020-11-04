@@ -6,6 +6,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Dao.EtudiantDao;
+import GestionReservations.Seance;
+import GestionSallesMachines.Machine;
+import GestionSallesMachines.Salle;
+import GestionUtilisateurs.Etudiant;
+
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
@@ -24,8 +31,9 @@ public class ConnexionReussieEtu extends JFrame {
 	private JPanel contentPane;
 	public static JLabel lblId;
 	private JTextField txtDate;
+	private JComboBox comboBoxCreneau;
 	private int creneau = 4;
-	private String date ;
+	private String jour;
 	
 	private BackgroundPanel bgp;
 	/**
@@ -65,7 +73,7 @@ public class ConnexionReussieEtu extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("Choisir un cr\u00E9neau");
 		
-		JComboBox comboBoxCreneau = new JComboBox();
+		comboBoxCreneau = new JComboBox();
 		comboBoxCreneau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				creneau = comboBoxCreneau.getSelectedIndex();
@@ -141,14 +149,44 @@ public class ConnexionReussieEtu extends JFrame {
         contentPane.add(bgp);
 	}
 
-	protected void btnAction(ActionEvent evt) {
+	public void btnAction(ActionEvent evt) {
 		// TODO Auto-generated method stub
+		this.jour = txtDate.getText();
+		
 		RechercherMachineDispo pageRecherche = new RechercherMachineDispo();
 		pageRecherche.setVisible(true);
 		pageRecherche.lblId2.setText(this.lblId.getText());
+		pageRecherche.lblJour.setText(jour);
+		String str = String.valueOf(this.comboBoxCreneau.getSelectedItem());
+		pageRecherche.lblHeure.setText(str);
 		
-		date = this.txtDate.getText();
-				}
+		Etudiant etu = new Etudiant(lblId.getText());
+		Salle salle = new Salle();
+		Machine machine = new Machine();
+		EtudiantDao ed1 = new EtudiantDao();
+		
+		;
+		//si une étudiant a cours ce jour et ce créneau là
+		if ((salle = ed1.recommande(etu,jour,this.creneau)) != null && (machine = ed1.machinelibre(salle, this.jour, this.creneau)) != null) {
+			pageRecherche.lblNumSalle.setText(salle.getNomSalle());
+			System.out.println(machine.getNumMachine());
+			pageRecherche.lblNumMa.setText(machine.getNumMachine());
+			pageRecherche.lblNumSeance.setText(ed1.avoirseance(etu, jour, this.creneau).getNumSeance());
+			pageRecherche.lblNomCours.setText(ed1.avoirseance(etu,jour,this.creneau).getNomCours());
+			
+		//sinon, on lui propose une salle libre
+		}else {
+			pageRecherche.lblSeance.setVisible(false);
+			pageRecherche.lblNumSeance.setVisible(false);
+			pageRecherche.lblCours.setVisible(false);
+			pageRecherche.lblNomCours.setVisible(false);
+			
+			//A modifier, s'il n'a pas de cours
+			System.out.println("salle libre");
+			//pageRecherche.lblNumSalle.setText(salle.getNomSalle());
+		}
+		
+	}
 
 	
 }
