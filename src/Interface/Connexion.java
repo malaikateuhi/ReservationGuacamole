@@ -216,7 +216,7 @@ public class Connexion extends JFrame {
 			if(StringUtil.isEmpty(txtId.getText()) || StringUtil.isEmpty(String.valueOf(passwordField.getPassword()))) {
 				JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe ne peut pas \u00EAtre vide!");
 			}else {
-				if(userCourant!=null) {
+				if(userCourant != null && this.typeUtilisateur == 1) {
 					//System.out.println(usercurrent.getNumeroIdent());
 					dispose();
 					ConnexionReussieEtu conr=new ConnexionReussieEtu();
@@ -229,6 +229,10 @@ public class Connexion extends JFrame {
 		            resultSet.close();
 		            */
 					//ConnexionReussieClient.comboBox.addItem("nomtache");
+				}else if(userCourant != null && this.typeUtilisateur == 2){
+					//page de l'enseignant
+				}else if(userCourant != null && this.typeUtilisateur == 3) {
+					//page de l'admin
 				}else {
 					JOptionPane.showMessageDialog(null,"Votre email ou mot de passe semble incorrect");
 					txtId.setText("");
