@@ -44,6 +44,7 @@ public class AdminDao {
 	    }
 	    }
 	
+	
 	// Afficher toutes les machines
 	ArrayList<Machine> lstMachine;
 	ArrayList<Etudiant> lstEtudiant;
@@ -67,7 +68,7 @@ public class AdminDao {
 
 	
 	
-	//Afficher tous les ¨¦l¨¨ves
+	//Afficher tous les compte des ¨¦l¨¨ves
 	public ArrayList<Etudiant> tousetudiant (){
 		String sqlreserver = "select * from etudiant";
 		Query(); 
