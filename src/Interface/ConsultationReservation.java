@@ -7,7 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Dao.EtudiantDao;
 import GestionReservations.Reservation;
+import GestionUtilisateurs.Etudiant;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -17,6 +19,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
@@ -24,6 +28,7 @@ import java.awt.event.ActionEvent;
 public class ConsultationReservation extends JFrame {
 
 	private JPanel contentPane;
+	private JPanel panel;
 	//private BackgroundPanel bgp;
 	public JList listReser;
 	public JLabel lblId3;
@@ -55,7 +60,7 @@ public class ConsultationReservation extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -138,11 +143,17 @@ public class ConsultationReservation extends JFrame {
 	}
 
 	public void btnAnnulerReserAction(ActionEvent evt) {
-		//System.out.println(this.listReser.getSelectedIndex());
 		
-		if(this.listReser.getSelectedIndex() == 0) {
-			
+		EtudiantDao ed = new EtudiantDao();
+		System.out.println(this.listReser.getSelectedIndex());
+		System.out.println(this.lstReser);
+		
+		//ed.annulerReservation(ed.inforeserver(new Etudiant(this.lblId3.getText())).get(this.listReser.getSelectedIndex()));
+		if(ed.annulerReservation(ed.inforeserver(new Etudiant(this.lblId3.getText())).get(this.listReser.getSelectedIndex()))) {
+			JOptionPane.showMessageDialog(null, "Annulation réussie");
+		}else {
+			JOptionPane.showMessageDialog(null, "Annulation échec");
 		}
-		
+		dispose();
 	}
 }

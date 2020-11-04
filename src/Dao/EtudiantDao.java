@@ -212,6 +212,22 @@ public Etudiant login(String id,String password) {
          System.out.println(lstreservation);
          return lstreservation;
      }
+     public boolean annulerReservation(Reservation reservation) {
+		 String sql="DELETE FROM reserver WHERE numma= ? AND ide = ? AND jour = ? AND creneau= ?";
+		  Query();
+	      afferentSQL(sql);
+	      parameter.add(reservation.getMachine().getNumMachine());
+	      parameter.add(reservation.getIdee());
+	      parameter.add(reservation.getJour());
+	      parameter.add(reservation.getCreaneau());
+	      int ligne=Update();
+	      if(ligne>=1){ //Nombre de lignes affect¨¦es (c'est-¨¤-dire le nombre de mises ¨¤ jour
+	          return true;
+	    	  
+	      }else {
+	    	  return false;
+	      }
+	 }
  
  
 public static void main(String[] args) {

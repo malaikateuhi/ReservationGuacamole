@@ -39,19 +39,7 @@ public class Reservation {
 	
 	 public void setCreaneau(int creaneau) {
 	  this.creaneau = creaneau;
-	 }
-	
-	
-	 public Machine getNumma() {
-	  return machine;
-	 }
-	
-	
-	
-	 public void setNumma(Machine numma) {
-	  this.machine = numma;
-	 }
-	
+	 }	
 	
 	
 	 public String getIdee() {
