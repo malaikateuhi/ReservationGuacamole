@@ -6,10 +6,15 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Dao.EtudiantDao;
+import GestionReservations.Reservation;
+
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -23,13 +28,18 @@ public class RechercherMachineDispo extends JFrame {
 	
 	public JLabel lblHeure;
 	public JLabel lblJour;
-	public 	JLabel lblNumSalle;
+	public JLabel lblNumSalle;
 	public JLabel lblNumMa;
 	public JLabel lblNumSeance;
 	public JLabel lblSeance;
 	public JLabel lblCours;
 	public JLabel lblNomCours;
 	public JLabel lblAvoirCours;
+	public int creneauSuite = 4;
+	
+	public void setCreneauSuite(int cre) {
+		this.creneauSuite = cre;
+	}
 	/**
 	 * Launch the application.
 	 */
@@ -160,6 +170,11 @@ public class RechercherMachineDispo extends JFrame {
         });
         
         JButton btnReserver = new JButton("R\u00E9server");
+        btnReserver.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnReserverAction(e);
+        	}
+        });
         GroupLayout gl_bgp = new GroupLayout(bgp);
         gl_bgp.setHorizontalGroup(
         	gl_bgp.createParallelGroup(Alignment.LEADING)
@@ -204,6 +219,46 @@ public class RechercherMachineDispo extends JFrame {
         			.addGap(55))
         );
         bgp.setLayout(gl_bgp);
+	}
+
+	public void btnReserverAction(ActionEvent evt) {
+		EtudiantDao ed1 = new EtudiantDao();
+		//calculer le creneau
+		if(this.lblNumMa.getText() != "..." && this.lblNumSalle.getText() != "...") {
+			String heureDeb = null;
+			String heureFin = null;
+			if(this.creneauSuite == 0) {
+				heureDeb = "09:30";
+				heureFin = "11:30";
+			}
+			else if(this.creneauSuite == 1) {
+				heureDeb = "11:00";
+				heureFin = "12:30";
+			}
+			else if(this.creneauSuite == 2) {
+				heureDeb = "14:00";
+				heureFin = "15:30";
+			}
+			else if(this.creneauSuite == 3) {
+				heureDeb = "15:30";
+				heureFin = "17:00";
+			}else {
+				System.out.println("Erreur, pas de creneau");
+			}
+			//creer une nouvelle reservation
+			Reservation reser = new Reservation(this.lblNumMa.getText(),this.lblId2.getText(),this.lblJour.getText(),heureDeb,heureFin,"Réservée",this.creneauSuite);
+			//reserve ok?
+			if(ed1.prendreReservation(reser)) {
+				dispose();
+				JOptionPane.showMessageDialog(null, "Réservation réussie");
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Réservation échec");
+			}
+			
+		}
+		
+		
 	}
 
 	private static class __Tmp {

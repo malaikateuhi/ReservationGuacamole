@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import Dao.EtudiantDao;
+import GestionReservations.Reservation;
 import GestionReservations.Seance;
 import GestionSallesMachines.Machine;
 import GestionSallesMachines.Salle;
@@ -24,6 +25,7 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 
@@ -86,11 +88,16 @@ public class ConnexionReussieEtu extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//
-				btnAction(e);
+				btnValiderAction(e);
 			}
 		});
 		
 		JButton btnNewButton_1 = new JButton("Consulter mes r\u00E9servations");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnConsulterAction(e);
+			}
+		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -150,8 +157,21 @@ public class ConnexionReussieEtu extends JFrame {
         contentPane.add(bgp);
 	}
 
-	public void btnAction(ActionEvent evt) {
-		// TODO Auto-generated method stub
+	public void btnConsulterAction(ActionEvent e) {
+		
+		ConsultationReservation pageConsultation = new ConsultationReservation();
+		pageConsultation.setVisible(true);
+		
+		//ArrayList<Reservation> lstReser = new ArrayList();
+		EtudiantDao ed = new EtudiantDao();
+				
+		for(Reservation reser : ed.inforeserver(new Etudiant(this.lblId.getText()))) {
+			//pageConsultation.comboBox.addItem(reser);
+		}
+		
+	}
+
+	public void btnValiderAction(ActionEvent evt) {
 		this.jour = txtDate.getText();
 		
 		RechercherMachineDispo pageRecherche = new RechercherMachineDispo();
@@ -160,6 +180,7 @@ public class ConnexionReussieEtu extends JFrame {
 		pageRecherche.lblJour.setText(jour);
 		String str = String.valueOf(this.comboBoxCreneau.getSelectedItem());
 		pageRecherche.lblHeure.setText(str);
+		pageRecherche.setCreneauSuite(this.creneau);
 		
 		Etudiant etu = new Etudiant(lblId.getText());
 		

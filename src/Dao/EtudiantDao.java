@@ -166,25 +166,49 @@ public Etudiant login(String id,String password) {
 		    else {return null;}
   }
  
-     public void prendreeserver(Reservation reservation) {
-  String sql="insert into reserver values(?,?,?,?,?,?,?)";
-   Query();
-      afferentSQL(sql);
-      parameter.add(reservation.getNumma());
-      parameter.add(reservation.getIdee());
-      parameter.add(reservation.getJour());
-      parameter.add(reservation.getHeureDeb());
-      parameter.add(reservation.getHeureFin());
-      parameter.add(reservation.getEtat());
-      parameter.add(reservation.getCreaneau());
-      int ligne=Update();
-      if(ligne>=1){ //nombre de lignes affectées (c'est-à-dire le nombre de mises à jour
-          System.out.println("succcess");
-      };  
- 
-  
- }
-
+     public boolean prendreReservation(Reservation reservation) {
+		  String sql="insert into reserver values(?,?,?,?,?,?,?)";
+		   Query();
+		      afferentSQL(sql);
+		      parameter.add(reservation.getNumma());
+		      parameter.add(reservation.getIdee());
+		      parameter.add(reservation.getJour());
+		      parameter.add(reservation.getHeureDeb());
+		      parameter.add(reservation.getHeureFin());
+		      parameter.add(reservation.getEtat());
+		      parameter.add(reservation.getCreaneau());
+		      int ligne=Update();
+		      if(ligne>=1){ //nombre de lignes affectées (c'est-à-dire le nombre de mises à jour
+		          return true;
+		      }else {
+		    	  return false;
+		      }
+     }
+     
+     public  ArrayList<Reservation> inforeserver(Etudiant etudiant) {
+    	 ArrayList<Reservation> lstreservation = new  ArrayList();
+    	 
+    	 String sql="select * from reserver where ide=? order by jour,creneau";
+		 Query();
+		 parameter.add(etudiant.getIdentifiant());
+		 afferentSQL(sql);
+		 
+		 List<Object> objs = Select();
+		 for (int i = 0; i < objs.size(); i++) {
+	         Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+	         Reservation rr= new Reservation();
+	         rr.setNumma((String)rowData.get("numma"));
+	         rr.setCreaneau((int)rowData.get("creneau"));
+	         rr.setHeureDeb((String)rowData.get("heuredeb"));
+	         rr.setHeureFin((String)rowData.get("heurefinr"));
+	         rr.setEtat((String)rowData.get("etatr"));
+	         rr.setIdee((String)rowData.get("ide"));
+	         rr.setJour((String)rowData.get("jour"));
+	         lstreservation.add(rr);
+         }
+         System.out.println(lstreservation);
+         return lstreservation;
+     }
  
  
 public static void main(String[] args) {

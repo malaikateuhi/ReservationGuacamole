@@ -18,6 +18,7 @@ public class ConsultationReservation extends JFrame {
 
 	private JPanel contentPane;
 	private BackgroundPanel bgp;
+	public JComboBox comboBox;
 
 	/**
 	 * Launch the application.
@@ -67,7 +68,7 @@ public class ConsultationReservation extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("...");
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		
 		JButton btnAnnulerReser = new JButton("Annuler la r\u00E9servation");
 		
