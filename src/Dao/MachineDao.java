@@ -34,7 +34,16 @@ import GestionSallesMachines.Salle;
 	            machine.setEtat(((String)rowData.get("etatm")));
                lstmachine.add(machine);
        }
+	        System.out.println(lstmachine);
 		return lstmachine;
 	}
 	  
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		MachineDao m1 = new MachineDao();	
+		Salle s1 =new Salle();
+		s1.setNomSalle("M1");	
+		m1.machinelibre(s1);
+	
+	}
 }

@@ -1,3 +1,4 @@
+
 package Dao;
 
 import static BD.Query.Query;
@@ -21,15 +22,16 @@ public class EnseigantDao {
 		public EnseigantDao() {}
 		
 		public Enseignant login(String id,String password) {
-		    String sqlen = "select * from Enseigant where iden=? and passworden=? ";//faut coorriger le password dans bd admin
+		    String sqlen = "select * from Enseigant where iden=? and passworden=? ";//faut corriger le password dans bd admin
 		    Enseignant enres = null;
 		    Query();
 		    parameter.add(id);
 		    parameter.add(password);
 		    afferentSQL(sqlen);
 		    List<Object> objs = Select();
-		    Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
-		    if (objs.size()!=0) {
+		 
+		    if (objs.size()!=0) { 
+		    	Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
 		    	  enres = new Enseignant();
 		          enres.setIdentifiant((String) rowData.get("iden"));
 		          enres.setMdp((String)rowData.get("passwoden"));
@@ -42,9 +44,9 @@ public class EnseigantDao {
 		    return null;}
 		    }
 			
-		
+		//	Afficher les seances donnee par un enseignant
 		ArrayList<Seance> lstseance;
-		public ArrayList<Seance> machinelibre(Enseignant enseigant)
+		public ArrayList<Seance> donnecours(Enseignant enseigant)
 		{
 			String sql ="select * from donner where iden=?";
 			Query(); 
@@ -59,11 +61,13 @@ public class EnseigantDao {
 		            seance.setNomCours((String)rowData.get("nomcours"));
 		            seance.setEtat((String)rowData.get("etats"));
 	                lstseance.add(seance);
+	                
 	       }
+		        System.out.println(lstseance);
 			return lstseance;
 		}
 		
-		
+		//Voir tous les ¨¦tudiants de chaque seance
 		ArrayList<Etudiant> lstetudiant;
 		public ArrayList<Etudiant> groupetudiant (Seance seance)
 		{
@@ -71,7 +75,7 @@ public class EnseigantDao {
 			Query(); 
 			parameter.add(seance.getNumSeance());
 			afferentSQL(sql);
-			this.lstseance = new ArrayList<Seance>();
+			this.lstetudiant = new ArrayList<Etudiant>();
 			  List<Object> objs = Select();
 			  
 		        for (int i = 0; i < objs.size(); i++) {
@@ -81,20 +85,46 @@ public class EnseigantDao {
 		            etudiant.setMdp((String)rowData.get("passworde"));
 		            etudiant.setNom((String)rowData.get("nome"));
 		            etudiant.setPrenom((String)rowData.get("prenome"));
-	                lstseance.add(seance);
+	                lstetudiant.add(etudiant);
 	       }
+		        System.out.println(lstetudiant);
 			return lstetudiant;
 		}
 		
 		
 		
+	/*	ArrayList<Salle> lstsalle;
+		public ArrayList<Salle>  (Seance seance)
+		{
+			String sql = "SELECT * FROM seance,etudiant Where seance.numgroup=etudiant.numgroup and numseance=? ";
+			Query(); 
+			parameter.add(seance.getNumSeance());
+			afferentSQL(sql);
+			this.lstetudiant = new ArrayList<Etudiant>();
+			  List<Object> objs = Select();
+			  
+		        for (int i = 0; i < objs.size(); i++) {
+		        	Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+		        	Etudiant etudiant = new Etudiant();
+	                etudiant.setIdentifiant((String)rowData.get("id")); 
+		            etudiant.setMdp((String)rowData.get("passworde"));
+		            etudiant.setNom((String)rowData.get("nome"));
+		            etudiant.setPrenom((String)rowData.get("prenome"));
+	                lstetudiant.add(etudiant);
+	       }
+		        System.out.println(lstetudiant);
+			     return lstetudiant;
+		}
 		
-		
-		  
+		 */ 
 		public static void main(String[] args) {
 			// TODO Auto-generated method stub
 			EnseigantDao en1 = new EnseigantDao();	
-			en1.login("en1","en1");
+			Enseignant enenget=en1.login("en1","en1");
+			en1.donnecours(enenget);
+			Seance s1 =new Seance();
+			s1.setNumSeance("TP1");
+			en1.groupetudiant(s1);
 		}
 
 }

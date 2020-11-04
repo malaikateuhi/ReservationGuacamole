@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import GestionReservations.Reservation;
+import GestionReservations.Seance;
 import GestionSallesMachines.Machine;
 import GestionSallesMachines.Salle;
 import GestionUtilisateurs.Etudiant;
@@ -30,9 +31,10 @@ public Etudiant login(String id,String password) {
     parameter.add(password);
     afferentSQL(sqlclient);
     List<Object> objs = Select();
-    Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
+    
   
     if (objs.size()!=0) {
+    	Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
     	  etures = new Etudiant();
           etures.setIdentifiant((String) rowData.get("ide"));
           etures.setMdp((String)rowData.get("passwode"));
@@ -78,18 +80,42 @@ public Etudiant login(String id,String password) {
 			        parameter.add(time);
 			        afferentSQL(avoircours);
 			        List<Object> objs = Select();
-			    
-			      
 			            if (objs.size()!=0) {
 			        	 Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
 			        	 Salle salle = new Salle();
 			             salle.setNomSalle((String)rowData.get("numsalle"));   
 			             System.out.println(salle.getNomSalle());
+			             Seance seance =new Seance();
+			      
 			             return salle;
 			        }
 			        else 
 			        {return null;}
 			}
+			
+			
+			public Seance avoirseance(Etudiant etudiant, String jour,int time) {
+				 String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? ";
+				        Query(); 
+				        parameter.add(etudiant.getIdentifiant());
+				        parameter.add(jour);
+				        parameter.add(time);
+				        afferentSQL(avoircours);
+				        List<Object> objs = Select();
+				            if (objs.size()!=0) {
+				        	 Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
+				             Seance seance =new Seance();
+				             seance.setNumSeance((String)rowData.get("numseance"));
+				             seance.setNomCours((String)rowData.get("nomcours"));
+				             System.out.println(seance.getNumSeance());
+				             return seance;
+				        }
+				        else 
+				        {return null;}
+				}
+				
+			
+			
 			
 			
 			
@@ -160,7 +186,6 @@ public Etudiant login(String id,String password) {
 	 System.out.println();
  }
  
- 
 public static void main(String[] args) {
 	// TODO Auto-generated method stub
 	EtudiantDao t1 = new EtudiantDao();	
@@ -173,6 +198,7 @@ public static void main(String[] args) {
 		salle1.setNomSalle("M1");
 		//t1.machinelibre(salle1, "2020-11-10", 0);
 			//t1.recommande(e1, "2020-11-10", 0);
+		t1.avoirseance(e1, "2020-11-10", 0);
 		//t1.choisi(e1, "2020-11-10", 0);
 		//Reservation r1= new Reservation("ma1","1","2020-11-10","9:30","10:30","reserve",0);
 		//t1.prendreserver(r1);

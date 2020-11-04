@@ -26,20 +26,24 @@ public class AdminDao {
 	    parameter.add(password);
 	    afferentSQL(sqladmin);
 	    List<Object> objs = Select();
-	    
-	    Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
+	   
            if (objs.size()!=0) {
-	    	  ares = new Admin();
-	          ares.setIdentifiant((String) rowData.get("ida"));
-	          ares.setMdp((String)rowData.get("passwoda"));
-	          ares.setNom((String)rowData.get("noma"));
-	          ares.setPrenom((String)rowData.get("prenoma"));
-	    	System.out.println("welcom "+rowData.get("noma"));
-	    	return ares;  
+        		 Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
+   	    	  ares = new Admin();
+   	          ares.setIdentifiant((String) rowData.get("ida"));
+   	          ares.setMdp((String)rowData.get("passwoda"));
+   	          ares.setNom((String)rowData.get("noma"));
+   	          ares.setPrenom((String)rowData.get("prenoma"));
+   	    	System.out.println("welcom "+rowData.get("noma"));
+   	    	return ares; } 
+        	   
+	     else {
+	    	System.out.println("pwd wrong");
+     	   return null;
+	    
 	    }
-	    else {
-	    return null;}
 	    }
+	
 	// Afficher toutes les machines
 	ArrayList<Machine> lstMachine;
 	ArrayList<Etudiant> lstEtudiant;
@@ -57,6 +61,7 @@ public class AdminDao {
 	        	machine.setEtat((String)rowData.get("etatr"));
 	            lstMachine.add(machine);
 	        }
+	       
 		return lstMachine;
 	}
 
@@ -86,6 +91,8 @@ public class AdminDao {
 		// TODO Auto-generated method stub
 		AdminDao a1 = new AdminDao();	
 		a1.login("1","2");
+		a1.tousmachine();
+		a1.tousetudiant();
 	}
 
 	
