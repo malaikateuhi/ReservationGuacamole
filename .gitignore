@@ -1,1 +1,7 @@
 /bin/
+.classpath
+mysql-connector-java-8.0.22.jar
+src/BD/mysql-connector-java-8.0.16.jar
+.classpath
+.classpath
+.classpath
