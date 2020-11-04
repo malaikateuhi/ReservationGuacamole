@@ -17,8 +17,8 @@ import GestionUtilisateurs.Etudiant;
 
 public class AdminDao {
 	public AdminDao() {}
+	
 	public Admin login(String id,String password) {
-
 	    String sqladmin = "select * from admin where ida=? and passworda=? ";//faut coorriger le password dans bd admin
 	    Admin ares = null;
 	    Query();
@@ -30,13 +30,13 @@ public class AdminDao {
 	    Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
 
            if (objs.size()!=0) {
-	    	/*
+	
 	    	  ares = new Admin();
-	          ares.setNuma((String) rowData.get("ida"));
-	          ares.setPassword((String)rowData.get("passwoda"));
+	          ares.setIdentifiant(((String) rowData.get("ida"));
+	          ares.setMdp((String)rowData.get("passwoda"));
 	          ares.setNom((String)rowData.get("noma"));
 	          ares.setPrenom((String)rowData.get("prenoma"));
-	         */ 
+	     
 	    	System.out.println("welcom "+rowData.get("noma"));
 	    	return ares;
 	    	  
@@ -44,7 +44,7 @@ public class AdminDao {
 	    else {
 	    return null;}
 	    }
-	
+	// Afficher toutes les machines
 	ArrayList<Machine> lstMachine;
 	ArrayList<Etudiant> lstEtudiant;
 	public ArrayList<Machine> tousmachine ()
@@ -66,6 +66,7 @@ public class AdminDao {
 
 	
 	
+	//Afficher tous les ¨¦l¨¨ves
 	public ArrayList<Etudiant> tousetudiant (){
 		String sqlreserver = "select * from etudiant";
 		Query(); 
@@ -84,8 +85,7 @@ public class AdminDao {
 		return lstEtudiant;
 	}
 
-	
-	
+	// tester
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		AdminDao a1 = new AdminDao();	

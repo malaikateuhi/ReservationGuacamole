@@ -32,13 +32,13 @@ public Etudiant login(String id,String password) {
     Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
   
     if (objs.size()!=0) {
-    	/*
+
     	  etures = new Etudiant();
-          etures.setNume((String) rowData.get("ide"));
-          etures.setPassword((String)rowData.get("passwode"));
+          etures.setIdentifiant((String) rowData.get("ide"));
+          etures.setMdp((String)rowData.get("passwode"));
           etures.setNom((String)rowData.get("nome"));
           etures.setPrenom((String)rowData.get("prenome"));
-         */ 
+        
     	System.out.println("welcom "+rowData.get("nome"));
     	return etures;
     	  
@@ -48,71 +48,96 @@ public Etudiant login(String id,String password) {
     }
 
   
+	//Historique des r¨¦servations de l'¨¦tudiant
+	ArrayList<Reservation> lstreservation;
+	public ArrayList<Reservation> hisreserver (Etudiant etudiant)
+	{
+		String sqlreserver = "select * from reserver where ide=? ";
+		Query(); 
+		parameter.add(etudiant.getIdentifiant());
+		afferentSQL(sqlreserver);
+		this.lstreservation= new ArrayList<Reservation>();
+		  List<Object> objs = Select();
+	        for (int i = 0; i < objs.size(); i++) {
+	        	Map<String, Object> rowData = (Map<String, Object>) objs.get(i);
+	        	Reservation reserver= new Reservation();
+	        	reserver.setJour((String)rowData.get("jour"));
+	            reserver.setEtat((String)rowData.get("etatr"));
+	            reserver.setHeureDeb((String)rowData.get("heuredebr"));
+	            reserver.setHeureFin((String)rowData.get("heurefinr"));
+	            lstreservation.add(reserver);
+	        }
+		return lstreservation;
+	}
 
-ArrayList<Reservation> lstreservation;
-public ArrayList<Reservation> hisreserver (Etudiant etudiant)
-{
-	String sqlreserver = "select * from reserver where ide=? ";
-	Query(); 
-	parameter.add(etudiant.getIdentifiant());
-	afferentSQL(sqlreserver);
-	this.lstreservation= new ArrayList<Reservation>();
-	  List<Object> objs = Select();
-        for (int i = 0; i < objs.size(); i++) {
-        	Map<String, Object> rowData = (Map<String, Object>) objs.get(i);
-        	Reservation reserver= new Reservation();
-        	reserver.setJour((String)rowData.get("jour"));
-            reserver.setEtat((String)rowData.get("etatr"));
-            reserver.setHeureDeb((String)rowData.get("heuredebr"));
-            reserver.setHeureFin((String)rowData.get("heurefinr"));
-            lstreservation.add(reserver);
-        }
-	return lstreservation;
-}
+	// Si l'¨¦l¨¨ve a une classe, recommander une machine 
+			public Salle recommande(Etudiant etudiant,Date jour,String time) {
+			 String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup and seance.numseance =passer.numseance and ide=?";
+			        Query(); 
+			        parameter.add(etudiant.getIdentifiant());
+			        parameter.add(jour);
+			        parameter.add(time);
+			        afferentSQL(avoircours);
+			        List<Object> objs = Select();
+			        System.out.println(objs.get(0));
+			        
+			            if (objs.size()!=0) {
+			        	 Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
+			        	 Salle salle = new Salle();
+			             salle.setNomSalle((String)rowData.get("numsalle"));   
+			             return salle;
+			        }
+			        else 
+			        {return null;}
+			}
+			
+			
+			
+			public Machine machinelibre (Salle salle,Date jour,String time)
+			{
+				String sqlmachine = "select * from machine where numsalle=? "
+						+ "and numma not in (select numma from reserver where jour=? and creneau=?)";
+				Query(); 
+				parameter.add(salle.getNomSalle());
+				parameter.add(jour);
+		        parameter.add(time);
+			    afferentSQL(sqlmachine);
+			   
+				  List<Object> objs = Select();
+				       if (objs.size()!=0) {
+			        	Map<String, Object> rowData =(Map<String, Object>) objs.get(0);
+			        	Machine machine = new Machine();
+		                machine.numMachine=((String)rowData.get("numma")); 
+			            machine.setEtat(((String)rowData.get("etatm")));
+			            System.out.println(salle.getNomSalle());
+			            return machine;
+		       }
+				return null;
+			}
+			  
+			
 
-public Machine recommande(Etudiant etudiant,Date jour,String time) {
- String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup and seance.numseance =passer.numseance and ide=?"
- 		+ "and jour=? and creneau=?";
-       
-        Query(); 
-        parameter.add(etudiant.getIdentifiant());
-        parameter.add(jour);
-        parameter.add(time);
-        afferentSQL(avoircours);
-        List<Object> objs = Select();
-        System.out.println(objs.get(0));
-        if (objs.size()!=0) {
-        	 Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
-        	 Machine machine = new Machine();
-        	machine.numMachine=((String)rowData.get("numma")); 
-            machine.setEtat((String)rowData.get("etatm"));
-            machine.setNumsalle((String)rowData.get("numsalle"));
-            return machine;
-        }
-        else {return null;}
-}
-
- public Machine choisi(Etudiant etudiant,Date jour,String time) {
- String pascours ="select * from machine where machine.numma not in(select * from reserver where ide=? and jour=? and creneau=?)"
- 		+ "and numsalle not in (select * from passer and jour=? and creneau=?)";
-    parameter.add(etudiant.getIdentifiant());
-    parameter.add(jour);
-    parameter.add(time);
-    parameter.add(jour);
-    parameter.add(time);
-    afferentSQL(pascours);
-    List<Object> objs = Select();
-    System.out.println(objs.get(0));
-    if (objs.size()!=0) {
-   	 Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
-   	 Machine machine = new Machine();
-   	machine.numMachine=((String)rowData.get("numma")); 
-       machine.setEtat((String)rowData.get("etatm"));
-       machine.setNumsalle((String)rowData.get("numsalle"));
-       return machine;
-   }
-   else {return null;}
- }
+	 public Machine choisi(Etudiant etudiant,Date jour,String time) {
+	 String pascours ="select * from machine where machine.numma not in(select * from reserver where ide=? and jour=? and creneau=?)"
+	 		+ "and numsalle not in (select * from passer and jour=? and creneau=?)";
+	    parameter.add(etudiant.getIdentifiant());
+	    parameter.add(jour);
+	    parameter.add(time);
+	    parameter.add(jour);
+	    parameter.add(time);
+	    afferentSQL(pascours);
+	    List<Object> objs = Select();
+	    System.out.println(objs.get(0));
+	    if (objs.size()!=0) {
+	   	 Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
+	   	 Machine machine = new Machine();
+	   	machine.numMachine=((String)rowData.get("numma")); 
+	       machine.setEtat((String)rowData.get("etatm"));
+	       machine.setNumsalle((String)rowData.get("numsalle"));
+	       return machine;
+	   }
+	   else {return null;}
+	 }
  
  public void prendreserver(Reservation reservation) {
 	 String sql="insert into reserver values(?,?,?,?,?,?)";
@@ -137,6 +162,8 @@ public static void main(String[] args) {
 	// TODO Auto-generated method stub
 	EtudiantDao t1 = new EtudiantDao();	
 	t1.login("a","b");
+	t1.machinelibre("M1", "2020-11-10", 0);
+	
 }
 
 }
