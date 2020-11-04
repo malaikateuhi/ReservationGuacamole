@@ -46,14 +46,13 @@ public class EnseignantDao {
 		    }
 			
 		//	Afficher les seances donnee par un enseignant
-		ArrayList<Seance> lstseance;
-		public ArrayList<Seance> donnecours(Enseignant enseigant)
-		{
+		
+		public ArrayList<Seance> donnecours(Enseignant enseigant){
+			ArrayList<Seance> lstseance = new ArrayList<Seance>();
 			String sql ="select * from donner where iden=?";
 			Query(); 
 			parameter.add(enseigant.getIdentifiant());
 			afferentSQL(sql);
-			this.lstseance = new ArrayList<Seance>();
 			  List<Object> objs = Select();			  
 		        for (int i = 0; i < objs.size(); i++) {
 		        	Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
@@ -114,7 +113,6 @@ public class EnseignantDao {
 		        System.out.println(lstsalle);
 			     return lstsalle;
 		}
-		
 		
 		//Quelles machines sont r¨¦serv¨¦es pour le jour de seance dans le salle et le seance indique
 		ArrayList<Reservation> lstreservation1;

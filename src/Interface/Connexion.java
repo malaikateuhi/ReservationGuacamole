@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 import BD.BDutile;
 import BD.QueryLogin;
 import BD.StringUtil;
+import Dao.AdminDao;
 import Dao.EnseignantDao;
 import Dao.EtudiantDao;
 import GestionUtilisateurs.*;
@@ -198,61 +199,48 @@ public class Connexion extends JFrame {
 	public void login(ActionEvent evt) {
 		String id = this.txtId.getText();
 		String mdp=new String(String.valueOf(this.passwordField.getPassword()));
-		Utilisateur user = null;
+//		Utilisateur user = null;
 		if(typeUtilisateur == 0) {
 			JOptionPane.showMessageDialog(null, "Veuillez choisir votre rôle!");
-		}else if(typeUtilisateur == 1) {
-			user = new Etudiant(id,mdp);
-		}else if(typeUtilisateur == 2) {
-			user = new Enseignant(id,mdp);
-		}else {
-			user = new Admin(id,mdp);
 		}
+		//else if(typeUtilisateur == 1) {
+//			user = new Etudiant(id,mdp);
+//		}else if(typeUtilisateur == 2) {
+//			user = new Enseignant(id,mdp);
+//		}else {
+//			user = new Admin(id,mdp);
+//		}
 		
-		Connection conn = null;
-		try {
-			conn = bdutile.getCon();
-			Utilisateur userCourant = null ;
-			if(user instanceof Etudiant) {
-				EtudiantDao ed1 = new EtudiantDao();
-				userCourant = ed1.login(this.txtId.getText(),String.valueOf(passwordField.getPassword()));
-			}else if(user instanceof Enseignant) {
-				//userCourant = queryLogin.loginEn(conn, user);
-				EnseignantDao end = new EnseignantDao();
-				userCourant = end.login(this.txtId.getText(),String.valueOf(passwordField.getPassword()));
-			}else {
-				//userCourant = queryLogin.loginAdmin(conn, user);
-			}
+		if(StringUtil.isEmpty(txtId.getText()) || StringUtil.isEmpty(String.valueOf(passwordField.getPassword()))) {
+			JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe ne peut pas \u00EAtre vide!");
+		}else {
+			EtudiantDao ed = new EtudiantDao();
+			EnseignantDao end = new EnseignantDao();
+			AdminDao ad = new AdminDao();
 			
-			if(StringUtil.isEmpty(txtId.getText()) || StringUtil.isEmpty(String.valueOf(passwordField.getPassword()))) {
-				JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe ne peut pas \u00EAtre vide!");
-			}else {
-				if(userCourant != null && this.typeUtilisateur == 1) {
-					//System.out.println(usercurrent.getNumeroIdent());
-					dispose();
-					ConnexionReussieEtu conr=new ConnexionReussieEtu();
-					conr.setVisible(true);
-					ConnexionReussieEtu.lblId.setText(this.txtId.getText());
-					/*ResultSet resultSet=getTacheDetail.list(con,usercurrent);
-					while (resultSet.next()) {
-						ConnexionReussieClient.comboBoxListTaches.addItem(resultSet.getString("nomtache"));
-					}
-		            resultSet.close();
-		            */
-					//ConnexionReussieClient.comboBox.addItem("nomtache");
-				}else if(userCourant != null && this.typeUtilisateur == 2){
-					//page de l'enseignant
-				}else if(userCourant != null && this.typeUtilisateur == 3) {
-					//page de l'admin
-				}else {
-					JOptionPane.showMessageDialog(null,"Votre email ou mot de passe semble incorrect");
-					txtId.setText("");
-					passwordField.setText("");
-				}
+			if(ed.login(id, mdp) != null && this.typeUtilisateur == 1) {
+				//System.out.println(usercurrent.getNumeroIdent());
+				dispose();
+				ConnexionReussieEtu cre = new ConnexionReussieEtu();
+				cre.setVisible(true);
+				cre.lblId.setText(ed.login(id, mdp).getNom()+" "+ed.login(id, mdp).getPrenom());
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			else if(end.login(id, mdp) != null && this.typeUtilisateur == 2){
+				//page de l'enseignant
+				dispose();
+				ConnexionReussieEn cren = new ConnexionReussieEn();
+				cren.setVisible(true);
+				cren.lblIdEn.setText(end.login(id, mdp).getNom()+" "+end.login(id, mdp).getPrenom());
+			}
+			else if(ad.login(id, mdp) != null && this.typeUtilisateur == 3) {
+				//page de l'admin
+			}
+			else {
+				JOptionPane.showMessageDialog(null,"Votre identifiant ou mot de passe semble incorrect");
+				txtId.setText("");
+				passwordField.setText("");
+			}
 		}
-	}
+	} 
 }
+
