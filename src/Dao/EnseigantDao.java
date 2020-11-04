@@ -123,7 +123,23 @@ public class EnseigantDao {
 			return reservations;
 		}
 		
-		
+		/**
+		 * Change l'etat d'une seance a annulee
+		 */
+		public void annulerSeance(Seance seance, TempsDeSeance tpSeance) {
+			String sql = "UPDATE passer SET etat = 'annulee' "
+					+ "WHERE numseance = ? "
+					+ "AND jour = ? AND heuredeb = ? "
+					+ "AND numsalle = ?";
+			
+			Query(); 
+			parameter.add(seance.getNumSeance());
+			parameter.add(tpSeance.getJour());
+			parameter.add(tpSeance.getHeureDeb());
+			parameter.add(tpSeance.getHmSeanceSalle().get(seance).getNomSalle());			
+			afferentSQL(sql);			
+			
+		}
 		
 		
 		  
