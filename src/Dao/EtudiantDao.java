@@ -132,6 +132,33 @@ public Machine recommande(Etudiant etudiant,Date jour,String time) {
 	 
  }
  
+ /** ARSLANE DEBUT
+  *  Mettre une reservation EN RECLAMATION
+  *  @return true si la reservation, false sinon
+  */
+ public boolean signalerReservation(Machine machine /*mais je suis pas sur des données a mettre en entrée*/) {
+ 	String sql = "UPDATE reserver "
+ 			+ "SET etatr = 'EN RECLAMATION' "
+ 			+ "WHERE numma = ? "
+ 			+ "AND ide = ? "
+ 			+ "AND jour = ? "
+ 			+ "AND heuredebr = ? "
+ 			+ "AND heurefinr = ?"
+ 			+ "AND creneau = ?";	
+
+ 		Query();
+ 		parameter.add(reservation.getMachine().getNumMachine());
+ 		parameter.add(reservation.getIdee());
+ 		parameter.add(reservation.getJour());
+ 		parameter.add(reservation.getHeureDeb());
+ 		parameter.add(reservation.getHeureFin());
+ 		parameter.add(reservation.getCreneau());
+ 		afferentSQL(sql);			
+ 		int ligne=Update();
+ 		return ligne >= 1;
+ 	}	
+ //ARSLANE FIN
+ 
  
 public static void main(String[] args) {
 	// TODO Auto-generated method stub
