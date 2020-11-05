@@ -6,17 +6,23 @@ import GestionReservations.Reservation;
 import GestionReservations.Seance;
 
 public class Etudiant extends Utilisateur {
+
 	private ArrayList<Seance> lstSeanceEtu;
 	private ArrayList<Reservation> lstReser;
-	
+
 	public Etudiant() {
-		
+
 	}
 	public Etudiant(String id) {
 		super(id);
 	}
+	
 	public Etudiant(String id, String mdp) {
 		super(id,mdp);
+	}
+	
+	public Etudiant(String identifiant, String mdp, String nom, String prenom) {
+		super(identifiant, mdp, nom, prenom);
 	}
 
 	public ArrayList<Seance> getLstSeanceEtu() {
@@ -59,11 +65,15 @@ public class Etudiant extends Utilisateur {
 	public void setPrenom(String prenom) {
 		super.setPrenom(prenom);
 	}
-	
+
 	public void reserver() {
-		
+
 	}
+
 	public void annulerReservation() {
-		
+
 	}
 }
+
+
+

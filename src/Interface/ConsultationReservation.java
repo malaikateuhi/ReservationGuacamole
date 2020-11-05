@@ -156,9 +156,9 @@ public class ConsultationReservation extends JFrame {
 		
 		//ed.annulerReservation(ed.inforeserver(new Etudiant(this.lblId3.getText())).get(this.listReser.getSelectedIndex()));
 		if(ed.annulerReservation(ed.inforeserver(new Etudiant(this.lblNom3.getText())).get(this.listReser.getSelectedIndex()))) {
-			JOptionPane.showMessageDialog(null, "Annulation réussie");
+			JOptionPane.showMessageDialog(null, "Annulation rï¿½ussie");
 		}else {
-			JOptionPane.showMessageDialog(null, "Annulation échec");
+			JOptionPane.showMessageDialog(null, "Annulation ï¿½chec");
 		}
 		dispose();
 	}

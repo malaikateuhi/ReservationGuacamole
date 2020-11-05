@@ -7,9 +7,12 @@ public class Seance {
 	private String numSeance;
 	private String nomCours;
 	private String etat;
-	public void setNumSeance(String numS) {
-		// TODO Auto-generated method stub
-		this.numSeance = numS;
+
+	public String getNumSeance() {
+		return numSeance;
+	}
+	public void setNumSeance(String numSeance) {
+		this.numSeance = numSeance;
 	}
 	public String getNomCours() {
 		return nomCours;
@@ -23,9 +26,7 @@ public class Seance {
 	public void setEtat(String etat) {
 		this.etat = etat;
 	}
-	public String getNumSeance() {
-		return numSeance;
-	}
+
 	
 //	private Groupe groupeEtu;
 //	private Enseignant ensignant;

@@ -10,6 +10,7 @@ public class Salle {
 	private String nomSalle;
 	private EtatMachineSalle etat;
 	private ArrayList<Machine> lstMachines;
+
 	//private HashMap<TempsDeSeance,Seance> hmSeance;
 	
 	public Salle() {

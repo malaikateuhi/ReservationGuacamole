@@ -2,12 +2,17 @@ package GestionUtilisateurs;
 
 import java.util.ArrayList;
 
+
 public class Groupe {
 	private String numGroupe;
 	private String nomGroupe;
-	
 	private ArrayList<Etudiant> lstEtu;
 
+	public Groupe(String numGroupe, String nomGroupe) {
+		this.numGroupe = numGroupe;
+		this.nomGroupe = nomGroupe;
+	}
+	
 	public String getNumGroupe() {
 		return numGroupe;
 	}
@@ -31,6 +36,5 @@ public class Groupe {
 	public void setLstEtu(ArrayList<Etudiant> lstEtu) {
 		this.lstEtu = lstEtu;
 	}
-	
-	
+
 }

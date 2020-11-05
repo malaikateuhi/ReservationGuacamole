@@ -210,7 +210,7 @@ public class ConnexionReussieEtu extends JFrame {
 		 		
 		Machine machineSansCours = ed1.choisi(etu,jour,this.creneau);
 		
-		//si une étudiant a cours ce jour et ce créneau là
+		//si une ï¿½tudiant a cours ce jour et ce crï¿½neau lï¿½
 		if (salle != null && ed1.machinelibre(salle,jour,this.creneau) != null) {
 			pageRecherche.lblNumSalle.setText(salle.getNomSalle());
 			pageRecherche.lblNumMa.setText(ed1.machinelibre(salle,jour,this.creneau).getNumMachine());
