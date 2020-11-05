@@ -169,7 +169,7 @@ public class ConnexionReussieEtu extends JFrame {
 		EtudiantDao ed = new EtudiantDao();
 		DefaultListModel listModel = new DefaultListModel();
 		int i = 0;
-		for(Reservation reser : ed.inforeserver(new Etudiant(this.id))) {
+		for(Reservation reser : ed.infoReserver(new Etudiant(this.id))) {
 			
 			String detail = reser.getJour()+", "+reser.getHeureDeb()+"-"+reser.getHeureFin()+", "+reser.getMachine().getSalle().getNomSalle()+",Machine "+reser.getMachine().getNumMachine()+", "+ reser.getEtat();
 			listModel.add(i, detail);

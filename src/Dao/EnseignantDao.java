@@ -262,12 +262,14 @@ public class EnseignantDao {
 		en1.machineReserver(sa1);		
 
 	    // Test Annulation des réservations d'une seance => OK
-	    TempsDeSeance tpS1 = new TempsDeSeance();
+	    /*
+		TempsDeSeance tpS1 = new TempsDeSeance();
 	    tpS1.setJour("2020-11-10");
 	    tpS1.setHeureDeb("09:30");
 	    tpS1.setHeureFin("11:00");
 	    tpS1.getHmSeanceSalle().put(s1, sa1);		    
 	    en1.annulerReservations(s1, tpS1);
+	     */
 	}
 
 }
