@@ -8,15 +8,10 @@ import GestionUtilisateurs.Etudiant;
 public class Machine {
 
 	private String numMachine;
-	private String etat;
-	private Salle salle;
-	public String numsalle;
+	private Salle salle;	
+	private HashMap<Reservation, Etudiant> hmReser;
 	
-	private HashMap<Etudiant,Reservation> hmReser;
-	
-	public Machine() {
-	
-	}
+	public Machine() {}
 
 	public Machine(String numM) {
 		this.numMachine = numM;
@@ -27,28 +22,12 @@ public class Machine {
 		this.salle = salle;
 	}
 	
-	public String getEtat() {
-		return etat;
-	}
-
-	public void setEtat(String etat) {
-		this.etat = etat;
-	}
-
 	public Salle getSalle() {
 		return salle;
 	}
 
 	public void setSalle(Salle salle) {
 		this.salle = salle;
-	}
-
-	public String getNumsalle() {
-		return numsalle;
-	}
-	
-	public void setNumsalle(String numsalle) {
-		this.numsalle = numsalle;
 	}
 
 	public String getNumMachine() {
@@ -58,10 +37,10 @@ public class Machine {
 		this.numMachine = numMachine;
 	}
 
-	public HashMap<Etudiant, Reservation> getHmReser() {
+	public HashMap<Reservation, Etudiant> getHmReser() {
 		return hmReser;
 	}
-	public void setHmReser(HashMap<Etudiant, Reservation> hmReser) {
+	public void setHmReser(HashMap<Reservation, Etudiant> hmReser) {
 		this.hmReser = hmReser;
 	}
 	
