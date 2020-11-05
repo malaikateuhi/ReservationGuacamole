@@ -40,7 +40,8 @@ public class ConnexionReussieEns extends JFrame {
 	protected String[][] dataTab;
 	protected JList list;
 	protected LinkedHashMap<TempsDeSeance,Seance> hm= new LinkedHashMap<TempsDeSeance, Seance>();
-	
+	private Seance seanceAAnuuler = null;
+	private TempsDeSeance tempsSeAAnnuler = null;
 	/**
 	 * Launch the application.
 	 */
@@ -75,6 +76,7 @@ public class ConnexionReussieEns extends JFrame {
         JButton btnAnnulerSeance = new JButton("Annuler la s\u00E9ance");
         btnAnnulerSeance.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		btnAnnulerAction(e);
         	}
         });
         
@@ -134,6 +136,12 @@ public class ConnexionReussieEns extends JFrame {
         );
         contentPane.setLayout(gl_contentPane);
 	}
+	
+	protected void btnAnnulerAction(ActionEvent evt) {
+		EnseignantDao end = new EnseignantDao();
+		end.annulerReservations(this.seanceAAnuuler, this.tempsSeAAnnuler);
+		
+	}
 
 	protected void btnConsulterAction(ActionEvent evt) {
 		EnseignantDao end = new EnseignantDao();
@@ -147,12 +155,9 @@ public class ConnexionReussieEns extends JFrame {
 			pageConsulterEns.lblDetailSeance.setText(item);
 			pageConsulterEns.lblNomEn2.setText(this.lblNomEns.getText());
 			
-			TempsDeSeance temps= null;
-			Seance seance = null;
-			
 			for(TempsDeSeance t : hm.keySet()) {
 				if( i == itemSelect) {
-					temps = t;
+					this.tempsSeAAnnuler = t;
 					break;
 				}else {
 					i++;	
@@ -160,7 +165,7 @@ public class ConnexionReussieEns extends JFrame {
 			}
 			for(Seance s : hm.values()) {
 				if( j == itemSelect) {
-					seance = s;
+					this.seanceAAnuuler = s;
 					break;
 				}else {
 					j++;
@@ -169,12 +174,12 @@ public class ConnexionReussieEns extends JFrame {
 			//receperer les donnees dans JList
 			DefaultListModel listModel = new DefaultListModel();
 			int q = 0;
-			for(Reservation reser : end.reservationsSeance(seance,temps)) {
+			for(Reservation reser : end.reservationsSeance(this.seanceAAnuuler,this.tempsSeAAnnuler)) {
 				String detail = "Machine : "+reser.getMachine().getNumMachine()+"\t N° Etu: "+reser.getIdee();
 				listModel.add(i, detail);
 				q++;	
 			}
-			System.out.println(end.reservationsSeance(seance, temps).get(0));
+			System.out.println(end.reservationsSeance(this.seanceAAnuuler,this.tempsSeAAnnuler).get(0));
 			pageConsulterEns.list.setModel(listModel);
 		}
 		else {

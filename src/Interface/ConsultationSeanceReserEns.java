@@ -11,6 +11,9 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JList;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ConsultationSeanceReserEns extends JFrame {
 
@@ -18,6 +21,7 @@ public class ConsultationSeanceReserEns extends JFrame {
 	protected JLabel lblNomEn2;
 	protected JLabel lblDetailSeance;
 	protected JList list;
+	private JButton btnNewButton;
 	
 	/**
 	 * Launch the application.
@@ -40,7 +44,7 @@ public class ConsultationSeanceReserEns extends JFrame {
 	 */
 	public ConsultationSeanceReserEns() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 575, 396);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -58,8 +62,8 @@ public class ConsultationSeanceReserEns extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 239, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		
 		JLabel lblNewLabel = new JLabel("Bonjour,");
@@ -70,21 +74,34 @@ public class ConsultationSeanceReserEns extends JFrame {
 		lblDetailSeance = new JLabel("...");
 		
 		list = new JList();
+		
+		btnNewButton = new JButton("Retour");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap(207, Short.MAX_VALUE)
+					.addContainerGap(234, Short.MAX_VALUE)
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblNomEn2, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
 					.addGap(19))
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(46)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(lblDetailSeance, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(list, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE))
-					.addContainerGap(42, Short.MAX_VALUE))
+					.addGap(18)
+					.addComponent(list, GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+					.addGap(38))
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(27)
+					.addComponent(lblDetailSeance, GroupLayout.PREFERRED_SIZE, 358, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(48, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+					.addContainerGap(219, Short.MAX_VALUE)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+					.addGap(217))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -95,9 +112,11 @@ public class ConsultationSeanceReserEns extends JFrame {
 						.addComponent(lblNomEn2))
 					.addGap(31)
 					.addComponent(lblDetailSeance)
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(list, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(27)
+					.addComponent(btnNewButton)
+					.addContainerGap(61, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);

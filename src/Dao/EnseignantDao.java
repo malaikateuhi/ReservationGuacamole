@@ -82,25 +82,7 @@ public class EnseignantDao {
 	 * 	Afficher les seances donnees par un enseignant
 	 * @return ArrayList d'objets de type Seance
 	 */		
-//	public ArrayList<Seance> donnerCours(Enseignant enseigant){
-//		ArrayList<Seance> lstseance = new ArrayList<Seance>();
-//		String sql ="select * from donner where iden=?";
-//		Query(); 
-//		parameter.add(enseigant.getIdentifiant());
-//		afferentSQL(sql);
-//		List<Object> objs = Select();			  
-//		for (int i = 0; i < objs.size(); i++) {
-//			Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
-//			Seance seance = new Seance();
-//			seance.setNumSeance((String)rowData.get("numseance")); 
-//			seance.setNomCours((String)rowData.get("nomcours"));
-//			seance.setEtat((String)rowData.get("etats"));
-//			lstseance.add(seance);
-//
-//		}
-//		System.out.println(lstseance);
-//		return lstseance;
-//	}
+
 
 	/**
 	 * Liste des etudiants d'une seance (cours)

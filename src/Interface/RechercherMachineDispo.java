@@ -38,6 +38,7 @@ public class RechercherMachineDispo extends JFrame {
 	public JLabel lblNomCours;
 	public JLabel lblAvoirCours;
 	public int creneauSuite = 4;
+	private JButton btnNewButton;
 	
 	public void setCreneauSuite(int cre) {
 		this.creneauSuite = cre;
@@ -144,6 +145,14 @@ public class RechercherMachineDispo extends JFrame {
         JLabel lblLabel_4 = new JLabel("Heure:");
         
         lblHeure = new JLabel("...");
+        
+        btnNewButton = new JButton("D\u00E9connexion");
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		dispose();
+        		Connexion conn = new Connexion();
+        	}
+        });
         GroupLayout gl_bgp = new GroupLayout(bgp);
         gl_bgp.setHorizontalGroup(
         	gl_bgp.createParallelGroup(Alignment.LEADING)
@@ -151,47 +160,44 @@ public class RechercherMachineDispo extends JFrame {
         			.addGap(70)
         			.addGroup(gl_bgp.createParallelGroup(Alignment.LEADING)
         				.addGroup(gl_bgp.createSequentialGroup()
-        					.addGroup(gl_bgp.createParallelGroup(Alignment.LEADING)
-        						.addGroup(gl_bgp.createSequentialGroup()
-        							.addComponent(lblCours)
-        							.addPreferredGap(ComponentPlacement.RELATED, 261, GroupLayout.PREFERRED_SIZE))
-        						.addGroup(Alignment.TRAILING, gl_bgp.createSequentialGroup()
-        							.addGap(158)
-        							.addComponent(lblNomCours, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)))
+        					.addComponent(lblCours)
+        					.addGap(83)
+        					.addComponent(lblNomCours, GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
         					.addContainerGap())
         				.addGroup(gl_bgp.createSequentialGroup()
         					.addComponent(lblSeance, GroupLayout.PREFERRED_SIZE, 125, GroupLayout.PREFERRED_SIZE)
         					.addGap(33)
         					.addComponent(lblNumSeance, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
         					.addContainerGap())
-        				.addGroup(gl_bgp.createParallelGroup(Alignment.LEADING)
-        					.addGroup(gl_bgp.createSequentialGroup()
-        						.addComponent(lblAvoirCours, GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-        						.addContainerGap())
-        					.addGroup(Alignment.TRAILING, gl_bgp.createSequentialGroup()
-        						.addComponent(btnReserver, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-        						.addPreferredGap(ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-        						.addComponent(btnRetour, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-        						.addGap(72))
-        					.addGroup(gl_bgp.createSequentialGroup()
-        						.addGroup(gl_bgp.createParallelGroup(Alignment.LEADING)
-        							.addGroup(gl_bgp.createSequentialGroup()
-        								.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addComponent(lblNumSalle, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-        								.addGap(18)
-        								.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
-        							.addGroup(gl_bgp.createSequentialGroup()
-        								.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addComponent(lblJour, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addComponent(lblLabel_4, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)))
-        						.addGap(31)
-        						.addGroup(gl_bgp.createParallelGroup(Alignment.LEADING)
-        							.addComponent(lblHeure, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
-        							.addComponent(lblNumMa, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
-        						.addGap(181)))))
+        				.addGroup(Alignment.TRAILING, gl_bgp.createSequentialGroup()
+        					.addComponent(lblAvoirCours, GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+        					.addContainerGap())
+        				.addGroup(Alignment.TRAILING, gl_bgp.createSequentialGroup()
+        					.addComponent(btnReserver, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+        					.addComponent(btnRetour, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+        					.addGap(67)
+        					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+        					.addGap(37))
+        				.addGroup(Alignment.TRAILING, gl_bgp.createSequentialGroup()
+        					.addGroup(gl_bgp.createParallelGroup(Alignment.LEADING)
+        						.addGroup(gl_bgp.createSequentialGroup()
+        							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(lblNumSalle, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+        							.addGap(18)
+        							.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(gl_bgp.createSequentialGroup()
+        							.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(lblJour, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED)
+        							.addComponent(lblLabel_4, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)))
+        					.addGap(31)
+        					.addGroup(gl_bgp.createParallelGroup(Alignment.LEADING)
+        						.addComponent(lblHeure, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(lblNumMa, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
+        					.addGap(181))))
         );
         gl_bgp.setVerticalGroup(
         	gl_bgp.createParallelGroup(Alignment.TRAILING)
@@ -216,13 +222,19 @@ public class RechercherMachineDispo extends JFrame {
         				.addComponent(lblSeance))
         			.addGap(30)
         			.addGroup(gl_bgp.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(lblCours)
-        				.addComponent(lblNomCours))
-        			.addGap(66)
-        			.addGroup(gl_bgp.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(btnRetour)
-        				.addComponent(btnReserver))
-        			.addGap(55))
+        				.addComponent(lblNomCours)
+        				.addComponent(lblCours))
+        			.addGroup(gl_bgp.createParallelGroup(Alignment.LEADING, false)
+        				.addGroup(gl_bgp.createSequentialGroup()
+        					.addGap(66)
+        					.addGroup(gl_bgp.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(btnReserver)
+        						.addComponent(btnNewButton))
+        					.addGap(55))
+        				.addGroup(Alignment.TRAILING, gl_bgp.createSequentialGroup()
+        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        					.addComponent(btnRetour)
+        					.addGap(55))))
         );
         bgp.setLayout(gl_bgp);
 	}
