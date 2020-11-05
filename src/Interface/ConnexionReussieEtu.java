@@ -168,7 +168,7 @@ public class ConnexionReussieEtu extends JFrame {
 		EtudiantDao ed = new EtudiantDao();
 		DefaultListModel listModel = new DefaultListModel();
 		int i = 0;
-		for(Reservation reser : ed.inforeserver(new Etudiant(this.lblId.getText()))) {
+		for(Reservation reser : ed.infoReserver(new Etudiant(this.lblId.getText()))) {
 			
 			String detail = reser.getJour()+", "+reser.getHeureDeb()+"-"+reser.getHeureFin()+", "+reser.getMachine().getSalle().getNomSalle()+",Machine "+reser.getMachine().getNumMachine()+", "+ reser.getEtat();
 			listModel.add(i, detail);
@@ -208,7 +208,7 @@ public class ConnexionReussieEtu extends JFrame {
 		 		
 		Machine machineSansCours = ed1.choisi(etu,jour,this.creneau);
 		
-		//si une étudiant a cours ce jour et ce créneau là
+		//si une ï¿½tudiant a cours ce jour et ce crï¿½neau lï¿½
 		if (salle != null && ed1.machinelibre(salle,jour,this.creneau) != null) {
 			pageRecherche.lblNumSalle.setText(salle.getNomSalle());
 			pageRecherche.lblNumMa.setText(ed1.machinelibre(salle,jour,this.creneau).getNumMachine());
