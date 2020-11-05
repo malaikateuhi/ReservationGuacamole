@@ -2,6 +2,7 @@ package Interface;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,6 +26,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.JPasswordField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JRadioButton;
@@ -37,6 +39,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.awt.event.ActionEvent;
 
@@ -69,6 +72,17 @@ public class Connexion extends JFrame {
 	 * Create the frame.
 	 */
 	public Connexion() {
+		
+		//changer la police
+		Font font = new Font("Tahoma", Font.PLAIN,14);
+		Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if(value instanceof javax.swing.plaf.FontUIResource) {
+				UIManager.put(key,font);
+			}
+		}
 		setTitle("Connexion");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 516, 360);
@@ -91,7 +105,7 @@ public class Connexion extends JFrame {
 					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE))
 		);
 		
-		JLabel lblNewLabel = new JLabel("Bienvenue");
+		JLabel lblNewLabel = new JLabel("Bienvenue!");
 		
 		JLabel lblNewLabel_1 = new JLabel("Identifiant");
 		
@@ -140,9 +154,6 @@ public class Connexion extends JFrame {
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(164)
-							.addComponent(lblNewLabel))
-						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(91)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
@@ -152,28 +163,33 @@ public class Connexion extends JFrame {
 								.addComponent(passwordField)
 								.addComponent(txtId, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(177)
-							.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup()
 							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+									.addGap(177)
+									.addComponent(lblNewLabel_3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								.addGroup(gl_panel.createSequentialGroup()
 									.addContainerGap()
 									.addComponent(rdbtnNewRadioButton, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(rdbtnNewRadioButton_1, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
+									.addComponent(rdbtnNewRadioButton_1, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+									.addGap(12))
 								.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
 									.addGap(160)
 									.addComponent(btnValider, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)))
 							.addGap(6)
 							.addComponent(rdbtnNewRadioButton_2, GroupLayout.PREFERRED_SIZE, 204, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(17, Short.MAX_VALUE))
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(177)
+					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(229, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(27)
+					.addGap(28)
 					.addComponent(lblNewLabel)
-					.addGap(29)
+					.addGap(28)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_1)
 						.addComponent(txtId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -181,16 +197,13 @@ public class Connexion extends JFrame {
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_2)
 						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(26)
-							.addComponent(lblNewLabel_3))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(51)
-							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(rdbtnNewRadioButton_2)
-								.addComponent(rdbtnNewRadioButton_1)
-								.addComponent(rdbtnNewRadioButton))))
+					.addGap(26)
+					.addComponent(lblNewLabel_3)
+					.addGap(10)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(rdbtnNewRadioButton_2)
+						.addComponent(rdbtnNewRadioButton_1)
+						.addComponent(rdbtnNewRadioButton))
 					.addGap(27)
 					.addComponent(btnValider)
 					.addContainerGap(48, Short.MAX_VALUE))

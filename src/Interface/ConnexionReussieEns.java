@@ -3,7 +3,9 @@ package Interface;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -11,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -62,6 +65,16 @@ public class ConnexionReussieEns extends JFrame {
 	 * Create the frame.
 	 */
 	public ConnexionReussieEns() {
+		//changer la police
+		Font font = new Font("Tahoma", Font.PLAIN,14);
+		Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if(value instanceof javax.swing.plaf.FontUIResource) {
+				UIManager.put(key,font);
+			}
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 551, 434);
 		contentPane = new JPanel();
@@ -97,7 +110,7 @@ public class ConnexionReussieEns extends JFrame {
         });
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
-        	gl_contentPane.createParallelGroup(Alignment.LEADING)
+        	gl_contentPane.createParallelGroup(Alignment.TRAILING)
         		.addGroup(gl_contentPane.createSequentialGroup()
         			.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
         				.addGroup(gl_contentPane.createSequentialGroup()
@@ -109,14 +122,14 @@ public class ConnexionReussieEns extends JFrame {
         					.addGap(26)
         					.addComponent(list, GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)))
         			.addContainerGap())
-        		.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-        			.addContainerGap(73, Short.MAX_VALUE)
-        			.addComponent(btnConsulter, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-        			.addGap(36)
+        		.addGroup(gl_contentPane.createSequentialGroup()
+        			.addContainerGap(40, Short.MAX_VALUE)
+        			.addComponent(btnConsulter, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+        			.addGap(28)
         			.addComponent(btnAnnulerSeance, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
-        			.addPreferredGap(ComponentPlacement.UNRELATED)
-        			.addComponent(btnRetour, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-        			.addGap(61))
+        			.addGap(18)
+        			.addComponent(btnRetour, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+        			.addGap(20))
         );
         gl_contentPane.setVerticalGroup(
         	gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -130,8 +143,8 @@ public class ConnexionReussieEns extends JFrame {
         			.addGap(30)
         			.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
         				.addComponent(btnRetour)
-        				.addComponent(btnAnnulerSeance)
-        				.addComponent(btnConsulter))
+        				.addComponent(btnConsulter)
+        				.addComponent(btnAnnulerSeance))
         			.addContainerGap(82, Short.MAX_VALUE))
         );
         contentPane.setLayout(gl_contentPane);

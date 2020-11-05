@@ -2,9 +2,11 @@ package Interface;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import Dao.EtudiantDao;
@@ -23,6 +25,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.awt.event.ActionEvent;
 
 public class ConsultationReservation extends JFrame {
@@ -55,6 +58,16 @@ public class ConsultationReservation extends JFrame {
 	 * Create the frame.
 	 */
 	public ConsultationReservation() {
+		//changer la police
+		Font font = new Font("Tahoma", Font.PLAIN,14);
+		Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if(value instanceof javax.swing.plaf.FontUIResource) {
+				UIManager.put(key,font);
+			}
+		}
 		setTitle("Consultation");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 560, 368);

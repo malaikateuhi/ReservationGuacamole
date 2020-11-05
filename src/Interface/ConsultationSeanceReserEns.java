@@ -2,9 +2,11 @@ package Interface;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -13,6 +15,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 import java.awt.event.ActionEvent;
 
 public class ConsultationSeanceReserEns extends JFrame {
@@ -43,6 +46,16 @@ public class ConsultationSeanceReserEns extends JFrame {
 	 * Create the frame.
 	 */
 	public ConsultationSeanceReserEns() {
+		//changer la police
+		Font font = new Font("Tahoma", Font.PLAIN,14);
+		Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if(value instanceof javax.swing.plaf.FontUIResource) {
+				UIManager.put(key,font);
+			}
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 575, 396);
 		contentPane = new JPanel();

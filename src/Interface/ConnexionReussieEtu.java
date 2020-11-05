@@ -2,6 +2,7 @@ package Interface;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListModel;
+import javax.swing.UIManager;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -30,6 +32,7 @@ import javax.swing.DefaultListModel;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.awt.event.ActionEvent;
 
 public class ConnexionReussieEtu extends JFrame {
@@ -63,6 +66,16 @@ public class ConnexionReussieEtu extends JFrame {
 	 * Create the frame.
 	 */
 	public ConnexionReussieEtu() {
+		//changer la police
+		Font font = new Font("Tahoma", Font.PLAIN,14);
+		Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if(value instanceof javax.swing.plaf.FontUIResource) {
+				UIManager.put(key,font);
+			}
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -119,11 +132,11 @@ public class ConnexionReussieEtu extends JFrame {
 					.addContainerGap(47, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addComponent(btnNewButton_1)
 									.addGap(61))
-								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+								.addGroup(gl_contentPane.createSequentialGroup()
 									.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 									.addGap(29)))
 							.addComponent(lblNom, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
@@ -131,10 +144,8 @@ public class ConnexionReussieEtu extends JFrame {
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblNewLabel_1)
 								.addComponent(txtDate, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(32)
-									.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)))
-							.addGap(50)
+								.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+							.addGap(82)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnDeconn, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
@@ -161,8 +172,8 @@ public class ConnexionReussieEtu extends JFrame {
 						.addComponent(txtDate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNewButton)
-						.addComponent(btnDeconn))
+						.addComponent(btnDeconn)
+						.addComponent(btnNewButton))
 					.addGap(26))
 		);
 		contentPane.setLayout(gl_contentPane);
