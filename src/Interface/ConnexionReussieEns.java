@@ -45,6 +45,7 @@ public class ConnexionReussieEns extends JFrame {
 	protected LinkedHashMap<TempsDeSeance,Seance> hm= new LinkedHashMap<TempsDeSeance, Seance>();
 	private Seance seanceAAnuuler = null;
 	private TempsDeSeance tempsSeAAnnuler = null;
+	protected String mdp;
 	/**
 	 * Launch the application.
 	 */
@@ -93,12 +94,13 @@ public class ConnexionReussieEns extends JFrame {
         	}
         });
         
-        JButton btnRetour = new JButton("D\u00E9connexion");
-        btnRetour.addActionListener(new ActionListener() {
+        JButton btnDeconn = new JButton("D\u00E9connexion");
+        btnDeconn.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		dispose();
+        		
         		Connexion conn = new Connexion();
         		conn.setVisible(true);
+        		dispose();
         	}
         });
         
@@ -106,6 +108,13 @@ public class ConnexionReussieEns extends JFrame {
         btnConsulter.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		btnConsulterAction(e);
+        	}
+        });
+        
+        JButton btnActualiser = new JButton("Actualiser");
+        btnActualiser.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnActualiserAction(e);
         	}
         });
         GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -128,8 +137,12 @@ public class ConnexionReussieEns extends JFrame {
         			.addGap(28)
         			.addComponent(btnAnnulerSeance, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
         			.addGap(18)
-        			.addComponent(btnRetour, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(btnDeconn, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)
         			.addGap(20))
+        		.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+        			.addGap(216)
+        			.addComponent(btnActualiser, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(216, Short.MAX_VALUE))
         );
         gl_contentPane.setVerticalGroup(
         	gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -142,27 +155,66 @@ public class ConnexionReussieEns extends JFrame {
         			.addComponent(list, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
         			.addGap(30)
         			.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(btnRetour)
+        				.addComponent(btnDeconn)
         				.addComponent(btnConsulter)
         				.addComponent(btnAnnulerSeance))
-        			.addContainerGap(82, Short.MAX_VALUE))
+        			.addGap(30)
+        			.addComponent(btnActualiser)
+        			.addContainerGap(29, Short.MAX_VALUE))
         );
         contentPane.setLayout(gl_contentPane);
 	}
 	
 	protected void btnAnnulerAction(ActionEvent evt) {
+		recupererDonnees();
 		EnseignantDao end = new EnseignantDao();
-		end.annulerReservations(this.seanceAAnuuler, this.tempsSeAAnnuler);
+		
+		if(end.annulerSeance(this.seanceAAnuuler, this.tempsSeAAnnuler)) {
+			JOptionPane.showMessageDialog(null, "Annulation r\u00E9ussie");
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Annulation \u00E9chec");
+		}
 		
 	}
-
-	protected void btnConsulterAction(ActionEvent evt) {
-		EnseignantDao end = new EnseignantDao();
+	protected void recupererDonnees() {
 		int i = 0,j = 0;
 		//obtenir l'indice de la ligne dans JList que l'utilisateur a choisi
 		int itemSelect = this.list.getSelectedIndex();
 		String item = String.valueOf(this.list.getSelectedValue());
 		if(item != null) {
+			
+			for(TempsDeSeance t : hm.keySet()) {
+				if( i == itemSelect) {
+					this.tempsSeAAnnuler = t;
+					break;
+				}else {
+					i++;	
+				}	
+			}
+			for(Seance s : hm.values()) {
+				if( j == itemSelect) {
+					this.seanceAAnuuler = s;
+					break;
+				}else {
+					j++;
+				}
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+			
+		}
+	
+	}
+	protected void btnConsulterAction(ActionEvent evt) {
+		EnseignantDao end = new EnseignantDao();
+		int i = 0,j = 0;
+		//obtenir l'indice de la ligne dans JList que l'utilisateur a choisi
+		int itemSelect = this.list.getSelectedIndex();
+		System.out.println("6666"+ itemSelect);
+		String item = String.valueOf(this.list.getSelectedValue());
+		if(item != null && itemSelect != -1) {
 			ConsultationSeanceReserEns pageConsulterEns = new ConsultationSeanceReserEns();
 			pageConsulterEns.setVisible(true);
 			pageConsulterEns.lblDetailSeance.setText(item);
@@ -198,5 +250,11 @@ public class ConnexionReussieEns extends JFrame {
 		else {
 			JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
 		}
+	}
+	public void btnActualiserAction(ActionEvent evt) {
+		dispose();
+		Connexion conn = new Connexion();
+		conn.creerPageConnexionReussieEns(this.idEns,this.mdp);
+		
 	}
 }

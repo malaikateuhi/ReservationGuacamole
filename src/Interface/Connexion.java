@@ -51,6 +51,7 @@ public class Connexion extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private QueryLogin queryLogin = new QueryLogin();
 	protected int typeUtilisateur = 0; //1-->etu, 2-->enseignant, 3-->admin 
+
 	//private BackgroundPanel bgp;
 	/**
 	 * Launch the application.
@@ -219,7 +220,7 @@ public class Connexion extends JFrame {
 	
 	public void login(ActionEvent evt) {
 		String id = this.txtId.getText();
-		String mdp=new String(String.valueOf(this.passwordField.getPassword()));
+		String mdp = new String(String.valueOf(this.passwordField.getPassword()));
 		EtudiantDao ed = new EtudiantDao();
 		EnseignantDao end = new EnseignantDao();
 		AdminDao ad = new AdminDao();
@@ -252,39 +253,7 @@ public class Connexion extends JFrame {
 			else if(end.login(id, mdp) != null && this.typeUtilisateur == 2){
 				//page de l'enseignant
 				dispose();
-				ConnexionReussieEns cren = new ConnexionReussieEns();
-				cren.setVisible(true);
-				cren.idEns = id;
-				cren.lblNomEns.setText(end.login(id, mdp).getNom()+" "+end.login(id, mdp).getPrenom());					
-				
-			
-				ArrayList<String> lstLigne = new ArrayList();
-		        HashMap<TempsDeSeance,Seance> hm = new HashMap();
-				for(TempsDeSeance temps : end.donnerCours(new Enseignant(id))) {
-						
-					String lignea= ""; 
-					lignea = lignea + temps.getJour()+","+temps.getHeureDeb()+"-"+temps.getHeureFin();
-					System.out.println("oooo"+temps.getJour());
-					for(Seance s : temps.getHmSeanceSalle().keySet()) {
-						
-						//lstSeance.add(s);
-						String ligneb =","+s.getNomCours()+","+s.getNumSeance()+","+temps.getHmSeanceSalle().get(s).getNomSalle();
-						lstLigne.add(lignea+ligneb);
-						cren.hm.put(temps,s);
-					}
-					
-			   }
-			
-				
-				DefaultListModel listModel = new DefaultListModel();
-				int i = 0;
-				for(String str : lstLigne) {
-					
-					listModel.add(i, str);
-					i++;
-					
-				}
-				cren.list.setModel(listModel);
+				creerPageConnexionReussieEns(id,mdp);
 			}
 		        
 //					pageConsultation.lstReser.add(reser);
@@ -308,6 +277,42 @@ public class Connexion extends JFrame {
 				passwordField.setText("");
 			}
 		}
+	}
+
+	protected void creerPageConnexionReussieEns(String id1,String mdp1) {
+		EnseignantDao end = new EnseignantDao();
+		ConnexionReussieEns cren = new ConnexionReussieEns();
+		cren.setVisible(true);
+		cren.idEns = id1;
+		cren.mdp = mdp1;
+		cren.lblNomEns.setText(end.login(id1, mdp1).getNom()+" "+end.login(id1, mdp1).getPrenom());					
+		
+	
+		ArrayList<String> lstLigne = new ArrayList();
+        HashMap<TempsDeSeance,Seance> hm = new HashMap();
+		for(TempsDeSeance temps : end.donnerCours(new Enseignant(id1))) {
+				
+			String lignea= ""; 
+			lignea = lignea + temps.getJour()+","+temps.getHeureDeb()+"-"+temps.getHeureFin();
+			System.out.println("oooo"+temps.getJour());
+			for(Seance s : temps.getHmSeanceSalle().keySet()) {
+				System.out.println("seance"+s);
+				//lstSeance.add(s);
+				String ligneb =","+s.getNomCours()+","+s.getNumSeance()+","+temps.getHmSeanceSalle().get(s).getNomSalle();
+				lstLigne.add(lignea+ligneb);
+				cren.hm.put(temps,s);
+			}
+			
+	   }
+		DefaultListModel listModel = new DefaultListModel();
+		int i = 0;
+		for(String str : lstLigne) {
+			
+			listModel.add(i, str);
+			i++;	
+		}
+		cren.list.setModel(listModel);
+		
 	}
 	
 

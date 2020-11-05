@@ -218,7 +218,7 @@ public class ConnexionReussieEtu extends JFrame {
 		else if(this.comboBoxCreneau.getSelectedItem() == "15:30-17:00") {
 			this.creneau = 3;
 		}
-		RechercherMachineDispo pageRecherche = new RechercherMachineDispo();
+		RechercheMachineDispo pageRecherche = new RechercheMachineDispo();
 		pageRecherche.setVisible(true);
 		pageRecherche.lblNom2.setText(this.lblNom.getText());
 		pageRecherche.id2 = this.id;
@@ -232,13 +232,14 @@ public class ConnexionReussieEtu extends JFrame {
 		EtudiantDao ed1 = new EtudiantDao();
 		
 		Salle salle = ed1.recommande(etu,jour,this.creneau);
-		 		
+		System.out.println("salle"+salle); 		
 		Machine machineSansCours = ed1.choisi(etu,jour,this.creneau);
-		
+		System.out.println("macSans Cours"+machineSansCours);
 		//si une �tudiant a cours ce jour et ce cr�neau l�
 		if (salle != null && ed1.machinelibre(salle,jour,this.creneau) != null) {
 			pageRecherche.lblNumSalle.setText(salle.getNomSalle());
 			pageRecherche.lblNumMa.setText(ed1.machinelibre(salle,jour,this.creneau).getNumMachine());
+			System.out.println(ed1.avoirseance(etu, jour, this.creneau).getNumSeance()+"ffffff");
 			pageRecherche.lblNumSeance.setText(ed1.avoirseance(etu, jour, this.creneau).getNumSeance());
 			pageRecherche.lblNomCours.setText(ed1.avoirseance(etu,jour,this.creneau).getNomCours());
 			
@@ -246,10 +247,10 @@ public class ConnexionReussieEtu extends JFrame {
 		}
 		else if (machineSansCours != null){
 			pageRecherche.lblAvoirCours.setVisible(false);
-			pageRecherche.lblSeance.setVisible(false);
-			pageRecherche.lblNumSeance.setVisible(false);
 			pageRecherche.lblCours.setVisible(false);
+			pageRecherche.lblSeance.setVisible(false);
 			pageRecherche.lblNomCours.setVisible(false);
+			pageRecherche.lblNumSeance.setVisible(false);
 			
 			pageRecherche.lblNumSalle.setText(machineSansCours.getSalle().getNomSalle());
 			pageRecherche.lblNumMa.setText(machineSansCours.getNumMachine());

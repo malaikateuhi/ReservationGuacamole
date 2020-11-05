@@ -52,7 +52,7 @@ public class EnseignantDao {
 	}
 	
 	public ArrayList<TempsDeSeance > donnerCours(Enseignant enseigant){
-		  HashMap<Seance,Salle> hmSeanceSalle = new HashMap<Seance, Salle>();
+		  
 		  ArrayList<TempsDeSeance> lstseance = new ArrayList<TempsDeSeance>();
 		  String sql ="SELECT *from donner,passer,seance where passer.numseance=donner.numseance and seance.numseance = passer.numseance and iden=?";
 		  Query(); 
@@ -60,21 +60,26 @@ public class EnseignantDao {
 		  afferentSQL(sql);
 		  List<Object> objs = Select();     
 		  for (int i = 0; i < objs.size(); i++) {
-		   Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
-		   TempsDeSeance tps = new TempsDeSeance();
-		   Salle sa = new Salle((String)rowData.get("numsalle"));
-		   Seance se =new Seance((String)rowData.get("numseance"),(String)rowData.get("nomcours"));
+			  HashMap<Seance,Salle> hmSeanceSalle = new HashMap<Seance, Salle>();
+			  Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+			  TempsDeSeance tps = new TempsDeSeance();
+			   Salle sa = new Salle((String)rowData.get("numsalle"));
+			   Seance se =new Seance((String)rowData.get("numseance"),(String)rowData.get("nomcours"));
+			
+			   hmSeanceSalle.put(se, sa);
+			   tps.setHmSeanceSalle(hmSeanceSalle); 
+			   tps.setJour((String)rowData.get("jour"));
+			   tps.setCreneau((int)rowData.get("creneau"));
+			   tps.setHeureDeb((String)rowData.get("heuredeb"));
+			   tps.setHeureFin((String)rowData.get("heurefin"));
+			   lstseance.add(tps);
 
-		   hmSeanceSalle.put(se, sa);
-		   tps.setHmSeanceSalle(hmSeanceSalle); 
-		   tps.setJour((String)rowData.get("jour"));
-		   tps.setCreneau((int)rowData.get("creneau"));
-		   tps.setHeureDeb((String)rowData.get("heuredeb"));
-		   tps.setHeureFin((String)rowData.get("heurefin"));
-		   lstseance.add(tps);
-
+			  }
+		  for(int i =0;i<lstseance.size();i++) {
+			  System.out.println("--------------");
+			  System.out.println(lstseance.get(i).getHmSeanceSalle().size());
 		  }
-		  System.out.println(lstseance);
+		  
 		  return lstseance;
 		 }
 	public boolean annulerSeance(Seance seance, TempsDeSeance tpSeance) {

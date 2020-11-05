@@ -106,7 +106,7 @@ public class EtudiantDao {
 //	}
 	public Salle recommande(Etudiant etudiant, String jour,int time) {
 		  String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup "
-		    + "and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? and etats<>'Annulle'";
+		    + "and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? and etats <> 'Annulee'";
 		  Query(); 
 		  parameter.add(etudiant.getIdentifiant());
 		  parameter.add(jour);
@@ -114,13 +114,13 @@ public class EtudiantDao {
 		  afferentSQL(avoircours);
 		  List<Object> objs = Select();
 		  if (objs.size()!=0) {
-		   Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
-		   Salle salle = new Salle();
-		   salle.setNomSalle((String)rowData.get("numsalle"));   
-		   System.out.println(salle.getNomSalle());
-		   Seance seance =new Seance();
+			   Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
+			   Salle salle = new Salle();
+			   salle.setNomSalle((String)rowData.get("numsalle"));   
+			   System.out.println(salle.getNomSalle());
+			   Seance seance =new Seance();
 
-		   return salle;
+			   return salle;
 		  }
 		  else 
 		  {return null;}
@@ -175,7 +175,7 @@ public class EtudiantDao {
 			Machine machine = new Machine();
 			machine.setNumMachine((String)rowData.get("numma")); 
 			//machine.setEtat((String)rowData.get("etatm"));
-			System.out.println(machine.getNumMachine());
+			System.out.println("1111"+machine.getNumMachine());
 			return machine;
 		}
 		return null;
