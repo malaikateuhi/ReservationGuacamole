@@ -35,13 +35,14 @@ import java.awt.event.ActionEvent;
 public class ConnexionReussieEtu extends JFrame {
 
 	private JPanel contentPane;
-	public static JLabel lblId;
+	protected static JLabel lblNom;
 	private JTextField txtDate;
 	private JComboBox comboBoxCreneau;
 	private int creneau = 4;
 	private String jour;
+	protected String id; 
 	
-	private BackgroundPanel bgp;
+	//private BackgroundPanel bgp;
 	/**
 	 * Launch the application.
 	 */
@@ -68,7 +69,7 @@ public class ConnexionReussieEtu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		lblId = new JLabel("...");
+		lblNom = new JLabel("...");
 		
 		JLabel lblNewLabel = new JLabel("Bonjour,");
 		
@@ -113,7 +114,7 @@ public class ConnexionReussieEtu extends JFrame {
 							.addGap(251)
 							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblId, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblNom, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
 						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnNewButton_1)
@@ -136,7 +137,7 @@ public class ConnexionReussieEtu extends JFrame {
 					.addGap(19)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel)
-						.addComponent(lblId))
+						.addComponent(lblNom))
 					.addGap(30)
 					.addComponent(btnNewButton_1)
 					.addGap(26)
@@ -154,21 +155,21 @@ public class ConnexionReussieEtu extends JFrame {
 		contentPane.setLayout(gl_contentPane);
 		
 		//font
-		contentPane.setOpaque(false);
-		bgp=new BackgroundPanel(new ImageIcon(".//img.jpg")); 
-	    bgp.setBounds(0, 0, this.getSize().width, this.getSize().height);  
-        contentPane.add(bgp);
+//		contentPane.setOpaque(false);
+//		bgp=new BackgroundPanel(new ImageIcon(".//img.jpg")); 
+//	    bgp.setBounds(0, 0, this.getSize().width, this.getSize().height);  
+//        contentPane.add(bgp);
 	}
 
 	public void btnConsulterAction(ActionEvent e) {
 		
 		ConsultationReservation pageConsultation = new ConsultationReservation();
 		pageConsultation.setVisible(true);
-		pageConsultation.lblId3.setText(this.lblId.getText());
+		pageConsultation.lblNom3.setText(this.lblNom.getText());
 		EtudiantDao ed = new EtudiantDao();
 		DefaultListModel listModel = new DefaultListModel();
 		int i = 0;
-		for(Reservation reser : ed.inforeserver(new Etudiant(this.lblId.getText()))) {
+		for(Reservation reser : ed.inforeserver(new Etudiant(this.id))) {
 			
 			String detail = reser.getJour()+", "+reser.getHeureDeb()+"-"+reser.getHeureFin()+", "+reser.getMachine().getSalle().getNomSalle()+",Machine "+reser.getMachine().getNumMachine()+", "+ reser.getEtat();
 			listModel.add(i, detail);
@@ -194,13 +195,14 @@ public class ConnexionReussieEtu extends JFrame {
 		}
 		RechercherMachineDispo pageRecherche = new RechercherMachineDispo();
 		pageRecherche.setVisible(true);
-		pageRecherche.lblId2.setText(this.lblId.getText());
+		pageRecherche.lblNom2.setText(this.lblNom.getText());
+		pageRecherche.id2 = this.id;
 		pageRecherche.lblJour.setText(jour);
 		String str = String.valueOf(this.comboBoxCreneau.getSelectedItem());
 		pageRecherche.lblHeure.setText(str);
 		pageRecherche.setCreneauSuite(this.creneau);
 		
-		Etudiant etu = new Etudiant(lblId.getText());
+		Etudiant etu = new Etudiant(this.id);
 		
 		EtudiantDao ed1 = new EtudiantDao();
 		

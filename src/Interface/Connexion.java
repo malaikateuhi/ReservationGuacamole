@@ -39,7 +39,7 @@ public class Connexion extends JFrame {
 	
 	private BDutile bdutile = new BDutile();
 	private QueryLogin queryLogin = new QueryLogin();
-	public int typeUtilisateur = 0; //1-->etu, 2-->enseignant, 3-->admin 
+	protected int typeUtilisateur = 0; //1-->etu, 2-->enseignant, 3-->admin 
 	//private BackgroundPanel bgp;
 	/**
 	 * Launch the application.
@@ -223,14 +223,17 @@ public class Connexion extends JFrame {
 				dispose();
 				ConnexionReussieEtu cre = new ConnexionReussieEtu();
 				cre.setVisible(true);
-				cre.lblId.setText(ed.login(id, mdp).getNom()+" "+ed.login(id, mdp).getPrenom());
+				//cre.lblId.setText(this.txtId.getText());
+				cre.lblNom.setText(ed.login(id, mdp).getNom()+" "+ed.login(id, mdp).getPrenom());
+				cre.id = this.txtId.getText();
 			}
 			else if(end.login(id, mdp) != null && this.typeUtilisateur == 2){
 				//page de l'enseignant
 				dispose();
 				ConnexionReussieEn cren = new ConnexionReussieEn();
 				cren.setVisible(true);
-				cren.lblIdEn.setText(end.login(id, mdp).getNom()+" "+end.login(id, mdp).getPrenom());
+				cren.idEn = this.txtId.getText();
+				cren.lbNomEn.setText(end.login(id, mdp).getNom()+" "+end.login(id, mdp).getPrenom());
 			}
 			else if(ad.login(id, mdp) != null && this.typeUtilisateur == 3) {
 				//page de l'admin

@@ -15,7 +15,8 @@ import javax.swing.JComboBox;
 public class ConnexionReussieEn extends JFrame {
 
 	private JPanel contentPane;
-	public JLabel lblIdEn;
+	protected JLabel lbNomEn;
+	protected String idEn;
 
 	/**
 	 * Launch the application.
@@ -61,7 +62,7 @@ public class ConnexionReussieEn extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Bonjour,");
 		
-		lblIdEn = new JLabel("...");
+		lbNomEn = new JLabel("...");
 		
 		JLabel lblNewLabel_1 = new JLabel("Mes s\u00E9ances");
 		
@@ -73,7 +74,7 @@ public class ConnexionReussieEn extends JFrame {
 					.addContainerGap(312, Short.MAX_VALUE)
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblIdEn, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+					.addComponent(lbNomEn, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 					.addGap(23))
 				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
 					.addGap(39)
@@ -88,7 +89,7 @@ public class ConnexionReussieEn extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel)
-						.addComponent(lblIdEn))
+						.addComponent(lbNomEn))
 					.addGap(18)
 					.addComponent(lblNewLabel_1)
 					.addGap(18)

@@ -24,7 +24,8 @@ import java.awt.event.ActionEvent;
 public class RechercherMachineDispo extends JFrame {
 
 	private JPanel contentPane;
-	public JLabel lblId2;
+	protected JLabel lblNom2;
+	protected String id2;
 	private BackgroundPanel bgp;
 	
 	public JLabel lblHeure;
@@ -69,7 +70,7 @@ public class RechercherMachineDispo extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Bonjour,");
 		
-		lblId2 = new JLabel("...");
+		lblNom2 = new JLabel("...");
 		
 		JLabel lblNewLabel_2 = new JLabel("Nous vous proposons une salle et une machine:");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -79,7 +80,7 @@ public class RechercherMachineDispo extends JFrame {
 					.addContainerGap(262, Short.MAX_VALUE)
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblId2, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+					.addComponent(lblNom2, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 					.addGap(44))
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(65)
@@ -92,7 +93,7 @@ public class RechercherMachineDispo extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel)
-						.addComponent(lblId2))
+						.addComponent(lblNom2))
 					.addGap(22)
 					.addComponent(lblNewLabel_2)
 					.addContainerGap(306, Short.MAX_VALUE))
@@ -250,7 +251,7 @@ public class RechercherMachineDispo extends JFrame {
 				heureFin = "17:00";
 			}
 			//creer une nouvelle reservation
-			Reservation reser = new Reservation(new Machine(this.lblNumMa.getText()),this.lblId2.getText(),this.lblJour.getText(),heureDeb,heureFin,"Réservée",this.creneauSuite);
+			Reservation reser = new Reservation(new Machine(this.lblNumMa.getText()),this.id2,this.lblJour.getText(),heureDeb,heureFin,"Réservée",this.creneauSuite);
 			//reserve ok?
 			if(ed1.prendreReservation(reser)) {
 				dispose();

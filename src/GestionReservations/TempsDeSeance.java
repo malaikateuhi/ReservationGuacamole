@@ -8,6 +8,7 @@ public class TempsDeSeance {
 	private Date jour;
 	private Date heureDeb;
 	private Date heureFin;
+	private HashMap<Salle,Seance> hmSalleSeance = new HashMap();
 	
 	public TempsDeSeance() {
 		

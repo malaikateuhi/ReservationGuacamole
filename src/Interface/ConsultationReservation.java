@@ -30,9 +30,10 @@ public class ConsultationReservation extends JFrame {
 	private JPanel contentPane;
 	private JPanel panel;
 	//private BackgroundPanel bgp;
-	public JList listReser;
-	public JLabel lblId3;
-	public ArrayList<Reservation> lstReser = new ArrayList();
+	protected JList listReser;
+	protected JLabel lblNom3;
+	protected String id3;
+	protected ArrayList<Reservation> lstReser = new ArrayList();
 	/**
 	 * Launch the application.
 	 */
@@ -79,7 +80,7 @@ public class ConsultationReservation extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Bonjour,");
 		
-		lblId3 = new JLabel("...");
+		lblNom3 = new JLabel("...");
 		
 		JButton btnAnnulerReser = new JButton("Annuler la r\u00E9servation");
 		btnAnnulerReser.addActionListener(new ActionListener() {
@@ -107,7 +108,7 @@ public class ConsultationReservation extends JFrame {
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblId3, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblNom3, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 							.addComponent(listReser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
@@ -127,7 +128,7 @@ public class ConsultationReservation extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel)
-						.addComponent(lblId3))
+						.addComponent(lblNom3))
 					.addGap(30)
 					.addComponent(lblNewLabel_2)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -154,7 +155,7 @@ public class ConsultationReservation extends JFrame {
 		System.out.println(this.lstReser);
 		
 		//ed.annulerReservation(ed.inforeserver(new Etudiant(this.lblId3.getText())).get(this.listReser.getSelectedIndex()));
-		if(ed.annulerReservation(ed.inforeserver(new Etudiant(this.lblId3.getText())).get(this.listReser.getSelectedIndex()))) {
+		if(ed.annulerReservation(ed.inforeserver(new Etudiant(this.lblNom3.getText())).get(this.listReser.getSelectedIndex()))) {
 			JOptionPane.showMessageDialog(null, "Annulation réussie");
 		}else {
 			JOptionPane.showMessageDialog(null, "Annulation échec");
