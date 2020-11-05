@@ -22,6 +22,9 @@ import GestionUtilisateurs.Etudiant;
 public class EtudiantDao {
 	public EtudiantDao() {}
 
+	/**
+	 * Authentification d'une etudiant
+	 */
 	public Etudiant login(String id,String password) {
 
 		String sqlclient = "select * from etudiant where ide=? and passworde=? ";
@@ -75,8 +78,11 @@ public class EtudiantDao {
 	}*/
 
 
-	// Si l'��l��ve a une classe, recommander une machine 
-	//  S'il y a une seance dans la p��riode sp��cifi��e, v��rifiez la salle o�� le cours a eu lieu
+	/**
+	 *  Si l'��l��ve a une classe, recommander une machine 
+	 *  S'il y a une seance dans la p��riode sp��cifi��e, v��rifiez la salle o�� le cours a eu lieu
+	 * @return
+	 */
 	public Salle recommande(Etudiant etudiant, String jour,int time) {
 		String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup "
 				+ "and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? ";
@@ -99,7 +105,11 @@ public class EtudiantDao {
 		{return null;}
 	}
 
-	//S'il y a une seance, v��rifiez les informations de cette seance
+	/**
+	 * Verifier si un etudiant a une seance prevue aux jour et creneau donnes 
+	 * @param time nombre de creneaux de la seance
+	 * @return
+	 */
 	public Seance avoirseance(Etudiant etudiant, String jour,int time) {
 		String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? ";
 		Query(); 
@@ -122,7 +132,13 @@ public class EtudiantDao {
 
 
 
-	//  Recommander une machine disponible dans la salle o�� les etudiant a une seance				
+	/**
+	 * Recommander une machine disponible dans la salle ou a lieu une seance				
+	 * @param salle salle de la seance
+	 * @param jour date de la seance
+	 * @param time nombre de creneaux de la seance
+	 * @return
+	 */
 	public Machine machinelibre (Salle salle,String jour,int time)
 	{
 		String sqlmachine = "select * from machine where numsalle=? "
@@ -145,11 +161,15 @@ public class EtudiantDao {
 		return null;
 	}
 
-
-	/*Si l'��tudiant n'a pas de seance pendant le creneau o�� il veut ,
-	alors recommander une machine qui n'est pas occup��e pendant cette p��riode, 
-	et cette machine n'est pas dans la classe qui a des cours pendant cette p��riode*/
+	/**
+	 * Recommander une machine pour une reservation en acces libre (hors seance de TP)	
+	 * @param jour date de la seance
+	 * @param time nombre de creneaux de la seance
+	 */
 	public Machine choisi(Etudiant etudiant,String jour,int time) {
+		// Si l'etudiant n'a pas de seance pendant le creneau ou il veut ,
+		// alors recommander une machine qui n'est pas occupee pendant cette periode, 
+		// et cette machine n'est pas dans la classe qui a des cours pendant cette periode
 		String pascours ="select * from machine "
 				+ "where machine.numma not in(select numma from reserver where ide=? and jour=?and creneau=?) "
 				+ "and numsalle not in (select numsalle from passer where jour=?and creneau=?)";
@@ -166,13 +186,16 @@ public class EtudiantDao {
 			Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
 			Machine machine = new Machine();
 			machine.setNumMachine((String)rowData.get("numma")); 
-			machine.setEtat((String)rowData.get("etatm"));
 			machine.setSalle(new Salle((String)rowData.get("numsalle")));
 			return machine;
 		}
 		else {return null;}
 	}
 
+	/**
+	 * Enregistrer une reservation en BD
+	 * @return true si l'enregistrement a bien ete effectue, false sinon
+	 */
 	public boolean prendreReservation(Reservation reservation) {
 		String sql="insert into reserver values(?,?,?,?,?,?,?)";
 		Query();
@@ -192,7 +215,11 @@ public class EtudiantDao {
 		}
 	}
 
-	public  ArrayList<Reservation> inforeserver(Etudiant etudiant) {
+	/**
+	 * Liste des reservations de machines d'un etudiant
+	 * @return ArrayList d'objets de type Reservation
+	 */
+	public  ArrayList<Reservation> infoReserver(Etudiant etudiant) {
 		ArrayList<Reservation> lstreservation = new  ArrayList();
 
 		String sql="select * from reserver,machine where machine.numma = reserver.numma and ide=? order by jour,creneau";
@@ -220,6 +247,10 @@ public class EtudiantDao {
 		return lstreservation;
 	}
 	
+	/**
+	 * Suppression d'une reservation
+	 * @return true si la reservation est supprimee, false sinon
+	 */
 	public boolean annulerReservation(Reservation reservation) {
 		String sql="DELETE FROM reserver WHERE numma= ? AND ide = ? AND jour = ? AND creneau= ?";
 		Query();
@@ -254,9 +285,9 @@ public class EtudiantDao {
 		//t1.recommande(e1, "2020-11-10", 0);
 		t1.avoirseance(e1, "2020-11-10", 0);
 		//t1.choisi(e1, "2020-11-10", 0);
-		Reservation r1= new Reservation("ma1","1","2020-11-10","9:30","10:30","reserve",0);
+		//Reservation r1= new Reservation("ma1","1","2020-11-10","9:30","10:30","reserve",0);
 
-		t1.annulerReservation(r1);
+		//t1.annulerReservation(r1);
 		//t1.prendreserver(r1);
 		//t1.inforeserver(e1);
 	}
