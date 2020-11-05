@@ -113,23 +113,28 @@ public class AdminDao {
 	
 	/* recuperer les machines qui sont passées en réclamation*/
 
-	ArrayList<Machine> machinesSignalees;
-	public ArrayList<Machine> machinesSignalees(Reservation reservation){
+	ArrayList<Reservation> machinesSignalees;
+	public ArrayList<Reservation> machinesSignalees(){
 		String sql ="select * from reserver,machine "
 				+ "where reserver.numma = machine.numma "
 				+ "and reserver.etatr = 'EN RECLAMATION' ";
 		
 		Query(); 		
 		afferentSQL(sql);
-		this.machinesSignalees=new  ArrayList<Machine>();
+		this.machinesSignalees = new ArrayList<Reservation>();
 		List<Object> objs = Select();
 		for (int i = 0; i < objs.size(); i++) {
 			Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
 			Machine pc= new Machine();
+			Reservation rr= new Reservation();//ici
 
 			pc.setSalle(new Salle((String)rowData.get("numSalle")));
 			pc.setNumMachine((String)rowData.get("numma"));
-			machinesSignalees.add(pc);
+			rr.setMachine(pc);//ici
+			rr.setJour((String)rowData.get("jour"));//ici
+			rr.setHeureDeb((String)rowData.get("heuredeb"));//ici
+			rr.setHeureFin((String)rowData.get("heurefin"));//ici
+			machinesSignalees.add(rr);
 		}
 		System.out.println(machinesSignalees);
 		return machinesSignalees;
