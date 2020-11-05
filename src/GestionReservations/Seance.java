@@ -1,9 +1,13 @@
 package GestionReservations;
 
+import GestionUtilisateurs.Enseignant;
+import GestionUtilisateurs.Groupe;
+
 public class Seance {
 	private String numSeance;
 	private String nomCours;
 	private String etat;
+
 	public String getNumSeance() {
 		return numSeance;
 	}
@@ -22,5 +26,8 @@ public class Seance {
 	public void setEtat(String etat) {
 		this.etat = etat;
 	}
+
 	
+//	private Groupe groupeEtu;
+//	private Enseignant ensignant;
 }
