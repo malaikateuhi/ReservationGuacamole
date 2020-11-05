@@ -178,7 +178,6 @@ public class EnseignantDao {
 		afferentSQL(sql);
 		List<Object> objs = Select();
 
-		
 		for (int i = 0; i < objs.size(); i++) {								// Recuperation de chaque reservation dans un objet Reservation
 			Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
 			Salle s = new Salle((String)rowData.get("p.numsalle"));
