@@ -24,7 +24,7 @@ public class AdminDao {
 	 * Authentification d'un admin
 	 */
 	public Admin login(String id,String password) {
-		String sqladmin = "select * from admin where ida=? and passworda=? ";//faut coorriger le password dans bd admin
+		String sqladmin = "select * from admin where ida=? and passworda=? ";
 		Admin ares = null;
 		Query();
 		parameter.add(id);
@@ -52,6 +52,7 @@ public class AdminDao {
 
 	/**
 	 *  Afficher toutes les machines
+	 *  L'administrateur peut g¨¦rer toutes les machines et tous les ¨¦tudiants et d¨¦cider de les supprimer
 	 */
 	ArrayList<Machine> lstMachine;
 	ArrayList<Etudiant> lstEtudiant;
@@ -98,7 +99,7 @@ public class AdminDao {
 	}
 
 	/**
-	 * Supprimer un compte etudiant
+	 * Supprimer un compte d'etudiant
 	 */
 	public void supprimerEtudiant(Etudiant etu) {
 		String sql="DELETE FROM etudiant WHERE ide=?";
@@ -106,7 +107,7 @@ public class AdminDao {
 		afferentSQL(sql);
 		parameter.add(etu.getIdentifiant());
 		int ligne=Update();
-		if(ligne>=1){ //Nombre de lignes affectï¿½ï¿½es (c'est-ï¿½ï¿½-dire le nombre de mises ï¿½ï¿½ jour
+		if(ligne>=1){ //Nombre de lignes affectees  c'est a dire le nombre de mises a jour
 			System.out.println("succcess");
 		}
 	}
@@ -120,14 +121,14 @@ public class AdminDao {
 		afferentSQL(sql);
 		parameter.add(machine.getNumMachine());
 		int ligne=Update();
-		if(ligne>=1){ //Nombre de lignes affectï¿½ï¿½es (c'est-ï¿½ï¿½-dire le nombre de mises ï¿½ï¿½ jour
+		if(ligne>=1){ 
 			System.out.println("succcess");
 		};  
 
 	}
 
 
-	// tester
+	// tester ce page 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		AdminDao a1 = new AdminDao();	
