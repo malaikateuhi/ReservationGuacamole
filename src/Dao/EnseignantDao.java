@@ -52,29 +52,9 @@ public class EnseignantDao {
 	}
 
 	/**
-	 * 	Afficher les seances donnees par un enseignant
+	 * 	Afficher les seances donnees par un enseignant et le salle se trouve
 	 * @return ArrayList d'objets de type Seance
 	 */		
-	/*public ArrayList<Seance> donnerCours(Enseignant enseigant){
-		ArrayList<Seance> lstseance = new ArrayList<Seance>();
-		String sql ="select * from donner where iden=?";
-		Query(); 
-		parameter.add(enseigant.getIdentifiant());
-		afferentSQL(sql);
-		List<Object> objs = Select();			  
-		for (int i = 0; i < objs.size(); i++) {
-			Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
-			Seance seance = new Seance();
-			seance.setNumSeance((String)rowData.get("numseance")); 
-			seance.setNomCours((String)rowData.get("nomcours"));
-			seance.setEtat((String)rowData.get("etats"));
-			lstseance.add(seance);
-
-		}
-		System.out.println(lstseance);
-		return lstseance;
-	}*/
-	
 	
 	public ArrayList<TempsDeSeance > donnerCours(Enseignant enseigant){
 		HashMap<Seance,Salle> hmSeanceSalle;
@@ -90,7 +70,7 @@ public class EnseignantDao {
 			Salle sa = new Salle((String)rowData.get("numsalle"));
 			Seance se =new Seance((String)rowData.get("numseance"));
 			hmSeanceSalle = new HashMap<Seance,Salle>();
-			hmSeanceSalle.put(se, sa);
+			hmSeanceSalle.put(se, sa);	
 			tps.setHmSeanceSalle(hmSeanceSalle); 
 			tps.setJour((String)rowData.get("jour"));
 			tps.setCreaneau((int)rowData.get("creneau"));
