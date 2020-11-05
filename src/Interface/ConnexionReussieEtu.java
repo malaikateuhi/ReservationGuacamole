@@ -190,6 +190,7 @@ public class ConnexionReussieEtu extends JFrame {
 		ConsultationReservation pageConsultation = new ConsultationReservation();
 		pageConsultation.setVisible(true);
 		pageConsultation.lblNom3.setText(this.lblNom.getText());
+		pageConsultation.id3 = this.id;
 		EtudiantDao ed = new EtudiantDao();
 		DefaultListModel listModel = new DefaultListModel();
 		int i = 0;

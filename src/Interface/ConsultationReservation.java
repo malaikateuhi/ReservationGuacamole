@@ -173,14 +173,14 @@ public class ConsultationReservation extends JFrame {
 	public void btnAnnulerReserAction(ActionEvent evt) {
 		
 		EtudiantDao ed = new EtudiantDao();
-		System.out.println(this.listReser.getSelectedIndex());
-		System.out.println(this.lstReser);
+//		System.out.println(this.listReser.getSelectedIndex());
+//		System.out.println(this.lstReser);
 		
 		//ed.annulerReservation(ed.inforeserver(new Etudiant(this.lblId3.getText())).get(this.listReser.getSelectedIndex()));
-		if(ed.annulerReservation(ed.infoReserver(new Etudiant(this.lblNom3.getText())).get(this.listReser.getSelectedIndex()))) {
-			JOptionPane.showMessageDialog(null, "Annulation r�ussie");
+		if(ed.annulerReservation(ed.infoReserver(new Etudiant(this.id3)).get(this.listReser.getSelectedIndex()))) {
+			JOptionPane.showMessageDialog(null, "Annulation r\u00E9ussie");
 		}else {
-			JOptionPane.showMessageDialog(null, "Annulation �chec");
+			JOptionPane.showMessageDialog(null, "Annulation \u00E9chec");
 		}
 		dispose();
 	}

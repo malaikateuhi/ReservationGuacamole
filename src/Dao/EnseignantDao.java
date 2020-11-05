@@ -77,7 +77,21 @@ public class EnseignantDao {
 		  System.out.println(lstseance);
 		  return lstseance;
 		 }
-
+	public boolean annulerSeance(Seance seance, TempsDeSeance tpSeance) {
+		  String sql = "delete from passer "
+		    + "WHERE numseance = ? "
+		    + "AND jour = ? AND creneau=? "
+		    + "AND numsalle = ?";
+		  
+		  Query(); 
+		  parameter.add(seance.getNumSeance());
+		  parameter.add(tpSeance.getJour());
+		  parameter.add(tpSeance.getCreneau());
+		  parameter.add(tpSeance.getHmSeanceSalle().get(seance).getNomSalle());   
+		  afferentSQL(sql);   
+		  int ligne=Update();
+		  return ligne >= 1;
+		 }
 	/**
 	 * 	Afficher les seances donnees par un enseignant
 	 * @return ArrayList d'objets de type Seance
@@ -140,10 +154,10 @@ public class EnseignantDao {
 	 */
 	ArrayList<Reservation> lstreservation1;
 	public ArrayList<Reservation> machineReserver(Salle salle){
-		String sql ="select * from reserver,machine,salle,passer "
-				+ "where reserver.numma = machine.numma and machine.numsalle =salle.numsalle "
-				+ "and salle.numsalle = passer.numsalle and passer.jour=reserver.jour "
-				+ "and passer.creneau=reserver.creneau and salle.numsalle = ?";
+		String sql ="select * from reserver,machine,passer "
+			    + "where reserver.numma = machine.numma"
+			    + "and machine.numsalle = passer.numsalle and passer.jour=reserver.jour "
+			    + "and passer.creneau=reserver.creneau and salle.numsalle = ?";
 		Query(); 
 		parameter.add(salle.getNomSalle());
 		afferentSQL(sql);
@@ -210,21 +224,21 @@ public class EnseignantDao {
 	 * Mettre une seance a ANNULEE
 	 * @return true si la modification a ete effectuee, false sinon
 	 */
-	public boolean annulerSeance(Seance seance, TempsDeSeance tpSeance) {
-		String sql = "UPDATE passer SET etats = 'ANNULEE' "
-				+ "WHERE numseance = ? "
-				+ "AND jour = ? AND heuredeb = ? "
-				+ "AND numsalle = ?";
-		
-		Query(); 
-		parameter.add(seance.getNumSeance());
-		parameter.add(tpSeance.getJour());
-		parameter.add(tpSeance.getHeureDeb());
-		parameter.add(tpSeance.getHmSeanceSalle().get(seance).getNomSalle());			
-		afferentSQL(sql);			
-		int ligne=Update();
-		return ligne >= 1;
-	}
+//	public boolean annulerSeance(Seance seance, TempsDeSeance tpSeance) {
+//		String sql = "UPDATE passer SET etats = 'ANNULEE' "
+//				+ "WHERE numseance = ? "
+//				+ "AND jour = ? AND heuredeb = ? "
+//				+ "AND numsalle = ?";
+//		
+//		Query(); 
+//		parameter.add(seance.getNumSeance());
+//		parameter.add(tpSeance.getJour());
+//		parameter.add(tpSeance.getHeureDeb());
+//		parameter.add(tpSeance.getHmSeanceSalle().get(seance).getNomSalle());			
+//		afferentSQL(sql);			
+//		int ligne=Update();
+//		return ligne >= 1;
+//	}
 	
 	/**
 	 *  Mettre toutes les reservations pour une seance donnee a ANNULEE
