@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import Dao.*;
 import GestionReservations.Reservation;
+import GestionReservations.Seance;
 import GestionSallesMachines.Machine;
 import GestionSallesMachines.Salle;
 import GestionUtilisateurs.Admin;
@@ -57,6 +58,7 @@ public class Controleur {
 		HashMap<String, String> donnesMachine = new HashMap<String , String>();
 		
 		Etudiant etudiant = new Etudiant(idEtudiant);
+		Seance seance = etudiantDao.avoirseance(etudiant, jour, creneau);
 		Salle salle = etudiantDao.recommande(etudiant, jour, creneau);		
 		Machine machine = etudiantDao.machinelibre(salle, jour, creneau);
 		
@@ -87,8 +89,6 @@ public class Controleur {
 		
 		return donnesMachine;		
 	}
-	
-	// renvoyer infos seance et salle du cours
 	
 	/**
 	 *  Demander une reservation de machine pour un etudiant
@@ -124,7 +124,27 @@ public class Controleur {
 	 * @return true si annulation reussie, false sinon
 	 */
 	public boolean annulerReservationEtudiant(String idEtudiant, String res) {
-		Reservation reservation = new Reservation(machine, idEtudiant, jour, heureDeb, heureFin, "RESERVEE", creneau);
+		// "jour heureDeb heureFin numMachine"
+		String[] donneesRes = res.split(" ");
+		String jour = donneesRes[0];
+		String heureDeb = donneesRes[1];
+		String heureFin = donneesRes[2];
+		int creneau = 0;
+		switch(heureDeb) {
+			case "09:30" :
+				creneau = 0;
+				break;
+			case "11:00" :
+				creneau = 1;
+				break;
+			case "14:00" :
+				creneau = 2;
+				break;
+			case "15:30" :
+				creneau = 3;
+				break;
+		};
+		Reservation reservation = new Reservation(new Machine(donneesRes[3]), idEtudiant, jour, heureDeb, heureFin, "RESERVEE", creneau);
 		return etudiantDao.annulerReservation(reservation);
 	}
 	
@@ -133,7 +153,7 @@ public class Controleur {
 	 * @param numMachine numero de machine 
 	 */
 	public void effectuerReclamation(String numMachine) {
-		etudiantDao.effectuerReclamation(new Machine(numMachine));
+		etudiantDao.effectuerReclamation(new Machine(numMachine)); // pas encore implemente
 	}
 	
 	/****************************************/
