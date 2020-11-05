@@ -8,6 +8,7 @@ import static BD.Query.afferentSQL;
 import static BD.Query.parameter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,30 +50,57 @@ public class EnseignantDao {
 		else {
 			return null;}
 	}
+	
+	public ArrayList<TempsDeSeance > donnerCours(Enseignant enseigant){
+		  HashMap<Seance,Salle> hmSeanceSalle = new HashMap<Seance, Salle>();
+		  ArrayList<TempsDeSeance> lstseance = new ArrayList<TempsDeSeance>();
+		  String sql ="SELECT *from donner,passer where passer.numseance=donner.numseance and iden=?";
+		  Query(); 
+		  parameter.add(enseigant.getIdentifiant());
+		  afferentSQL(sql);
+		  List<Object> objs = Select();     
+		  for (int i = 0; i < objs.size(); i++) {
+		   Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+		   TempsDeSeance tps = new TempsDeSeance();
+		   Salle sa = new Salle((String)rowData.get("numsalle"));
+		   Seance se =new Seance((String)rowData.get("numseance"));
+
+		   hmSeanceSalle.put(se, sa);
+		   tps.setHmSeanceSalle(hmSeanceSalle); 
+		   tps.setJour((String)rowData.get("jour"));
+		   tps.setCreneau((int)rowData.get("creneau"));
+		   tps.setHeureDeb((String)rowData.get("creneau"));
+		   tps.setHeureFin((String)rowData.get("creneau"));
+		   lstseance.add(tps);
+
+		  }
+		  System.out.println(lstseance);
+		  return lstseance;
+		 }
 
 	/**
 	 * 	Afficher les seances donnees par un enseignant
 	 * @return ArrayList d'objets de type Seance
 	 */		
-	public ArrayList<Seance> donnerCours(Enseignant enseigant){
-		ArrayList<Seance> lstseance = new ArrayList<Seance>();
-		String sql ="select * from donner where iden=?";
-		Query(); 
-		parameter.add(enseigant.getIdentifiant());
-		afferentSQL(sql);
-		List<Object> objs = Select();			  
-		for (int i = 0; i < objs.size(); i++) {
-			Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
-			Seance seance = new Seance();
-			seance.setNumSeance((String)rowData.get("numseance")); 
-			seance.setNomCours((String)rowData.get("nomcours"));
-			seance.setEtat((String)rowData.get("etats"));
-			lstseance.add(seance);
-
-		}
-		System.out.println(lstseance);
-		return lstseance;
-	}
+//	public ArrayList<Seance> donnerCours(Enseignant enseigant){
+//		ArrayList<Seance> lstseance = new ArrayList<Seance>();
+//		String sql ="select * from donner where iden=?";
+//		Query(); 
+//		parameter.add(enseigant.getIdentifiant());
+//		afferentSQL(sql);
+//		List<Object> objs = Select();			  
+//		for (int i = 0; i < objs.size(); i++) {
+//			Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+//			Seance seance = new Seance();
+//			seance.setNumSeance((String)rowData.get("numseance")); 
+//			seance.setNomCours((String)rowData.get("nomcours"));
+//			seance.setEtat((String)rowData.get("etats"));
+//			lstseance.add(seance);
+//
+//		}
+//		System.out.println(lstseance);
+//		return lstseance;
+//	}
 
 	/**
 	 * Liste des etudiants d'une seance (cours)
@@ -250,16 +278,16 @@ public class EnseignantDao {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		EnseignantDao en1 = new EnseignantDao();	
-		Enseignant enenget=en1.login("en1","en1");
-		en1.donnerCours(enenget);
-		Seance s1 =new Seance();
-		s1.setNumSeance("TP1");
-		en1.groupeEtudiants(s1);
-		en1.sallesOccupees(s1);
-		Salle sa1 =new Salle();
-		sa1.setNomSalle("M1");
-		en1.machineReserver(sa1);		
+//		EnseignantDao en1 = new EnseignantDao();	
+//		Enseignant enenget=en1.login("en1","en1");
+//		en1.donnerCours(enenget);
+//		Seance s1 =new Seance();
+//		s1.setNumSeance("TP1");
+//		en1.groupeEtudiants(s1);
+//		en1.sallesOccupees(s1);
+//		Salle sa1 =new Salle();
+//		sa1.setNomSalle("M1");
+//		en1.machineReserver(sa1);		
 
 	    // Test Annulation des réservations d'une seance => OK
 	    /*

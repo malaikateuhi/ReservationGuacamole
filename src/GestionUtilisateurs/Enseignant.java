@@ -23,6 +23,10 @@ public class Enseignant extends Utilisateur {
 	public Enseignant(String identifiant, String mdp, String nom, String prenom) {
 		super(identifiant, mdp, nom, prenom);
 	}
+	public Enseignant(String id) {
+		super(id);
+	}
+
 	public void setIdentifiant(String identifiant) {
 		super.setIdentifiant(identifiant);
 	}

@@ -1,16 +1,22 @@
 package Interface;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import BD.QueryLogin;
 import BD.StringUtil;
 import Dao.AdminDao;
 import Dao.EnseignantDao;
 import Dao.EtudiantDao;
+import GestionReservations.Reservation;
+import GestionReservations.Seance;
+import GestionReservations.TempsDeSeance;
+import GestionSallesMachines.Salle;
 import GestionUtilisateurs.*;
 
 import javax.swing.GroupLayout;
@@ -22,11 +28,15 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class Connexion extends JFrame {
@@ -196,6 +206,9 @@ public class Connexion extends JFrame {
 	public void login(ActionEvent evt) {
 		String id = this.txtId.getText();
 		String mdp=new String(String.valueOf(this.passwordField.getPassword()));
+		EtudiantDao ed = new EtudiantDao();
+		EnseignantDao end = new EnseignantDao();
+		AdminDao ad = new AdminDao();
 //		Utilisateur user = null;
 		if(typeUtilisateur == 0) {
 			JOptionPane.showMessageDialog(null, "Veuillez choisir votre rôle!");
@@ -211,9 +224,7 @@ public class Connexion extends JFrame {
 		if(StringUtil.isEmpty(txtId.getText()) || StringUtil.isEmpty(String.valueOf(passwordField.getPassword()))) {
 			JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe ne peut pas \u00EAtre vide!");
 		}else {
-			EtudiantDao ed = new EtudiantDao();
-			EnseignantDao end = new EnseignantDao();
-			AdminDao ad = new AdminDao();
+			
 			
 			if(ed.login(id, mdp) != null && this.typeUtilisateur == 1) {
 				//System.out.println(usercurrent.getNumeroIdent());
@@ -227,10 +238,33 @@ public class Connexion extends JFrame {
 			else if(end.login(id, mdp) != null && this.typeUtilisateur == 2){
 				//page de l'enseignant
 				dispose();
-				ConnexionReussieEn cren = new ConnexionReussieEn();
+				ConnexionReussieEns cren = new ConnexionReussieEns();
 				cren.setVisible(true);
-				cren.idEn = this.txtId.getText();
-				cren.lbNomEn.setText(end.login(id, mdp).getNom()+" "+end.login(id, mdp).getPrenom());
+				cren.idEns = this.txtId.getText();
+				cren.lblNomEns.setText(end.login(id, mdp).getNom()+" "+end.login(id, mdp).getPrenom());
+							
+				
+				String [] header={"Date","Heure","N°séance","Cours"};
+		        String [][] data={{"akash","20","s","ff"},{"pankaj","24"},{"pankaj","24"},{"pankaj","24"},{"pankaj","24"}};
+				
+
+		        DefaultTableModel model = new DefaultTableModel(data,header);
+
+		        ArrayList<Seance> lstSeance = new ArrayList<Seance>();
+		        ArrayList<Salle> lstSalle = new ArrayList<Salle>();
+		        
+				for(TempsDeSeance temps : end.donnerCours(new Enseignant(this.txtId.getText()))) {
+					
+					for(Seance s : temps.getHmSeanceSalle().keySet()) {
+						lstSeance.add(s);
+					}
+					for(Salle salle : temps.getHmSeanceSalle().values()) {
+						lstSalle.add(salle);
+					}
+//					pageConsultation.lstReser.add(reser);
+				}
+				cren.tableSeance= new JTable(model);
+	
 			}
 			else if(ad.login(id, mdp) != null && this.typeUtilisateur == 3) {
 				//page de l'admin
