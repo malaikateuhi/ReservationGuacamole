@@ -78,7 +78,7 @@ public class EnseignantDao {
 	 * Liste des etudiants d'une seance (cours)
 	 */
 	ArrayList<Etudiant> lstetudiant;
-	public ArrayList<Etudiant> groupetudiant (Seance seance)
+	public ArrayList<Etudiant> groupeEtudiants (Seance seance)
 	{
 		String sql = "SELECT * FROM seance,etudiant Where seance.numgroup=etudiant.numgroup and numseance=? ";
 		Query(); 
@@ -105,7 +105,7 @@ public class EnseignantDao {
 	 * Liste des salles occupees par une seance (cours)
 	 */
 	ArrayList<Salle> lstsalle;
-	public ArrayList<Salle> salleoccupe(Seance seance)
+	public ArrayList<Salle> sallesOccupees(Seance seance)
 	{
 		String sql = "select * from passer where numseance = ?";
 		Query(); 
@@ -256,8 +256,8 @@ public class EnseignantDao {
 		en1.donnerCours(enenget);
 		Seance s1 =new Seance();
 		s1.setNumSeance("TP1");
-		en1.groupetudiant(s1);
-		en1.salleoccupe(s1);
+		en1.groupeEtudiants(s1);
+		en1.sallesOccupees(s1);
 		Salle sa1 =new Salle();
 		sa1.setNomSalle("M1");
 		en1.machineReserver(sa1);		
