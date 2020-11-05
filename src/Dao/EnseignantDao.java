@@ -69,8 +69,8 @@ public class EnseignantDao {
 		   tps.setHmSeanceSalle(hmSeanceSalle); 
 		   tps.setJour((String)rowData.get("jour"));
 		   tps.setCreneau((int)rowData.get("creneau"));
-		   tps.setHeureDeb((String)rowData.get("creneau"));
-		   tps.setHeureFin((String)rowData.get("creneau"));
+		   tps.setHeureDeb((String)rowData.get("heuredeb"));
+		   tps.setHeureFin((String)rowData.get("heurefin"));
 		   lstseance.add(tps);
 
 		  }

@@ -90,7 +90,7 @@ public class ConnexionReussieEn extends JFrame {
 //          
           //tableSeance = new JTable(data, columnNames);
           String [] header={"name","age"};
-          String [][] data={{"akash","20"},{"pankaj","24"},{"pankaj","24"},{"pankaj","24"},{"pankaj","24"}};
+          String [][] data=null;
 
 
           DefaultTableModel model = new DefaultTableModel(data,header);

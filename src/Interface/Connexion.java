@@ -37,6 +37,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.awt.event.ActionEvent;
 
 public class Connexion extends JFrame {
@@ -240,32 +241,51 @@ public class Connexion extends JFrame {
 				dispose();
 				ConnexionReussieEns cren = new ConnexionReussieEns();
 				cren.setVisible(true);
-				cren.idEns = this.txtId.getText();
-				cren.lblNomEns.setText(end.login(id, mdp).getNom()+" "+end.login(id, mdp).getPrenom());
-							
+				cren.idEns = id;
+				cren.lblNomEns.setText(end.login(id, mdp).getNom()+" "+end.login(id, mdp).getPrenom());					
 				
-				String [] header={"Date","Heure","N°séance","Cours"};
-		        String [][] data={{"akash","20","s","ff"},{"pankaj","24"},{"pankaj","24"},{"pankaj","24"},{"pankaj","24"}};
-				
-
-		        DefaultTableModel model = new DefaultTableModel(data,header);
-
-		        ArrayList<Seance> lstSeance = new ArrayList<Seance>();
-		        ArrayList<Salle> lstSalle = new ArrayList<Salle>();
-		        
-				for(TempsDeSeance temps : end.donnerCours(new Enseignant(this.txtId.getText()))) {
-					
+			
+				ArrayList<String> lstLigne = new ArrayList();
+		        HashMap<TempsDeSeance,Seance> hm = new HashMap();
+				for(TempsDeSeance temps : end.donnerCours(new Enseignant(id))) {
+						
+					String lignea= ""; 
+					lignea = lignea + temps.getJour()+","+temps.getHeureDeb()+"-"+temps.getHeureFin();
+					System.out.println("oooo"+temps.getJour());
 					for(Seance s : temps.getHmSeanceSalle().keySet()) {
-						lstSeance.add(s);
+						
+						//lstSeance.add(s);
+						String ligneb =","+s.getNomCours()+","+s.getNumSeance()+","+temps.getHmSeanceSalle().get(s).getNomSalle();
+						lstLigne.add(lignea+ligneb);
+						cren.hm.put(temps,s);
 					}
-					for(Salle salle : temps.getHmSeanceSalle().values()) {
-						lstSalle.add(salle);
-					}
-//					pageConsultation.lstReser.add(reser);
+					
+			   }
+			
+				
+				DefaultListModel listModel = new DefaultListModel();
+				int i = 0;
+				for(String str : lstLigne) {
+					
+					listModel.add(i, str);
+					i++;
+					
 				}
-				cren.tableSeance= new JTable(model);
-	
+				cren.list.setModel(listModel);
 			}
+		        
+//					pageConsultation.lstReser.add(reser);
+				
+				//System.out.println(dataTable[0][0]);
+				//String [] header={"Date","Heure","N°séance","Cours"};
+		        //String [][] data={{"akash","20","s","ff"},{"pankaj","24"},{"pankaj","24"},{"pankaj","24"},{"pankaj","24"}};
+				//DefaultTableModel model = new DefaultTableModel(dataTable,header);
+				//cren.tableSeance= new JTable(model);
+				//cren.dataTab = dataTable;
+				//cren.modelTab = model;
+	
+			
+
 			else if(ad.login(id, mdp) != null && this.typeUtilisateur == 3) {
 				//page de l'admin
 			}
@@ -275,6 +295,8 @@ public class Connexion extends JFrame {
 				passwordField.setText("");
 			}
 		}
-	} 
+	}
+	
+
 }
 
