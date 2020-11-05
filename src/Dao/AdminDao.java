@@ -132,7 +132,7 @@ public class AdminDao {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		AdminDao a1 = new AdminDao();	
-		//a1.login("1","2");
+		a1.login("1","2");
 		//a1.tousmachine();
 		//a1.tousetudiant();
 		Etudiant etu1 =new Etudiant();
