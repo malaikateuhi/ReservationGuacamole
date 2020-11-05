@@ -14,6 +14,10 @@ public class Seance {
 	public Seance() {
 		// TODO Auto-generated constructor stub
 	}
+	public Seance(String nums, String nomc) {
+		this(nums);
+		this.nomCours = nomc;
+	}
 	public String getNumSeance() {
 		return numSeance;
 	}

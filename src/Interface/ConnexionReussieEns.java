@@ -15,15 +15,18 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Dao.EnseignantDao;
+import GestionReservations.Reservation;
 import GestionReservations.Seance;
 import GestionReservations.TempsDeSeance;
 import GestionUtilisateurs.Enseignant;
 
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -75,7 +78,14 @@ public class ConnexionReussieEns extends JFrame {
         	}
         });
         
-        JButton btnRetour = new JButton("Retour");
+        JButton btnRetour = new JButton("D\u00E9connexion");
+        btnRetour.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		dispose();
+        		Connexion conn = new Connexion();
+        		conn.setVisible(true);
+        	}
+        });
         
         JButton btnConsulter = new JButton("Consulter ");
         btnConsulter.addActionListener(new ActionListener() {
@@ -130,26 +140,45 @@ public class ConnexionReussieEns extends JFrame {
 		int i = 0,j = 0;
 		//obtenir l'indice de la ligne dans JList que l'utilisateur a choisi
 		int itemSelect = this.list.getSelectedIndex();
-		
-		TempsDeSeance temps= null;
-		Seance seance = null;
-		
-		for(TempsDeSeance t : hm.keySet()) {
-			if( i == itemSelect) {
-				temps = t;
-				break;
-			}else {
-				i++;	
-			}	
-		}
-		for(Seance s : hm.values()) {
-			if( j == itemSelect) {
-				seance = s;
-				break;
-			}else {
-				j++;
+		String item = String.valueOf(this.list.getSelectedValue());
+		if(item != null) {
+			ConsultationSeanceReserEns pageConsulterEns = new ConsultationSeanceReserEns();
+			pageConsulterEns.setVisible(true);
+			pageConsulterEns.lblDetailSeance.setText(item);
+			pageConsulterEns.lblNomEn2.setText(this.lblNomEns.getText());
+			
+			TempsDeSeance temps= null;
+			Seance seance = null;
+			
+			for(TempsDeSeance t : hm.keySet()) {
+				if( i == itemSelect) {
+					temps = t;
+					break;
+				}else {
+					i++;	
+				}	
 			}
+			for(Seance s : hm.values()) {
+				if( j == itemSelect) {
+					seance = s;
+					break;
+				}else {
+					j++;
+				}
+			}
+			//receperer les donnees dans JList
+			DefaultListModel listModel = new DefaultListModel();
+			int q = 0;
+			for(Reservation reser : end.reservationsSeance(seance,temps)) {
+				String detail = "Machine : "+reser.getMachine().getNumMachine()+"\t N° Etu: "+reser.getIdee();
+				listModel.add(i, detail);
+				q++;	
+			}
+			System.out.println(end.reservationsSeance(seance, temps).get(0));
+			pageConsulterEns.list.setModel(listModel);
 		}
-		end.reservationsSeance(seance,temps);
+		else {
+			JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+		}
 	}
 }
