@@ -182,7 +182,7 @@ public class EnseignantDao {
 			rr.setJour((String)rowData.get("jour"));
 			lstreservation1.add(rr);
 		}
-		System.out.println(lstreservation1+"nihao");
+		System.out.println(lstreservation1);
 		return lstreservation1;
 	}
 	
