@@ -212,15 +212,15 @@ public class EnseignantDao {
 	 * @return true si la modification a ete effectuee, false sinon
 	 */
 	public boolean annulerSeance(Seance seance, TempsDeSeance tpSeance) {
-		String sql = "delete from passer "
+		String sql = "UPDATE passer SET etats = 'ANNULEE' "
 				+ "WHERE numseance = ? "
-				+ "AND jour = ? AND creneau=? "
+				+ "AND jour = ? AND heuredeb = ? "
 				+ "AND numsalle = ?";
 		
 		Query(); 
 		parameter.add(seance.getNumSeance());
 		parameter.add(tpSeance.getJour());
-		parameter.add(tpSeance.getCreaneau());
+		parameter.add(tpSeance.getHeureDeb());
 		parameter.add(tpSeance.getHmSeanceSalle().get(seance).getNomSalle());			
 		afferentSQL(sql);			
 		int ligne=Update();
