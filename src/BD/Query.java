@@ -26,7 +26,7 @@ public class Query {
 	    } 
 	    
 	    
-	    // Pr¨¦parez une requete
+	    // Prï¿½ï¿½parez une requete
 	    public static void afferentSQL(String Sqlsentence) {
 	        try {
 	            SQLsen = Sqlsentence;
@@ -36,7 +36,7 @@ public class Query {
 	        }
 	    }
 	    
-	    // Appliqu¨¦ ¨¤ toutes les m¨¦thodes SQL pouvant mettre ¨¤ jour le contenu de la base de donn¨¦es
+	    // Appliquï¿½ï¿½ ï¿½ï¿½ toutes les mï¿½ï¿½thodes SQL pouvant mettre ï¿½ï¿½ jour le contenu de la base de donnï¿½ï¿½es
 	    public static int Update() {
 	        System.out.println(parameter);
 	        int a = 0;
@@ -65,12 +65,12 @@ public class Query {
 	         if(a>=1){
 	            System.out.println("succcess");
 	        };  
-	        //return le nombre de ligne a ¨¦t¨¦ affect¨¦
+	        //return le nombre de ligne a ï¿½ï¿½tï¿½ï¿½ affectï¿½ï¿½
 	        return a;
 	    }
 	    
-	//Appliqu¨¦ ¨¤ toutes les m¨¦thodes SQL qui peuvent interroger le contenu de la base de donn¨¦es
-	//R¨¦cup¨¦rez les r¨¦sultats de la requ¨ºte ligne par ligne et mettez-les dans une liste    
+	//Appliquï¿½ï¿½ ï¿½ï¿½ toutes les mï¿½ï¿½thodes SQL qui peuvent interroger le contenu de la base de donnï¿½ï¿½es
+	//Rï¿½ï¿½cupï¿½ï¿½rez les rï¿½ï¿½sultats de la requï¿½ï¿½te ligne par ligne et mettez-les dans une liste    
 	    public static List<Object> Select() {
 	        //return list
 	        List<Object> users = new ArrayList<Object>();
@@ -93,7 +93,7 @@ public class Query {
 	            int ts = 0;
 	            //get db base tabe all attirutes 
 	            ResultSetMetaData rsmd = rs.getMetaData();
-	            //parcouris r¨¦sulat et les enregistre dans une list
+	            //parcouris rï¿½ï¿½sulat et les enregistre dans une list
 	            while (rs.next()) {
 	                ts++;
 	                //enregistre chaque ligne dans un Map

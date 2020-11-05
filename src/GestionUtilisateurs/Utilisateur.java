@@ -5,19 +5,27 @@ public abstract class Utilisateur {
 	private String mdp;
 	private String nom;
 	private String prenom;
+
 	
-	
-	public Utilisateur(String identifiant, String mdp, String nom, String prenom) {
+	public Utilisateur() {
+		
+	}
+	public Utilisateur(String identifiant, String mdp, String nom, String prenom) {		
 		this.identifiant = identifiant;
 		this.mdp = mdp;
 		this.nom = nom;
 		this.prenom = prenom;
 	}
 	
-	
-	public Utilisateur() {
-		
+	public Utilisateur(String identifiant, String mdp) {		
+		this.identifiant = identifiant;
+		this.mdp = mdp;
 	}
+	
+	public Utilisateur(String identifiant) {		
+		this.identifiant = identifiant;
+	}
+	
 	public String getIdentifiant() {
 		return identifiant;
 	}
@@ -43,5 +51,5 @@ public abstract class Utilisateur {
 		this.prenom = prenom;
 	}
 
-	
+
 }

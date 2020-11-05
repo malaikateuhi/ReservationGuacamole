@@ -18,9 +18,9 @@ import GestionUtilisateurs.Admin;
 import GestionUtilisateurs.Enseignant;
 import GestionUtilisateurs.Etudiant;
 
-public class EnseigantDao {
+public class EnseignantDao {
 	
-		public EnseigantDao() {}
+		public EnseignantDao() {}
 		
 		public Enseignant login(String id,String password) {
 		    String sqlen = "select * from Enseigant where iden=? and passworden=? ";//faut corriger le password dans bd admin
@@ -46,14 +46,13 @@ public class EnseigantDao {
 		    }
 			
 		//	Afficher les seances donnee par un enseignant
-		ArrayList<Seance> lstseance;
-		public ArrayList<Seance> donnecours(Enseignant enseigant)
-		{
+		
+		public ArrayList<Seance> donnecours(Enseignant enseigant){
+			ArrayList<Seance> lstseance = new ArrayList<Seance>();
 			String sql ="select * from donner where iden=?";
 			Query(); 
 			parameter.add(enseigant.getIdentifiant());
 			afferentSQL(sql);
-			this.lstseance = new ArrayList<Seance>();
 			  List<Object> objs = Select();			  
 		        for (int i = 0; i < objs.size(); i++) {
 		        	Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
@@ -115,7 +114,6 @@ public class EnseigantDao {
 			     return lstsalle;
 		}
 		
-		
 		//Quelles machines sont r¨¦serv¨¦es pour le jour de seance dans le salle et le seance indique
 		ArrayList<Reservation> lstreservation1;
 		public ArrayList<Reservation> machineReserver(Salle salle){
@@ -131,7 +129,8 @@ public class EnseigantDao {
 		        for (int i = 0; i < objs.size(); i++) {
 		        	Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
 		        	Reservation rr= new Reservation();
-		        	rr.setNumma((String)rowData.get("numma"));
+		        	//rr.setNumma((String)rowData.get("numma"));
+		        	rr.setMachine(new Machine((String)rowData.get("numma"),new Salle((String)rowData.get("numsalle"))));
 		        	rr.setCreaneau((int)rowData.get("creneau"));
 		        	rr.setHeureDeb((String)rowData.get("heuredeb"));
 		        	rr.setHeureFin((String)rowData.get("heurefinr"));
@@ -148,7 +147,7 @@ public class EnseigantDao {
 			
 		public static void main(String[] args) {
 			// TODO Auto-generated method stub
-			EnseigantDao en1 = new EnseigantDao();	
+			EnseignantDao en1 = new EnseignantDao();	
 			Enseignant enenget=en1.login("en1","en1");
 			en1.donnecours(enenget);
 			Seance s1 =new Seance();
