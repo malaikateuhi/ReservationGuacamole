@@ -30,7 +30,7 @@ import GestionSallesMachines.Salle;
 	        for (int i = 0; i < objs.size(); i++) {
 	        	Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
 	        	Machine machine = new Machine();
-                machine.numMachine=((String)rowData.get("numma")); 
+                machine.setNumMachine(((String)rowData.get("numma"))); 
 	            machine.setEtat(((String)rowData.get("etatm")));
                lstmachine.add(machine);
        }
