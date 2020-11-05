@@ -3,6 +3,7 @@ package Dao;
 
 import static BD.Query.Query;
 import static BD.Query.Select;
+import static BD.Query.Update;
 import static BD.Query.afferentSQL;
 import static BD.Query.parameter;
 
@@ -94,32 +95,39 @@ public class EnseigantDao {
 		}
 		
 		/**
-		 * Recupere toutes les reservations de machines pour un creneau donne une seance
+		 * Recuperer toutes les reservations de machines pour un creneau donne d'une seance
 		 * @return ArrayList<Reservation>
 		 */
 		public ArrayList<Reservation> reservationsSeance(Seance seance, TempsDeSeance tpSeance) {
 			ArrayList<Reservation> reservations = new ArrayList<Reservation>();
 			
-			String sql = "SELECT r.* FROM reserver r, machine m, passer p "
+			String sql = "SELECT * FROM reserver r, machine m, passer p "
 					+ "WHERE r.numma = m.numma AND m.numsalle = p.numsalle "
 					+ "AND r.jour = p.jour AND r.heuredebr = p.heuredeb "
-					+ "AND p.numseance=? "
+					+ "AND p.numseance = ? "
 					+ "AND p.jour = ? "
-					+ "AND p.heuredeb = ?";
+					+ "AND p.heuredeb = ? "
+					+ "AND p.heurefin = ?";
 			Query(); 
 			parameter.add(seance.getNumSeance());
 			parameter.add(tpSeance.getJour());
 			parameter.add(tpSeance.getHeureDeb());
+			parameter.add(tpSeance.getHeureFin());
 			afferentSQL(sql);
-
 			List<Object> objs = Select();
 
 			for (int i = 0; i < objs.size(); i++) {
 				Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+				Salle s = new Salle((String)rowData.get("p.numsalle"));
+	        	Machine m = new Machine((String)rowData.get("numma"), s);
 				Reservation res = new Reservation();
+	        	res.setMachine(m);
+				res.setIdee((String)rowData.get("ide")); 
+				res.setCreaneau((Integer)rowData.get("creneau")); 
 				res.setJour((String)rowData.get("jour")); 
 				res.setHeureDeb((String)rowData.get("heuredebr"));
 				res.setHeureFin((String)rowData.get("heurefinr"));
+				//res.setEtat((String)rowData.get("etatr"));
 				reservations.add(res);
 			}
 
@@ -127,10 +135,11 @@ public class EnseigantDao {
 		}
 		
 		/**
-		 * Change l'etat d'une seance a annulee
+		 * Mettre une seance a ANNULEE
+		 * @return true si la modification a ete effectuee, false sinon
 		 */
-		public void annulerSeance(Seance seance, TempsDeSeance tpSeance) {
-			String sql = "UPDATE passer SET etat = 'annulee' "
+		public boolean annulerSeance(Seance seance, TempsDeSeance tpSeance) {
+			String sql = "UPDATE passer SET etats = 'ANNULEE' "
 					+ "WHERE numseance = ? "
 					+ "AND jour = ? AND heuredeb = ? "
 					+ "AND numsalle = ?";
@@ -141,7 +150,37 @@ public class EnseigantDao {
 			parameter.add(tpSeance.getHeureDeb());
 			parameter.add(tpSeance.getHmSeanceSalle().get(seance).getNomSalle());			
 			afferentSQL(sql);			
+			int ligne=Update();
+			return ligne >= 1;
+		}
+		
+		/**
+		 *  Mettre toutes les reservations pour une seance donnee a ANNULEE
+		 *  @return true si toutes les reservations ont ete annulees, false sinon
+		 */
+		public boolean annulerReservations(Seance seance, TempsDeSeance tpSeance) {
+			String sql = "UPDATE reserver "
+					+ "SET etatr = 'ANNULEE' "
+					+ "WHERE numma = ? "
+					+ "AND ide = ? "
+					+ "AND jour = ? "
+					+ "AND heuredebr = ? "
+					+ "AND heurefinr = ?";
 			
+			ArrayList<Reservation> reservations = reservationsSeance(seance, tpSeance);			
+			int lignes = 0;
+			
+			for (Reservation reservation : reservations) {			// Changement d'etat de chaque reservation
+				Query();
+				parameter.add(reservation.getMachine().getNumMachine());
+				parameter.add(reservation.getIdee());
+				parameter.add(reservation.getJour());
+				parameter.add(reservation.getHeureDeb());
+				parameter.add(reservation.getHeureFin());
+				afferentSQL(sql);
+				lignes += Update();
+			}			
+			return lignes == reservations.size(); // nombre de lignes modifiees dans la table de la BD
 		}
 
 		//Voir les salles de classe occup��es par la s��ance
@@ -181,8 +220,10 @@ public class EnseigantDao {
 	    	  List<Object> objs = Select();
 		        for (int i = 0; i < objs.size(); i++) {
 		        	Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+		        	Salle s = new Salle((String)rowData.get("numsalle"));
+		        	Machine m = new Machine((String)rowData.get("numma"), s);
 		        	Reservation rr= new Reservation();
-		        	rr.setNumma((String)rowData.get("numma"));
+		        	rr.setMachine(m);
 		        	rr.setCreaneau((int)rowData.get("creneau"));
 		        	rr.setHeureDeb((String)rowData.get("heuredeb"));
 		        	rr.setHeureFin((String)rowData.get("heurefinr"));
@@ -209,6 +250,14 @@ public class EnseigantDao {
 		    Salle sa1 =new Salle();
 		    sa1.setNomSalle("M1");
 		    en1.machineReserver(sa1);
+		    
+		    // Test Annulation des réservations d'une seance => OK
+		    TempsDeSeance tpS1 = new TempsDeSeance();
+		    tpS1.setJour("2020-11-10");
+		    tpS1.setHeureDeb("09:30");
+		    tpS1.setHeureFin("11:00");
+		    tpS1.getHmSeanceSalle().put(s1, sa1);		    
+		    en1.annulerReservations(s1, tpS1);
 		}
 
 }
