@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import BD.BDutile;
+
 import BD.QueryLogin;
 import BD.StringUtil;
 import Dao.AdminDao;
@@ -37,7 +37,7 @@ public class Connexion extends JFrame {
 	private JPasswordField passwordField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	
-	private BDutile bdutile = new BDutile();
+
 	private QueryLogin queryLogin = new QueryLogin();
 	public int typeUtilisateur = 0; //1-->etu, 2-->enseignant, 3-->admin 
 	//private BackgroundPanel bgp;
@@ -201,7 +201,7 @@ public class Connexion extends JFrame {
 		String mdp=new String(String.valueOf(this.passwordField.getPassword()));
 //		Utilisateur user = null;
 		if(typeUtilisateur == 0) {
-			JOptionPane.showMessageDialog(null, "Veuillez choisir votre rôle!");
+			JOptionPane.showMessageDialog(null, "Veuillez choisir votre rï¿½le!");
 		}
 		//else if(typeUtilisateur == 1) {
 //			user = new Etudiant(id,mdp);

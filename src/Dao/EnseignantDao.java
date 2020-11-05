@@ -74,8 +74,8 @@ public class EnseignantDao {
 			tps.setHmSeanceSalle(hmSeanceSalle); 
 			tps.setJour((String)rowData.get("jour"));
 			tps.setCreaneau((int)rowData.get("creneau"));
-			tps.setHeureDeb((String)rowData.get("creneau"));
-			tps.setHeureFin((String)rowData.get("creneau"));
+			tps.setHeureDeb((String)rowData.get("heuredeb"));
+			tps.setHeureFin((String)rowData.get("heurefin"));
 			lstseance.add(tps);
 
 		}
@@ -212,15 +212,15 @@ public class EnseignantDao {
 	 * @return true si la modification a ete effectuee, false sinon
 	 */
 	public boolean annulerSeance(Seance seance, TempsDeSeance tpSeance) {
-		String sql = "UPDATE passer SET etats = 'ANNULEE' "
+		String sql = "delete from passer "
 				+ "WHERE numseance = ? "
-				+ "AND jour = ? AND heuredeb = ? "
+				+ "AND jour = ? AND creneau=? "
 				+ "AND numsalle = ?";
 		
 		Query(); 
 		parameter.add(seance.getNumSeance());
 		parameter.add(tpSeance.getJour());
-		parameter.add(tpSeance.getHeureDeb());
+		parameter.add(tpSeance.getCreaneau());
 		parameter.add(tpSeance.getHmSeanceSalle().get(seance).getNomSalle());			
 		afferentSQL(sql);			
 		int ligne=Update();
@@ -262,15 +262,15 @@ public class EnseignantDao {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		EnseignantDao en1 = new EnseignantDao();	
-		Enseignant enenget=en1.login("en1","en1");
+		Enseignant enenget=en1.login("en2","en2");
 		en1.donnerCours(enenget);
-		Seance s1 =new Seance();
-		s1.setNumSeance("TP1");
-		en1.groupeEtudiants(s1);
-		en1.sallesOccupees(s1);
-		Salle sa1 =new Salle();
-		sa1.setNomSalle("M1");
-		en1.machineReserver(sa1);		
+		//Seance s1 =new Seance();
+		//s1.setNumSeance("TP1");
+		//en1.groupeEtudiants(s1);
+		//en1.sallesOccupees(s1);
+		//Salle sa1 =new Salle();
+		//sa1.setNomSalle("M1");
+		//en1.machineReserver(sa1);		
 
 	    // Test Annulation des réservations d'une seance => OK
 	   // TempsDeSeance tpS1 = new TempsDeSeance();
