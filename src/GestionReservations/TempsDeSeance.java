@@ -13,7 +13,7 @@ public class TempsDeSeance {
 	private HashMap<Seance,Salle> hmSeanceSalle;
 	
 	public TempsDeSeance() {
-		
+		hmSeanceSalle = new HashMap<Seance,Salle>();
 	}
 
 	public TempsDeSeance(String jour, String heureDeb, String heureFin, int creaneau, HashMap<Seance, Salle> hmSeanceSalle) {
