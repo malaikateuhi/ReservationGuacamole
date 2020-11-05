@@ -4,9 +4,7 @@ public class Machine {
 	public String numMachine;
 	public String etat;
 	public String numsalle;
-	
-	
-	
+		
 	public Machine() {
 		
 	}
