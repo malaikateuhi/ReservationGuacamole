@@ -186,7 +186,6 @@ public class EtudiantDao {
 			Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
 			Machine machine = new Machine();
 			machine.setNumMachine((String)rowData.get("numma")); 
-			machine.setEtat((String)rowData.get("etatm"));
 			machine.setSalle(new Salle((String)rowData.get("numsalle")));
 			return machine;
 		}
