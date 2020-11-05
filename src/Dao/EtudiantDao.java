@@ -55,28 +55,6 @@ public class EtudiantDao {
 	}
 
 
-	/*	//Historique des reservations de l'etudiant
-	ArrayList<Reservation> lstreservation;
-	public ArrayList<Reservation> hisreserver (Etudiant etudiant)
-	{
-		String sqlreserver = "select * from reserver where ide=? ";
-		Query(); 
-		parameter.add(etudiant.getIdentifiant());
-		afferentSQL(sqlreserver);
-		this.lstreservation= new ArrayList<Reservation>();
-		  List<Object> objs = Select();
-	        for (int i = 0; i < objs.size(); i++) {
-	        	Map<String, Object> rowData = (Map<String, Object>) objs.get(i);
-	        	Reservation reserver= new Reservation();
-	        	reserver.setJour((String)rowData.get("jour"));
-	            reserver.setEtat((String)rowData.get("etatr"));
-	            reserver.setHeureDeb((String)rowData.get("heuredebr"));
-	            reserver.setHeureFin((String)rowData.get("heurefinr"));
-	            lstreservation.add(reserver);
-	        }
-		return lstreservation;
-	}*/
-
 
 	/**
 	 *  Si l'锟斤拷l锟斤拷ve a une classe, recommander une machine 

@@ -52,8 +52,8 @@ public class EnseignantDao {
 	}
 
 	/**
-	 * 	Afficher les seances donnees par un enseignant et le salle se trouve
-	 * @return ArrayList d'objets de type Seance
+	 * 	Afficher les seances donnees par un enseignant et le salle se trouve  
+	 * @return ArrayList de un liste qui contient l'objet seance et l'objet salle 
 	 */		
 	
 	public ArrayList<TempsDeSeance > donnerCours(Enseignant enseigant){
@@ -141,9 +141,9 @@ public class EnseignantDao {
 	 */
 	ArrayList<Reservation> lstreservation1;
 	public ArrayList<Reservation> machineReserver(Salle salle){
-		String sql ="select * from reserver,machine,salle,passer "
-				+ "where reserver.numma = machine.numma and machine.numsalle =salle.numsalle "
-				+ "and salle.numsalle = passer.numsalle and passer.jour=reserver.jour "
+		String sql ="select * from reserver,machine,passer "
+				+ "where reserver.numma = machine.numma"
+				+ "and machine.numsalle = passer.numsalle and passer.jour=reserver.jour "
 				+ "and passer.creneau=reserver.creneau and salle.numsalle = ?";
 		Query(); 
 		parameter.add(salle.getNomSalle());
@@ -172,8 +172,7 @@ public class EnseignantDao {
 	 * @return ArrayList<Reservation>
 	 */
 	public ArrayList<Reservation> reservationsSeance(Seance seance, TempsDeSeance tpSeance) {
-		ArrayList<Reservation> reservations = new ArrayList<Reservation>();
-		
+		ArrayList<Reservation> reservations = new ArrayList<Reservation>();	
 		String sql = "SELECT * FROM reserver r, machine m, passer p "
 				+ "WHERE r.numma = m.numma AND m.numsalle = p.numsalle "
 				+ "AND r.jour = p.jour AND r.heuredebr = p.heuredeb "
@@ -243,7 +242,7 @@ public class EnseignantDao {
 		ArrayList<Reservation> reservations = reservationsSeance(seance, tpSeance);			
 		int lignes = 0;
 		
-		for (Reservation reservation : reservations) {			// Changement d'etat de chaque reservation
+		for (Reservation reservation : reservations) {	// Changement d'etat de chaque reservation
 			Query();
 			parameter.add(reservation.getMachine().getNumMachine());
 			parameter.add(reservation.getIdee());
