@@ -5,44 +5,25 @@ import java.util.HashMap;
 import GestionSallesMachines.Salle;
 
 public class TempsDeSeance {
-	private Date jour;
-	private Date heureDeb;
-	private Date heureFin;
+
+	private String jour;
+	private String heureDeb;
+	private String heureFin;
+	private int creaneau;
+	private HashMap<Seance,Salle> hmSeanceSalle;
 	
 	public TempsDeSeance() {
 		
 	}
-	public TempsDeSeance(Date jour, Date heureDeb, Date heureFin, HashMap<Seance, Salle> hmSeanceSalle) {
-		super();
+
+	public TempsDeSeance(String jour, String heureDeb, String heureFin, int creaneau, HashMap<Seance, Salle> hmSeanceSalle) {
 		this.jour = jour;
 		this.heureDeb = heureDeb;
 		this.heureFin = heureFin;
+		this.creaneau = creaneau;
 		this.hmSeanceSalle = hmSeanceSalle;
 	}
 
-	public Date getJour() {
-		return jour;
-	}
-
-	public void setJour(Date jour) {
-		this.jour = jour;
-	}
-
-	public Date getHeureDeb() {
-		return heureDeb;
-	}
-
-	public void setHeureDeb(Date heureDeb) {
-		this.heureDeb = heureDeb;
-	}
-
-	public Date getHeureFin() {
-		return heureFin;
-	}
-
-	public void setHeureFin(Date heureFin) {
-		this.heureFin = heureFin;
-	}
 
 	public HashMap<Seance, Salle> getHmSeanceSalle() {
 		return hmSeanceSalle;
@@ -51,6 +32,30 @@ public class TempsDeSeance {
 	public void setHmSeanceSalle(HashMap<Seance, Salle> hmSeanceSalle) {
 		this.hmSeanceSalle = hmSeanceSalle;
 	}
+	
+	public String getJour() {
+		return jour;
+	}
+	public void setJour(String jour) {
+		this.jour = jour;
+	}
+	public String getHeureDeb() {
+		return heureDeb;
+	}
+	public void setHeureDeb(String heureDeb) {
+		this.heureDeb = heureDeb;
+	}
+	public String getHeureFin() {
+		return heureFin;
+	}
+	public void setHeureFin(String heureFin) {
+		this.heureFin = heureFin;
+	}
+	public int getCreaneau() {
+		return creaneau;
+	}
+	public void setCreaneau(int creaneau) {
+		this.creaneau = creaneau;
+	}
 
-	private HashMap<Seance,Salle> hmSeanceSalle;
 }

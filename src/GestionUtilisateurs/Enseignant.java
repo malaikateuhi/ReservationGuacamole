@@ -5,15 +5,23 @@ import java.util.ArrayList;
 import GestionReservations.Seance;
 
 public class Enseignant extends Utilisateur {
-	private ArrayList<Seance> lstSeanceEn;
-	public Enseignant() {
-		
+
+	private ArrayList<Seance> seances;
+
+
+	public Enseignant() {	
 	}
+	
 	public Enseignant(String id, String mdp) {
 		super(id,mdp);
 	}
+	
 	public String getIdentifiant() {
 		return super.getIdentifiant();
+	}
+	
+	public Enseignant(String identifiant, String mdp, String nom, String prenom) {
+		super(identifiant, mdp, nom, prenom);
 	}
 	public void setIdentifiant(String identifiant) {
 		super.setIdentifiant(identifiant);
@@ -36,13 +44,8 @@ public class Enseignant extends Utilisateur {
 	public void setPrenom(String prenom) {
 		super.setPrenom(prenom);
 	}
-	public void reserver() {
 		
-	}
-	public void annulerReservation() {
-		
-	}
-	public void annulerSeance() {
-		
+	
+	public void annulerSeance() {	
 	}
 }

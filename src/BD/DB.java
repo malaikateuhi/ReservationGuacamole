@@ -17,6 +17,7 @@ public class DB {
 	static {
 		String path = "BD//db.properties";
 		Properties pros = new Properties();
+		
 		try {
 			pros.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(path));
 		} catch (IOException e) {
