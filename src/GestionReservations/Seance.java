@@ -7,6 +7,16 @@ public class Seance {
 	private String numSeance;
 	private String nomCours;
 	private String etat;
+	
+		public Seance(String numSeance) { //nouvelle
+			this.numSeance = numSeance;
+		}	
+		
+	
+	public Seance() {
+		// TODO Auto-generated constructor stub
+	}
+
 
 	public String getNumSeance() {
 		return numSeance;

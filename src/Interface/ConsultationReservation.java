@@ -154,10 +154,10 @@ public class ConsultationReservation extends JFrame {
 		System.out.println(this.lstReser);
 		
 		//ed.annulerReservation(ed.inforeserver(new Etudiant(this.lblId3.getText())).get(this.listReser.getSelectedIndex()));
-		if(ed.annulerReservation(ed.inforeserver(new Etudiant(this.lblId3.getText())).get(this.listReser.getSelectedIndex()))) {
-			JOptionPane.showMessageDialog(null, "Annulation réussie");
+		if(ed.annulerReservation(ed.infoReserver(new Etudiant(this.lblId3.getText())).get(this.listReser.getSelectedIndex()))) {
+			JOptionPane.showMessageDialog(null, "Annulation rï¿½ussie");
 		}else {
-			JOptionPane.showMessageDialog(null, "Annulation échec");
+			JOptionPane.showMessageDialog(null, "Annulation ï¿½chec");
 		}
 		dispose();
 	}
