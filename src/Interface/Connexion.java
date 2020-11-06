@@ -254,9 +254,9 @@ public class Connexion extends JFrame {
 
 			else if(ad.login(id, mdp) != null && this.typeUtilisateur == 3) {
 				//page de l'admin
-				dispose();
-				ConnexionReussieAd pageConnexionReussieAd = new ConnexionReussieAd();
-				pageConnexionReussieAd.lblNomAd.setText(this.txtId.getText());
+//				dispose();
+//				ConnexionReussieAd pageConnexionReussieAd = new ConnexionReussieAd();
+//				pageConnexionReussieAd.lblNomAd.setText(this.txtId.getText());
 			}
 			else {
 				JOptionPane.showMessageDialog(null,"Votre identifiant ou mot de passe semble incorrect");

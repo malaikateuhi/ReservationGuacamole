@@ -25,6 +25,8 @@ public class ConsultationSeanceReserEns extends JFrame {
 	protected JLabel lblDetailSeance;
 	protected JList list;
 	private JButton btnNewButton;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
 	//private BackgroundPanel bgp;
 	/**
 	 * Launch the application.
@@ -94,27 +96,37 @@ public class ConsultationSeanceReserEns extends JFrame {
 				dispose();
 			}
 		});
+		
+		lblNewLabel_1 = new JLabel("Liste des r\u00E9servations de vos \u00E9tudiants");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
+		
+		lblNewLabel_2 = new JLabel("S\u00E9ance :");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap(234, Short.MAX_VALUE)
+					.addContainerGap(332, Short.MAX_VALUE)
 					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblNomEn2, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
 					.addGap(19))
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(18)
-					.addComponent(list, GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+					.addComponent(list, GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
 					.addGap(38))
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(27)
-					.addComponent(lblDetailSeance, GroupLayout.PREFERRED_SIZE, 358, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(48, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 					.addContainerGap(219, Short.MAX_VALUE)
 					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
 					.addGap(217))
+				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
+					.addGap(19)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 341, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblDetailSeance, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(81, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -123,8 +135,12 @@ public class ConsultationSeanceReserEns extends JFrame {
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel)
 						.addComponent(lblNomEn2))
-					.addGap(31)
-					.addComponent(lblDetailSeance)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblNewLabel_1)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblDetailSeance)
+						.addComponent(lblNewLabel_2))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(list, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
 					.addGap(27)
