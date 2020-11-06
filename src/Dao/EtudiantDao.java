@@ -200,8 +200,8 @@ public class EtudiantDao {
 			Machine ma = new Machine((String)rowData.get("numma"),sa);
 			rr.setMachine(ma);
 			rr.setCreaneau((int)rowData.get("creneau"));
-			rr.setHeureDeb((String)rowData.get("heuredebr"));
-			rr.setHeureFin((String)rowData.get("heurefinr"));
+			rr.setHeureDeb((String)rowData.get("heureDeb"));
+			rr.setHeureFin((String)rowData.get("heureFin"));
 			rr.setEtat((String)rowData.get("etatr"));
 			rr.setIdee((String)rowData.get("ide"));
 			rr.setJour((String)rowData.get("jour"));
@@ -229,6 +229,31 @@ public class EtudiantDao {
 		}else {
 			return false;
 		}
+	}
+	/** 
+	 *  Mettre une reservation EN RECLAMATION
+	 *  @return true si la reservation, false sinon
+	 */
+	public boolean signalerReservation(Reservation reservation) {
+		String sql = "UPDATE reserver "
+				+ "SET etatr = 'EN RECLAMATION' "
+				+ "WHERE numma = ? "
+				+ "AND ide = ? "
+				+ "AND jour = ? "
+				+ "AND heuredebr = ? "
+				+ "AND heurefinr = ?"
+				+ "AND creneau = ?";	
+
+		Query();
+		parameter.add(reservation.getMachine().getNumMachine());
+		parameter.add(reservation.getIdee());
+		parameter.add(reservation.getJour());
+		parameter.add(reservation.getHeureDeb());
+		parameter.add(reservation.getHeureFin());
+		parameter.add(reservation.getCreaneau());
+		afferentSQL(sql);			
+		int ligne=Update();
+		return ligne >= 1;
 	}
 
 }

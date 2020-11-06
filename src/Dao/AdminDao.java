@@ -96,42 +96,111 @@ public class AdminDao {
 		}
 		return lstEtudiant;
 	}
+	
+	/**
+	 * Recuperer toutes les salles
+	 */
+	public ArrayList<Salle> toutesSalles () {
+		String sqlreserver = "select numsalle from machine group by numsalle";
+		Query(); 
+		afferentSQL(sqlreserver);
+		ArrayList<Salle> lstSalles = new ArrayList<Salle>();
+		List<Object> objs = Select();
+		for (int i = 0; i < objs.size(); i++) {
+			Map<String, Object> rowData = (Map<String, Object>) objs.get(i);
+			Salle salle = new Salle((String)rowData.get("numsalle"));
+			lstSalles.add(salle);
+		}
+
+		return lstSalles;
+	}
 
 	/**
 	 * Supprimer un compte etudiant
+	 * @return true si compte supprime, false sinon
 	 */
-	public void supprimerEtudiant(Etudiant etu) {
+	public boolean supprimerEtudiant(Etudiant etu) {
 		String sql="DELETE FROM etudiant WHERE ide=?";
 		Query();
 		afferentSQL(sql);
 		parameter.add(etu.getIdentifiant());
 		int ligne=Update();
-		if(ligne>=1){ //Nombre de lignes affect��es (c'est-��-dire le nombre de mises �� jour
-			System.out.println("succcess");
-		}
+		return ligne >= 1;
 	}
 
 	/**
 	 * Supprimer une machine
+	 * @return true si machine supprime, false sinon
 	 */
-	public void supprimerMachine(Machine machine) {
+	public boolean supprimerMachine(Machine machine) {
 		String sql="DELETE FROM machine WHERE numma=?";
 		Query();
 		afferentSQL(sql);
 		parameter.add(machine.getNumMachine());
 		int ligne=Update();
-		if(ligne>=1){ //Nombre de lignes affect��es (c'est-��-dire le nombre de mises �� jour
-			System.out.println("succcess");
-		};  
-
+		return ligne >= 1;
 	}
+	
 
+/*  Mettre une reservation EN RECLAMATION reservation
+	*  @return true si la reservation, false sinon
+	*/
+	public boolean traiterReclamation(Reservation reservation) {
+		String sql = "UPDATE reserver "
+				+ "SET etatr = 'RESERVEE' "
+				+ "WHERE numma = ? "
+				//+ "AND ide = ? "
+				+ "AND jour = ? "
+				+ "AND heuredebr = ? "
+				+ "AND heurefinr = ? ";
+				//+ "AND creneau = ?";	
+
+			Query();
+			parameter.add(reservation.getMachine().getNumMachine());
+			//parameter.add(reservation.getIdee());
+			parameter.add(reservation.getJour());
+			parameter.add(reservation.getHeureDeb());
+			parameter.add(reservation.getHeureFin());
+			//parameter.add(reservation.getCreaneau());
+			afferentSQL(sql);			
+			int ligne=Update();
+			return ligne >= 1;
+		}
+	
+	/* recuperer les machines qui sont passees en reclamation*/
+
+	ArrayList<Reservation> machinesSignalees;
+	public ArrayList<Reservation> machinesSignalees(){
+		String sql ="select * from reserver,machine "
+				+ "where reserver.numma = machine.numma "
+				+ "and reserver.etatr = 'EN RECLAMATION' ";
+		
+		Query(); 		
+		afferentSQL(sql);
+		this.machinesSignalees = new ArrayList<Reservation>();
+		List<Object> objs = Select();
+		for (int i = 0; i < objs.size(); i++) {
+			Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+			Machine pc= new Machine();
+			Reservation rr= new Reservation();//ici
+
+			pc.setSalle(new Salle((String)rowData.get("numsalle")));
+			pc.setNumMachine((String)rowData.get("numma"));
+			rr.setMachine(pc);//ici
+			rr.setJour((String)rowData.get("jour"));//ici
+			rr.setHeureDeb((String)rowData.get("heuredebr"));//ici
+			rr.setHeureFin((String)rowData.get("heurefinr"));//ici
+			machinesSignalees.add(rr);
+		}
+		System.out.println(machinesSignalees);
+		return machinesSignalees;
+	}
 
 	// tester
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		AdminDao a1 = new AdminDao();	
-		a1.login("1","2");
+		//a1.login("1","2");
 		//a1.tousmachine();
 		//a1.tousetudiant();
 		Etudiant etu1 =new Etudiant();

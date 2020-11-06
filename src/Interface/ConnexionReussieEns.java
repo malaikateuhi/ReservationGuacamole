@@ -254,7 +254,7 @@ public class ConnexionReussieEns extends JFrame {
 				listModel.add(i, detail);
 				q++;	
 			}
-			System.out.println(end.reservationsSeance(this.seanceAAnuuler,this.tempsSeAAnnuler).get(0));
+			
 			pageConsulterEns.list.setModel(listModel);
 		}
 		else {

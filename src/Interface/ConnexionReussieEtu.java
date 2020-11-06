@@ -77,7 +77,7 @@ public class ConnexionReussieEtu extends JFrame {
 			}
 		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 491, 337);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -134,7 +134,8 @@ public class ConnexionReussieEtu extends JFrame {
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 									.addGap(29)))
-							.addComponent(lblNom, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblNom, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblNewLabel_1)
@@ -142,11 +143,11 @@ public class ConnexionReussieEtu extends JFrame {
 								.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
 							.addGap(82)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnDeconn, GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+								.addComponent(btnDeconn, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 									.addComponent(comboBoxCreneau, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
 									.addComponent(lblNewLabel_2, GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)))))
-					.addContainerGap(32, Short.MAX_VALUE))
+					.addContainerGap(35, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

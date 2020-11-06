@@ -69,8 +69,8 @@ public class EnseignantDao {
 			   tps.setHmSeanceSalle(hmSeanceSalle); 
 			   tps.setJour((String)rowData.get("jour"));
 			   tps.setCreneau((int)rowData.get("creneau"));
-			   tps.setHeureDeb((String)rowData.get("heuredeb"));
-			   tps.setHeureFin((String)rowData.get("heurefin"));
+			   tps.setHeureDeb((String)rowData.get("heureDeb"));
+			   tps.setHeureFin((String)rowData.get("heureFin"));
 			   lstseance.add(tps);
 
 			  }		  
@@ -185,7 +185,7 @@ public class EnseignantDao {
 		
 		String sql = "SELECT * FROM reserver r, machine m, passer p "
 				+ "WHERE r.numma = m.numma AND m.numsalle = p.numsalle "
-				+ "AND r.jour = p.jour AND r.heuredebr = p.heuredeb "
+				+ "AND r.jour = p.jour AND r.heureDeb = p.heureDeb "
 				+ "AND p.numseance = ? "
 				+ "AND p.jour = ? "
 				+ "AND p.heuredeb = ? "
