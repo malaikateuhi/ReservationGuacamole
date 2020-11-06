@@ -264,7 +264,7 @@ public class RechercheMachineDispo extends JFrame {
 			}
 			
 			//creer une nouvelle reservation
-			Reservation reser = new Reservation(new Machine(this.lblNumMa.getText()),this.id2,this.lblJour.getText(),heureDeb,heureFin,"Réservée",this.creneauSuite);
+			Reservation reser = new Reservation(new Machine(this.lblNumMa.getText()),this.id2,this.lblJour.getText(),heureDeb,heureFin,"RESERVEE",this.creneauSuite);
 			//reserve ok?
 			if(ed1.prendreReservation(reser)) {
 				dispose();
