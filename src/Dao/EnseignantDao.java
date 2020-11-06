@@ -29,7 +29,7 @@ public class EnseignantDao {
 	 * Authentification d'un enseignant
 	 */
 	public Enseignant login(String id,String password) {
-		String sqlen = "select * from Enseigant where iden=? and passworden=? ";//faut corriger le password dans bd admin
+		String sqlen = "select * from Enseignant where iden=? and passworden=? ";//faut corriger le password dans bd admin
 		Enseignant enres = null;
 		Query();
 		parameter.add(id);
@@ -44,7 +44,6 @@ public class EnseignantDao {
 			enres.setMdp((String)rowData.get("passwoden"));
 			enres.setNom((String)rowData.get("nomen"));
 			enres.setPrenom((String)rowData.get("prenomen"));
-			System.out.println("welcom "+rowData.get("nomen"));
 			return enres;    	  
 		}
 		else {
@@ -74,12 +73,7 @@ public class EnseignantDao {
 			   tps.setHeureFin((String)rowData.get("heurefin"));
 			   lstseance.add(tps);
 
-			  }
-		  for(int i =0;i<lstseance.size();i++) {
-			  System.out.println("--------------");
-			  System.out.println(lstseance.get(i).getHmSeanceSalle().size());
-		  }
-		  
+			  }		  
 		  return lstseance;
 		 }
 	public boolean annulerSeance(Seance seance, TempsDeSeance tpSeance) {
@@ -125,7 +119,6 @@ public class EnseignantDao {
 			etudiant.setPrenom((String)rowData.get("prenome"));
 			lstetudiant.add(etudiant);
 		}
-		System.out.println(lstetudiant);
 		return lstetudiant;
 	}
 
@@ -150,7 +143,6 @@ public class EnseignantDao {
 			if (lstsalle.contains(salle)==false) {
 				lstsalle.add(salle);}
 		}
-		System.out.println(lstsalle);
 		return lstsalle;
 	}
 
@@ -180,7 +172,6 @@ public class EnseignantDao {
 			rr.setJour((String)rowData.get("jour"));
 			lstreservation1.add(rr);
 		}
-		System.out.println(lstreservation1);
 		return lstreservation1;
 	}
 	
@@ -218,32 +209,11 @@ public class EnseignantDao {
 			res.setJour((String)rowData.get("jour")); 
 			res.setHeureDeb((String)rowData.get("heuredebr"));
 			res.setHeureFin((String)rowData.get("heurefinr"));
-			//res.setEtat((String)rowData.get("etatr"));
 			reservations.add(res);
 		}
 
 		return reservations;
 	}
-	
-	/**
-	 * Mettre une seance a ANNULEE
-	 * @return true si la modification a ete effectuee, false sinon
-	 */
-//	public boolean annulerSeance(Seance seance, TempsDeSeance tpSeance) {
-//		String sql = "UPDATE passer SET etats = 'ANNULEE' "
-//				+ "WHERE numseance = ? "
-//				+ "AND jour = ? AND heuredeb = ? "
-//				+ "AND numsalle = ?";
-//		
-//		Query(); 
-//		parameter.add(seance.getNumSeance());
-//		parameter.add(tpSeance.getJour());
-//		parameter.add(tpSeance.getHeureDeb());
-//		parameter.add(tpSeance.getHmSeanceSalle().get(seance).getNomSalle());			
-//		afferentSQL(sql);			
-//		int ligne=Update();
-//		return ligne >= 1;
-//	}
 	
 	/**
 	 *  Mettre toutes les reservations pour une seance donnee a ANNULEE
@@ -272,33 +242,6 @@ public class EnseignantDao {
 			lignes += Update();
 		}			
 		return lignes == reservations.size(); // nombre de lignes modifiees dans la table de la BD
-	}
-
-
-
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-//		EnseignantDao en1 = new EnseignantDao();	
-//		Enseignant enenget=en1.login("en1","en1");
-//		en1.donnerCours(enenget);
-//		Seance s1 =new Seance();
-//		s1.setNumSeance("TP1");
-//		en1.groupeEtudiants(s1);
-//		en1.sallesOccupees(s1);
-//		Salle sa1 =new Salle();
-//		sa1.setNomSalle("M1");
-//		en1.machineReserver(sa1);		
-
-	    // Test Annulation des réservations d'une seance => OK
-	    /*
-		TempsDeSeance tpS1 = new TempsDeSeance();
-	    tpS1.setJour("2020-11-10");
-	    tpS1.setHeureDeb("09:30");
-	    tpS1.setHeureFin("11:00");
-	    tpS1.getHmSeanceSalle().put(s1, sa1);		    
-	    en1.annulerReservations(s1, tpS1);
-	     */
 	}
 
 }

@@ -49,7 +49,6 @@ public class Connexion extends JFrame {
 	private JTextField txtId;
 	private JPasswordField passwordField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private QueryLogin queryLogin = new QueryLogin();
 	protected int typeUtilisateur = 0; //1-->etu, 2-->enseignant, 3-->admin 
 
 	//private BackgroundPanel bgp;
@@ -71,6 +70,7 @@ public class Connexion extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * Preparer les boutons, les labels, les zones de saisie,etc.
 	 */
 	public Connexion() {
 		
@@ -218,23 +218,20 @@ public class Connexion extends JFrame {
 //        contentPane.add(bgp);
 	}
 	
+	/**
+	 * fonction du bouton Valider, pour gerer la connexion
+	 * @param evt
+	 */
 	public void login(ActionEvent evt) {
 		String id = this.txtId.getText();
 		String mdp = new String(String.valueOf(this.passwordField.getPassword()));
 		EtudiantDao ed = new EtudiantDao();
 		EnseignantDao end = new EnseignantDao();
 		AdminDao ad = new AdminDao();
-//		Utilisateur user = null;
+
 		if(typeUtilisateur == 0) {
 			JOptionPane.showMessageDialog(null, "Veuillez choisir votre rôle!");
 		}
-		//else if(typeUtilisateur == 1) {
-//			user = new Etudiant(id,mdp);
-//		}else if(typeUtilisateur == 2) {
-//			user = new Enseignant(id,mdp);
-//		}else {
-//			user = new Admin(id,mdp);
-//		}
 		
 		if(StringUtil.isEmpty(txtId.getText()) || StringUtil.isEmpty(String.valueOf(passwordField.getPassword()))) {
 			JOptionPane.showMessageDialog(null, "L'identifiant ou le mot de passe ne peut pas \u00EAtre vide!");
@@ -242,31 +239,18 @@ public class Connexion extends JFrame {
 			
 			
 			if(ed.login(id, mdp) != null && this.typeUtilisateur == 1) {
-				//System.out.println(usercurrent.getNumeroIdent());
+
 				dispose();
-				ConnexionReussieEtu cre = new ConnexionReussieEtu();
-				cre.setVisible(true);
-				//cre.lblId.setText(this.txtId.getText());
-				cre.lblNom.setText(ed.login(id, mdp).getNom()+" "+ed.login(id, mdp).getPrenom());
-				cre.id = this.txtId.getText();
+				ConnexionReussieEtu pageReussieEtu = new ConnexionReussieEtu();
+				pageReussieEtu.setVisible(true);
+				pageReussieEtu.lblNom.setText(ed.login(id, mdp).getNom()+" "+ed.login(id, mdp).getPrenom());
+				pageReussieEtu.id = this.txtId.getText();
 			}
 			else if(end.login(id, mdp) != null && this.typeUtilisateur == 2){
 				//page de l'enseignant
 				dispose();
 				creerPageConnexionReussieEns(id,mdp);
-			}
-		        
-//					pageConsultation.lstReser.add(reser);
-				
-				//System.out.println(dataTable[0][0]);
-				//String [] header={"Date","Heure","N°séance","Cours"};
-		        //String [][] data={{"akash","20","s","ff"},{"pankaj","24"},{"pankaj","24"},{"pankaj","24"},{"pankaj","24"}};
-				//DefaultTableModel model = new DefaultTableModel(dataTable,header);
-				//cren.tableSeance= new JTable(model);
-				//cren.dataTab = dataTable;
-				//cren.modelTab = model;
-	
-			
+			}			
 
 			else if(ad.login(id, mdp) != null && this.typeUtilisateur == 3) {
 				//page de l'admin
@@ -279,15 +263,19 @@ public class Connexion extends JFrame {
 		}
 	}
 
+	/**
+	 * preparer l'affichage de la page suivante
+	 * @param id1
+	 * @param mdp1
+	 */
 	protected void creerPageConnexionReussieEns(String id1,String mdp1) {
 		EnseignantDao end = new EnseignantDao();
-		ConnexionReussieEns cren = new ConnexionReussieEns();
-		cren.setVisible(true);
-		cren.idEns = id1;
-		cren.mdp = mdp1;
-		cren.lblNomEns.setText(end.login(id1, mdp1).getNom()+" "+end.login(id1, mdp1).getPrenom());					
+		ConnexionReussieEns pageReussieEtu = new ConnexionReussieEns();
+		pageReussieEtu.setVisible(true);
+		pageReussieEtu.idEns = id1;
+		pageReussieEtu.mdp = mdp1;
+		pageReussieEtu.lblNomEns.setText(end.login(id1, mdp1).getNom()+" "+end.login(id1, mdp1).getPrenom());					
 		
-	
 		ArrayList<String> lstLigne = new ArrayList();
         HashMap<TempsDeSeance,Seance> hm = new HashMap();
 		for(TempsDeSeance temps : end.donnerCours(new Enseignant(id1))) {
@@ -300,7 +288,7 @@ public class Connexion extends JFrame {
 				//lstSeance.add(s);
 				String ligneb =","+s.getNomCours()+","+s.getNumSeance()+","+temps.getHmSeanceSalle().get(s).getNomSalle();
 				lstLigne.add(lignea+ligneb);
-				cren.hm.put(temps,s);
+				pageReussieEtu.hm.put(temps,s);
 			}
 			
 	   }
@@ -311,7 +299,7 @@ public class Connexion extends JFrame {
 			listModel.add(i, str);
 			i++;	
 		}
-		cren.list.setModel(listModel);
+		pageReussieEtu.list.setModel(listModel);
 		
 	}
 	

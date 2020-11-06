@@ -39,7 +39,6 @@ public class ConnexionReussieEns extends JFrame {
 	private JPanel contentPane;
 	protected JLabel lblNomEns;
 	protected String idEns;
-	//protected DefaultTableModel modelTab ;
 	protected String[][] dataTab;
 	protected JList list;
 	protected LinkedHashMap<TempsDeSeance,Seance> hm= new LinkedHashMap<TempsDeSeance, Seance>();
@@ -165,6 +164,10 @@ public class ConnexionReussieEns extends JFrame {
         contentPane.setLayout(gl_contentPane);
 	}
 	
+	/**
+	 * fonction du bouton Annuler une seance
+	 * @param evt
+	 */
 	protected void btnAnnulerAction(ActionEvent evt) {
 		recupererDonnees();
 		EnseignantDao end = new EnseignantDao();
@@ -177,6 +180,10 @@ public class ConnexionReussieEns extends JFrame {
 		}
 		
 	}
+	
+	/**
+	 *recuperer les donnees utiles de JList 
+	 */
 	protected void recupererDonnees() {
 		int i = 0,j = 0;
 		//obtenir l'indice de la ligne dans JList que l'utilisateur a choisi
@@ -207,12 +214,15 @@ public class ConnexionReussieEns extends JFrame {
 		}
 	
 	}
+	/**
+	 * fontion du bouton Consulter en selectionnant une ligne de seance
+	 * @param evt
+	 */
 	protected void btnConsulterAction(ActionEvent evt) {
 		EnseignantDao end = new EnseignantDao();
 		int i = 0,j = 0;
 		//obtenir l'indice de la ligne dans JList que l'utilisateur a choisi
 		int itemSelect = this.list.getSelectedIndex();
-		System.out.println("6666"+ itemSelect);
 		String item = String.valueOf(this.list.getSelectedValue());
 		if(item != null && itemSelect != -1) {
 			ConsultationSeanceReserEns pageConsulterEns = new ConsultationSeanceReserEns();
@@ -251,6 +261,11 @@ public class ConnexionReussieEns extends JFrame {
 			JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
 		}
 	}
+	
+	/**
+	 * fontion du bouton Actualiser, pour renouvler la JList
+	 * @param evt
+	 */
 	public void btnActualiserAction(ActionEvent evt) {
 		dispose();
 		Connexion conn = new Connexion();

@@ -25,7 +25,7 @@ public class ConsultationSeanceReserEns extends JFrame {
 	protected JLabel lblDetailSeance;
 	protected JList list;
 	private JButton btnNewButton;
-	
+	//private BackgroundPanel bgp;
 	/**
 	 * Launch the application.
 	 */
@@ -133,5 +133,11 @@ public class ConsultationSeanceReserEns extends JFrame {
 		);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
+		
+		//font
+//		panel.setOpaque(false);
+//		bgp=new BackgroundPanel(new ImageIcon(".//img.jpg")); 
+//	    bgp.setBounds(0, 0, this.getSize().width, this.getSize().height);  
+//        contentPane.add(bgp);
 	}
 }

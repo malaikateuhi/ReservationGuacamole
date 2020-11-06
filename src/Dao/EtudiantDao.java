@@ -48,62 +48,16 @@ public class EtudiantDao {
 			return etures;    	  
 		}
 		else {
-
-			System.out.println("erreur");
+			//System.out.println("login erreur");
 			return null;
 		}
 	}
-
-
-	/*	//Historique des r��servations de l'��tudiant
-	ArrayList<Reservation> lstreservation;
-	public ArrayList<Reservation> hisreserver (Etudiant etudiant)
-	{
-		String sqlreserver = "select * from reserver where ide=? ";
-		Query(); 
-		parameter.add(etudiant.getIdentifiant());
-		afferentSQL(sqlreserver);
-		this.lstreservation= new ArrayList<Reservation>();
-		  List<Object> objs = Select();
-	        for (int i = 0; i < objs.size(); i++) {
-	        	Map<String, Object> rowData = (Map<String, Object>) objs.get(i);
-	        	Reservation reserver= new Reservation();
-	        	reserver.setJour((String)rowData.get("jour"));
-	            reserver.setEtat((String)rowData.get("etatr"));
-	            reserver.setHeureDeb((String)rowData.get("heuredebr"));
-	            reserver.setHeureFin((String)rowData.get("heurefinr"));
-	            lstreservation.add(reserver);
-	        }
-		return lstreservation;
-	}*/
-
 
 	/**
 	 *  Si l'��l��ve a une classe, recommander une machine 
 	 *  S'il y a une seance dans la p��riode sp��cifi��e, v��rifiez la salle o�� le cours a eu lieu
 	 * @return
 	 */
-//	public Salle recommande(Etudiant etudiant, String jour,int time) {
-//		String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup "
-//				+ "and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? ";
-//		Query(); 
-//		parameter.add(etudiant.getIdentifiant());
-//		parameter.add(jour);
-//		parameter.add(time);
-//		afferentSQL(avoircours);
-//		List<Object> objs = Select();
-//		if (objs.size()!=0) {
-//			Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
-//			Salle salle = new Salle();
-//			salle.setNomSalle((String)rowData.get("numsalle"));   
-//			System.out.println(salle.getNomSalle());
-//			Seance seance =new Seance();
-//
-//			return salle;
-//		}
-//		else 
-//		{return null;}
-//	}
 	public Salle recommande(Etudiant etudiant, String jour,int time) {
 		  String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup "
 		    + "and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? and etats <> 'Annulee'";
@@ -174,43 +128,11 @@ public class EtudiantDao {
 			Map<String, Object> rowData =(Map<String, Object>) objs.get(0);
 			Machine machine = new Machine();
 			machine.setNumMachine((String)rowData.get("numma")); 
-			//machine.setEtat((String)rowData.get("etatm"));
-			System.out.println("1111"+machine.getNumMachine());
 			return machine;
 		}
 		return null;
 	}
 
-	/**
-	 * Recommander une machine pour une reservation en acces libre (hors seance de TP)	
-	 * @param jour date de la seance
-	 * @param time nombre de creneaux de la seance
-	 */
-//	public Machine choisi(Etudiant etudiant,String jour,int time) {
-//		// Si l'etudiant n'a pas de seance pendant le creneau ou il veut ,
-//		// alors recommander une machine qui n'est pas occupee pendant cette periode, 
-//		// et cette machine n'est pas dans la classe qui a des cours pendant cette periode
-//		String pascours ="select * from machine "
-//				+ "where machine.numma not in(select numma from reserver where ide=? and jour=?and creneau=?) "
-//				+ "and numsalle not in (select numsalle from passer where jour=?and creneau=?)";
-//		Query(); 
-//		parameter.add(etudiant.getIdentifiant());
-//		parameter.add(jour);
-//		parameter.add(time);
-//		parameter.add(jour);
-//		parameter.add(time);
-//		afferentSQL(pascours);
-//		List<Object> objs = Select();
-//		System.out.println(objs.get(0));
-//		if (objs.size()!=0) {
-//			Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
-//			Machine machine = new Machine();
-//			machine.setNumMachine((String)rowData.get("numma")); 
-//			machine.setSalle(new Salle((String)rowData.get("numsalle")));
-//			return machine;
-//		}
-//		else {return null;}
-//	}
 	public Machine choisi(Etudiant etudiant,String jour,int time) {
 		  // Si l'etudiant n'a pas de seance pendant le creneau ou il veut ,
 		  // alors recommander une machine qui n'est pas occupee pendant cette periode, 
@@ -278,7 +200,6 @@ public class EtudiantDao {
 			Salle sa = new Salle((String)rowData.get("numsalle"));
 			Machine ma = new Machine((String)rowData.get("numma"),sa);
 			rr.setMachine(ma);
-			//rr.setMachine(new Machine((String)rowData.get("numma"),new Salle((String)rowData.get("numsalle"))));
 			rr.setCreaneau((int)rowData.get("creneau"));
 			rr.setHeureDeb((String)rowData.get("heuredebr"));
 			rr.setHeureFin((String)rowData.get("heurefinr"));
@@ -287,7 +208,6 @@ public class EtudiantDao {
 			rr.setJour((String)rowData.get("jour"));
 			lstreservation.add(rr);
 		}
-		System.out.println(lstreservation);
 		return lstreservation;
 	}
 	

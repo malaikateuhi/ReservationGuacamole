@@ -170,13 +170,13 @@ public class ConsultationReservation extends JFrame {
 //        contentPane.add(bgp);
 	}
 
+	/**
+	 * fonction du bouton Annuler une reservation
+	 * @param evt
+	 */
 	public void btnAnnulerReserAction(ActionEvent evt) {
 		
 		EtudiantDao ed = new EtudiantDao();
-//		System.out.println(this.listReser.getSelectedIndex());
-//		System.out.println(this.lstReser);
-		
-		//ed.annulerReservation(ed.inforeserver(new Etudiant(this.lblId3.getText())).get(this.listReser.getSelectedIndex()));
 		if(ed.annulerReservation(ed.infoReserver(new Etudiant(this.id3)).get(this.listReser.getSelectedIndex()))) {
 			JOptionPane.showMessageDialog(null, "Annulation r\u00E9ussie");
 		}else {

@@ -94,12 +94,7 @@ public class ConnexionReussieEtu extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("Choisir un cr\u00E9neau");
 		
 		comboBoxCreneau = new JComboBox();
-//		comboBoxCreneau.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				creneau = comboBoxCreneau.getSelectedIndex();
-//			}
-//		});
-		comboBoxCreneau.setModel(new DefaultComboBoxModel(new String[] {"09:30-11:00", "11:00-12:30", "14:00-15:30", "15:30-17:00"}));
+		comboBoxCreneau.setModel(new DefaultComboBoxModel(new String[] {"08:00-09:30","09:30-11:00", "11:00-12:30", "14:00-15:30", "15:30-17:00","17:00-18:30"}));
 		
 		JButton btnNewButton = new JButton("Chercher");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -185,6 +180,10 @@ public class ConnexionReussieEtu extends JFrame {
 //        contentPane.add(bgp);
 	}
 
+	/**
+	 * fonction du bouton Consulter ses reservations
+	 * @param e
+	 */
 	public void btnConsulterAction(ActionEvent e) {
 		
 		ConsultationReservation pageConsultation = new ConsultationReservation();
@@ -204,6 +203,10 @@ public class ConnexionReussieEtu extends JFrame {
 		pageConsultation.listReser.setModel(listModel);
 	}
 
+	/**
+	 * fonction du bouton Chercher, le systeme proposera une salle et une machine disponible
+	 * @param evt
+	 */
 	public void btnChercherAction(ActionEvent evt) {
 		this.jour = txtDate.getText();
 		if(this.comboBoxCreneau.getSelectedItem() == "08:00-09:30") {
@@ -224,6 +227,7 @@ public class ConnexionReussieEtu extends JFrame {
 		else if(this.comboBoxCreneau.getSelectedItem() == "17:00-18:30") {
 			this.creneau = 5;
 		}
+		//preparer l'affichage de la page suivante
 		RechercheMachineDispo pageRecherche = new RechercheMachineDispo();
 		pageRecherche.setVisible(true);
 		pageRecherche.lblNom2.setText(this.lblNom.getText());
@@ -241,7 +245,7 @@ public class ConnexionReussieEtu extends JFrame {
 		System.out.println("salle"+salle); 		
 		Machine machineSansCours = ed1.choisi(etu,jour,this.creneau);
 		System.out.println("macSans Cours"+machineSansCours);
-		//si une �tudiant a cours ce jour et ce cr�neau l�
+		//si une etudiant a cours ce jour et ce creneau la
 		if (salle != null && ed1.machinelibre(salle,jour,this.creneau) != null) {
 			pageRecherche.lblNumSalle.setText(salle.getNomSalle());
 			pageRecherche.lblNumMa.setText(ed1.machinelibre(salle,jour,this.creneau).getNumMachine());
@@ -262,6 +266,7 @@ public class ConnexionReussieEtu extends JFrame {
 			pageRecherche.lblNumMa.setText(machineSansCours.getNumMachine());
 			
 		}
+		//sinon, le cas ou il n'a pas de place libre
 		else {
 			dispose();
 			JOptionPane.showMessageDialog(null, "Oups! Pas de machine disponble");

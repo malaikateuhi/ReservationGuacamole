@@ -35,7 +35,7 @@ public class RechercheMachineDispo extends JFrame {
 	public JLabel lblCours;
 	public JLabel lblNomCours;
 	public JLabel lblAvoirCours;
-	public int creneauSuite = 4;
+	public int creneauSuite = 6;
 	//private BackgroundPanel bgp;
 	/**
 	 * Launch the application.
@@ -228,28 +228,41 @@ public class RechercheMachineDispo extends JFrame {
 		this.creneauSuite = creneauSuite;
 	}
 
+	/**
+	 * 
+	 * @param evt
+	 */
 	public void btnReserverAction(ActionEvent evt) {
 		EtudiantDao ed1 = new EtudiantDao();
 		//calculer le creneau
-		if(this.lblNumMa.getText() != "..." && this.lblNumSalle.getText() != "..." && this.creneauSuite!= 4) {
+		if(this.lblNumMa.getText() != "..." && this.lblNumSalle.getText() != "..." && this.creneauSuite!= 6) {
 			String heureDeb = null;
 			String heureFin = null;
 			if(this.creneauSuite == 0) {
-				heureDeb = "09:30";
-				heureFin = "11:30";
+				heureDeb = "08:00";
+				heureFin = "09:30";
 			}
 			else if(this.creneauSuite == 1) {
+				heureDeb = "09:30";
+				heureFin = "11:00";
+			}
+			else if(this.creneauSuite == 2) {
 				heureDeb = "11:00";
 				heureFin = "12:30";
 			}
-			else if(this.creneauSuite == 2) {
+			else if(this.creneauSuite == 3) {
 				heureDeb = "14:00";
 				heureFin = "15:30";
 			}
-			else if(this.creneauSuite == 3) {
+			else if(this.creneauSuite == 4) {
 				heureDeb = "15:30";
 				heureFin = "17:00";
 			}
+			else if(this.creneauSuite == 5) {
+				heureDeb = "17:00";
+				heureFin = "18:30";
+			}
+			
 			//creer une nouvelle reservation
 			Reservation reser = new Reservation(new Machine(this.lblNumMa.getText()),this.id2,this.lblJour.getText(),heureDeb,heureFin,"Réservée",this.creneauSuite);
 			//reserve ok?
@@ -259,14 +272,10 @@ public class RechercheMachineDispo extends JFrame {
 			}
 			else {
 				JOptionPane.showMessageDialog(null, "R\u00E9servation \u00E9chec");
-				System.out.println("-----"+reser.getHeureDeb());
 			}
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "Veuillez choisir un cr\u00E9neau");
-			
+			JOptionPane.showMessageDialog(null, "Veuillez choisir un cr\u00E9neau");	
 		}
-		
-		
 	}
 }
