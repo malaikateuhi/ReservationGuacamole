@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.JMenuItem;
 
 public class ConnexionReussieAd extends javax.swing.JFrame {
@@ -291,14 +292,15 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
         jTabbedPane3.addTab("Gestion des comptes etudiants", jPanel3);
 
         jMenu1.setText("Menu");
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+        
+        jMenuBar1.add(jMenu1);
+        
+        deconnecterMenuItem = new JMenuItem("Déconnexion");
+        deconnecterMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu1ActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
-        
-        deconnecterMenuItem = new JMenuItem("Déconnexion");
         jMenu1.add(deconnecterMenuItem);
 
         setJMenuBar(jMenuBar1);
@@ -328,17 +330,24 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
     }                                            
 
     private void btnReglerActionPerformed(java.awt.event.ActionEvent evt) {     
+    	AbstractTableModel model = (AbstractTableModel) tableReclamations.getModel();
     	int row = tableReclamations.getSelectedRow();    	
     	String jour = (String) tableReclamations.getValueAt(row, 0);
     	String heureDeb = (String) tableReclamations.getValueAt(row, 1);
-    	String numMachine = (String) tableReclamations.getValueAt(row, 2);
+    	String heureFin = (String) tableReclamations.getValueAt(row, 2);
+    	String numSalle = (String) tableReclamations.getValueAt(row, 3);
+    	String numMachine = (String) tableReclamations.getValueAt(row, 4);
 
-        this.control.traiterReclamation(numMachine, jour, heureDeb);
+        this.control.traiterReclamation(numSalle, numMachine, jour, heureDeb, heureFin);        
+        
+        model.fireTableDataChanged();
+        
     }                                         
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {                                       
         dispose();
-        new Connexion();
+        Connexion co = new Connexion();
+        co.setVisible(true);
     }                                      
 
     private void cbSallesActionPerformed(java.awt.event.ActionEvent evt) {                                         
