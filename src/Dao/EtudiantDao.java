@@ -55,7 +55,6 @@ public class EtudiantDao {
 	}
 
 
-
 	/**
 	 *  Si l'锟斤拷l锟斤拷ve a une classe, recommander une machine 
 	 *  S'il y a une seance dans la p锟斤拷riode sp锟斤拷cifi锟斤拷e, v锟斤拷rifiez la salle o锟斤拷 le cours a eu lieu
