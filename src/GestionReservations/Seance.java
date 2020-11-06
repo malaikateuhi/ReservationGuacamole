@@ -8,16 +8,15 @@ public class Seance {
 	private String nomCours;
 	private String etat;
 	
-		public Seance(String numSeance) { //nouvelle
-			this.numSeance = numSeance;
-		}	
-		
+	public Seance() {}
 	
-	public Seance() {
-		// TODO Auto-generated constructor stub
+	public Seance(String numSeance) {
+		 this.numSeance = numSeance;
 	}
-
-
+	public Seance(String nums, String nomc) {
+		this(nums);
+		this.nomCours = nomc;
+	}
 	public String getNumSeance() {
 		return numSeance;
 	}

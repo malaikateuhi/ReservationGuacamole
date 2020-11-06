@@ -102,8 +102,7 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
         jMenu1.setBackground(new Color(255, 255, 255));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        
-        //tableReclamations.setModel(modelReclam);
+
         loadReclamations();
         jScrollPane1.setViewportView(tableReclamations);
         if (tableReclamations.getColumnModel().getColumnCount() > 0) {
@@ -155,6 +154,7 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
         btnModifier.setText("Modifier");
 
         cbSalles.setModel(new javax.swing.DefaultComboBoxModel<>(salles));
+
         cbSalles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSallesActionPerformed(evt);
@@ -166,8 +166,10 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
+
             public int getSize() { return machines.length; }
             public String getElementAt(int i) { return machines[i]; }
+
         });
         jScrollPane2.setViewportView(jListMachines);
 
@@ -214,11 +216,13 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
 
         jTabbedPane3.addTab("Gestion des machines", jTabbedPane2);
 
+
         cbGroupes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M2IPMTD1", "M2IPMTD2"}));
 
         jLabel1.setText("Groupe");
 
         loadComptes();
+
         jScrollPane3.setViewportView(tableComptes);
         if (tableComptes.getColumnModel().getColumnCount() > 0) {
             tableComptes.getColumnModel().getColumn(0).setResizable(false);
@@ -269,7 +273,8 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
         
         jMenuBar1.add(jMenu1);
         
-        deconnecterMenuItem = new JMenuItem("Déconnexion");
+        deconnecterMenuItem = new JMenuItem("Deconnexion");
+
         deconnecterMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu1ActionPerformed(evt);
@@ -297,6 +302,7 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
 
         //pack();
+
     }// </editor-fold>               
     
     /**
@@ -394,7 +400,7 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
                 }
             });
     }
-    
+
     private void btnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
     }                                            
@@ -413,6 +419,7 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
         
     }                                        
 
+
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {                                       
         dispose();
         Connexion co = new Connexion();
@@ -423,5 +430,7 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                        
 
+
                   
 }
+

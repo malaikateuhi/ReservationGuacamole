@@ -76,7 +76,11 @@ public class Controleur {
 	 * @param idEtudiant identifiant de l'etudiant
 	 * @param jour date de la reservation
 	 * @param creneau creneau de reservation
+<<<<<<< HEAD
+	 * @return HashMap avec le num�ro de machine et la salle
+=======
 	 * @return HashMap avec le numéro de machine et la salle
+>>>>>>> dev
 	 */
 	public HashMap<String, String> machineAccesLibre (String idEtudiant, String jour, int creneau) {
 		HashMap<String, String> donnesMachine = new HashMap<String , String>();
@@ -220,6 +224,7 @@ public class Controleur {
 	 *  Consulter les machines
 	 * @return
 	 */
+
 	public String[] consulterMachines() {
 		ArrayList<Machine> machines = adminDao.tousmachine();
 		String[] numMachines = new String[machines.size()];

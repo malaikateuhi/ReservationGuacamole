@@ -2,9 +2,11 @@ package Interface;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import Dao.EtudiantDao;
@@ -23,6 +25,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.awt.event.ActionEvent;
 
 public class ConsultationReservation extends JFrame {
@@ -30,9 +33,10 @@ public class ConsultationReservation extends JFrame {
 	private JPanel contentPane;
 	private JPanel panel;
 	//private BackgroundPanel bgp;
-	public JList listReser;
-	public JLabel lblId3;
-	public ArrayList<Reservation> lstReser = new ArrayList();
+	protected JList listReser;
+	protected JLabel lblNom3;
+	protected String id3;
+	protected ArrayList<Reservation> lstReser = new ArrayList();
 	/**
 	 * Launch the application.
 	 */
@@ -53,9 +57,19 @@ public class ConsultationReservation extends JFrame {
 	 * Create the frame.
 	 */
 	public ConsultationReservation() {
+		//changer la police
+		Font font = new Font("Tahoma", Font.PLAIN,14);
+		Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+			if(value instanceof javax.swing.plaf.FontUIResource) {
+				UIManager.put(key,font);
+			}
+		}
 		setTitle("Consultation");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 491, 339);
+		setBounds(100, 100, 560, 368);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -73,13 +87,12 @@ public class ConsultationReservation extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-					.addContainerGap())
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE))
 		);
 		
 		JLabel lblNewLabel = new JLabel("Bonjour,");
 		
-		lblId3 = new JLabel("...");
+		lblNom3 = new JLabel("...");
 		
 		JButton btnAnnulerReser = new JButton("Annuler la r\u00E9servation");
 		btnAnnulerReser.addActionListener(new ActionListener() {
@@ -102,24 +115,20 @@ public class ConsultationReservation extends JFrame {
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap(45, Short.MAX_VALUE)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+					.addGap(25)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addComponent(btnAnnulerReser)
+							.addPreferredGap(ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+							.addComponent(btnRetour, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
+							.addGap(43))
+						.addComponent(listReser, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblId3, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-							.addComponent(listReser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-								.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
-								.addGap(202))))
+							.addComponent(lblNom3, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(65)
-					.addComponent(btnAnnulerReser)
-					.addPreferredGap(ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-					.addComponent(btnRetour, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-					.addGap(39))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -127,12 +136,12 @@ public class ConsultationReservation extends JFrame {
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel)
-						.addComponent(lblId3))
-					.addGap(30)
+						.addComponent(lblNom3))
+					.addGap(22)
 					.addComponent(lblNewLabel_2)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(listReser, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(listReser, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+					.addGap(30)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAnnulerReser)
 						.addComponent(btnRetour))
@@ -147,17 +156,17 @@ public class ConsultationReservation extends JFrame {
 //        contentPane.add(bgp);
 	}
 
+	/**
+	 * fonction du bouton Annuler une reservation
+	 * @param evt
+	 */
 	public void btnAnnulerReserAction(ActionEvent evt) {
 		
 		EtudiantDao ed = new EtudiantDao();
-		System.out.println(this.listReser.getSelectedIndex());
-		System.out.println(this.lstReser);
-		
-		//ed.annulerReservation(ed.inforeserver(new Etudiant(this.lblId3.getText())).get(this.listReser.getSelectedIndex()));
-		if(ed.annulerReservation(ed.infoReserver(new Etudiant(this.lblId3.getText())).get(this.listReser.getSelectedIndex()))) {
-			JOptionPane.showMessageDialog(null, "Annulation r�ussie");
+		if(ed.annulerReservation(ed.infoReserver(new Etudiant(this.id3)).get(this.listReser.getSelectedIndex()))) {
+			JOptionPane.showMessageDialog(null, "Annulation r\u00E9ussie");
 		}else {
-			JOptionPane.showMessageDialog(null, "Annulation �chec");
+			JOptionPane.showMessageDialog(null, "Annulation \u00E9chec");
 		}
 		dispose();
 	}
