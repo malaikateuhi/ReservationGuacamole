@@ -142,6 +142,60 @@ public class AdminDao {
 	}
 	
 
+/*  Mettre une reservation EN RECLAMATION � reserv�
+	*  @return true si la reservation, false sinon
+	*/
+	public boolean traiterReclamation(Reservation reservation) {
+		String sql = "UPDATE reserver "
+				+ "SET etatr = 'RESERVEE' "
+				+ "WHERE numma = ? "
+				+ "AND ide = ? "
+				+ "AND jour = ? "
+				+ "AND heuredebr = ? "
+				+ "AND heurefinr = ? "
+				+ "AND creneau = ?";	
+
+			Query();
+			parameter.add(reservation.getMachine().getNumMachine());
+			parameter.add(reservation.getIdee());
+			parameter.add(reservation.getJour());
+			parameter.add(reservation.getHeureDeb());
+			parameter.add(reservation.getHeureFin());
+			parameter.add(reservation.getCreaneau());
+			afferentSQL(sql);			
+			int ligne=Update();
+			return ligne >= 1;
+		}
+	
+	/* recuperer les machines qui sont pass�es en r�clamation*/
+
+	ArrayList<Reservation> machinesSignalees;
+	public ArrayList<Reservation> machinesSignalees(){
+		String sql ="select * from reserver,machine "
+				+ "where reserver.numma = machine.numma "
+				+ "and reserver.etatr = 'EN RECLAMATION' ";
+		
+		Query(); 		
+		afferentSQL(sql);
+		this.machinesSignalees = new ArrayList<Reservation>();
+		List<Object> objs = Select();
+		for (int i = 0; i < objs.size(); i++) {
+			Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+			Machine pc= new Machine();
+			Reservation rr= new Reservation();//ici
+
+			pc.setSalle(new Salle((String)rowData.get("numSalle")));
+			pc.setNumMachine((String)rowData.get("numma"));
+			rr.setMachine(pc);//ici
+			rr.setJour((String)rowData.get("jour"));//ici
+			rr.setHeureDeb((String)rowData.get("heuredeb"));//ici
+			rr.setHeureFin((String)rowData.get("heurefin"));//ici
+			machinesSignalees.add(rr);
+		}
+		System.out.println(machinesSignalees);
+		return machinesSignalees;
+	}
+
 	// tester
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
