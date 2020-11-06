@@ -54,7 +54,7 @@ public class EnseignantDao {
 	public ArrayList<TempsDeSeance > donnerCours(Enseignant enseigant){
 		  
 		  ArrayList<TempsDeSeance> lstseance = new ArrayList<TempsDeSeance>();
-		  String sql ="SELECT *from donner,passer,seance where passer.numseance=donner.numseance and seance.numseance = passer.numseance and iden=?";
+		  String sql ="SELECT * from seance,passer where seance.numseance=passer.numseance and iden=?";
 		  Query(); 
 		  parameter.add(enseigant.getIdentifiant());
 		  afferentSQL(sql);

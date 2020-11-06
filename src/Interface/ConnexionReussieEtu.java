@@ -41,7 +41,7 @@ public class ConnexionReussieEtu extends JFrame {
 	protected static JLabel lblNom;
 	private JTextField txtDate;
 	private JComboBox comboBoxCreneau;
-	private int creneau = 4;
+	private int creneau = 6;
 	private String jour;
 	protected String id; 
 	
@@ -206,17 +206,23 @@ public class ConnexionReussieEtu extends JFrame {
 
 	public void btnChercherAction(ActionEvent evt) {
 		this.jour = txtDate.getText();
-		if(this.comboBoxCreneau.getSelectedItem() == "09:30-11:00") {
+		if(this.comboBoxCreneau.getSelectedItem() == "08:00-09:30") {
 			this.creneau = 0;
 		}
-		else if(this.comboBoxCreneau.getSelectedItem() == "11:00-12:30") {
-			this.creneau = 1;
+		else if(this.comboBoxCreneau.getSelectedItem() == "09:30-11:00") {
+			this.creneau = 1;	
 		}
-		else if(this.comboBoxCreneau.getSelectedItem() == "14:00-15:30") {
+		else if(this.comboBoxCreneau.getSelectedItem() == "11:00-12:30") {
 			this.creneau = 2;
 		}
-		else if(this.comboBoxCreneau.getSelectedItem() == "15:30-17:00") {
+		else if(this.comboBoxCreneau.getSelectedItem() == "14:00-15:30") {
 			this.creneau = 3;
+		}
+		else if(this.comboBoxCreneau.getSelectedItem() == "15:30-17:00") {
+			this.creneau = 4;
+		}
+		else if(this.comboBoxCreneau.getSelectedItem() == "17:00-18:30") {
+			this.creneau = 5;
 		}
 		RechercheMachineDispo pageRecherche = new RechercheMachineDispo();
 		pageRecherche.setVisible(true);
