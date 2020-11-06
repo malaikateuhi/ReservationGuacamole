@@ -18,7 +18,7 @@ public class TempsDeSeance {
 
 	public TempsDeSeance(String jour, String heureDeb, String heureFin, int creaneau, HashMap<Seance, Salle> hmSeanceSalle) {
 		this.jour = jour;
-		this.heureDeb = heureDeb;
+		this.heureDeb = heureDeb;		
 		this.heureFin = heureFin;
 		this.creaneau = creaneau;
 		this.hmSeanceSalle = hmSeanceSalle;

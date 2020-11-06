@@ -55,7 +55,7 @@ public class EtudiantDao {
 	}
 
 
-	/*	//Historique des r��servations de l'��tudiant
+	/*	//Historique des reservations de l'etudiant
 	ArrayList<Reservation> lstreservation;
 	public ArrayList<Reservation> hisreserver (Etudiant etudiant)
 	{
@@ -79,8 +79,8 @@ public class EtudiantDao {
 
 
 	/**
-	 *  Si l'��l��ve a une classe, recommander une machine 
-	 *  S'il y a une seance dans la p��riode sp��cifi��e, v��rifiez la salle o�� le cours a eu lieu
+	 *  Si l'锟斤拷l锟斤拷ve a une classe, recommander une machine 
+	 *  S'il y a une seance dans la p锟斤拷riode sp锟斤拷cifi锟斤拷e, v锟斤拷rifiez la salle o锟斤拷 le cours a eu lieu
 	 * @return
 	 */
 	public Salle recommande(Etudiant etudiant, String jour,int time) {
@@ -146,7 +146,6 @@ public class EtudiantDao {
 		Query(); 
 		parameter.add(salle.getNomSalle());
 		parameter.add(jour);
-
 		parameter.add(time);
 		afferentSQL(sqlmachine);
 		List<Object> objs = Select();
@@ -208,7 +207,7 @@ public class EtudiantDao {
 		parameter.add(reservation.getEtat());
 		parameter.add(reservation.getCreaneau());
 		int ligne=Update();
-		if(ligne>=1){ //nombre de lignes affect�es (c'est-�-dire le nombre de mises � jour
+		if(ligne>=1){ //nombre de lignes affect锟絜s (c'est-锟�-dire le nombre de mises 锟� jour
 			return true;
 		}else {
 			return false;
@@ -260,7 +259,7 @@ public class EtudiantDao {
 		parameter.add(reservation.getJour());
 		parameter.add(reservation.getCreaneau());
 		int ligne=Update();
-		if(ligne>=1){ //Nombre de lignes affect��es (c'est-��-dire le nombre de mises �� jour
+		if(ligne>=1){ //Nombre de lignes affect锟斤拷es (c'est-锟斤拷-dire le nombre de mises 锟斤拷 jour
 			return true;
 
 		}else {
