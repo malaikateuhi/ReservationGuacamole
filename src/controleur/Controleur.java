@@ -18,7 +18,7 @@ public class Controleur {
 	private EnseignantDao enseignantDao;
 	private EtudiantDao etudiantDao;	
 	private MachineDao machineDao;
-	
+
 
 	public Controleur() {
 		this.adminDao = new AdminDao();
@@ -38,15 +38,15 @@ public class Controleur {
 	public Enseignant connecterEnseignant(String id, String pwd) {
 		return enseignantDao.login(id, pwd);
 	}
-	
+
 	public Admin connecterAdmin(String id, String pwd) {
 		return adminDao.login(id, pwd);
 	}
-	
+
 	/****************************************/
 	/* 		METHODES POUR ETUDIANT 			*/
 	/****************************************/
-	
+
 	/**
 	 * Recommander une machine pour une seance prevue d'un etudiant
 	 * @param idEtudiant identifiant de l'etudiant
@@ -56,21 +56,21 @@ public class Controleur {
 	 */
 	public HashMap<String, String> machinePourCours (String idEtudiant, String jour, int creneau) {
 		HashMap<String, String> donnesMachine = new HashMap<String , String>();
-		
+
 		Etudiant etudiant = new Etudiant(idEtudiant);
 		Seance seance = etudiantDao.avoirseance(etudiant, jour, creneau);
 		Salle salle = etudiantDao.recommande(etudiant, jour, creneau);		
 		Machine machine = etudiantDao.machinelibre(salle, jour, creneau);
-		
-		
+
+
 		donnesMachine.put("machine", machine.getNumMachine());
 		donnesMachine.put("salle", salle.getNomSalle());
 		donnesMachine.put("seance", machine.getNumMachine());
 		donnesMachine.put("cours", machine.getNumMachine());		
-		
+
 		return donnesMachine;		
 	}
-	
+
 	/**
 	 *  Recommander une machine pour acces libre
 	 * @param idEtudiant identifiant de l'etudiant
@@ -80,16 +80,16 @@ public class Controleur {
 	 */
 	public HashMap<String, String> machineAccesLibre (String idEtudiant, String jour, int creneau) {
 		HashMap<String, String> donnesMachine = new HashMap<String , String>();
-		
+
 		Etudiant etudiant = new Etudiant(idEtudiant);	
 		Machine machine = etudiantDao.choisi(etudiant, jour, creneau);		
-		
+
 		donnesMachine.put("machine", machine.getNumMachine());
 		donnesMachine.put("salle", machine.getSalle().getNomSalle());
-		
+
 		return donnesMachine;		
 	}
-	
+
 	/**
 	 *  Demander une reservation de machine pour un etudiant
 	 * @param numMachine numero de la machine
@@ -105,7 +105,7 @@ public class Controleur {
 		Reservation reser = new Reservation(machine, idEtudiant, jour, heureDeb, heureFin, "RESERVEE", creneau);
 		return etudiantDao.prendreReservation(reser);
 	}
-	
+
 	/**
 	 *  Consulter les reservations a venir d'un etudiant
 	 * @param idEtudiant numero etudiant
@@ -113,10 +113,10 @@ public class Controleur {
 	 */
 	public void listeReservationsEtudiant(String idEtudiant) {
 		ArrayList<Reservation> reservations = etudiantDao.infoReserver(new Etudiant(idEtudiant));
-		
-		
+
+
 	}
-	
+
 	/**
 	 *  Demander l'annulation d'une reservation par un etudiant	
 	 * @param idEtudiant numero etudiant
@@ -131,23 +131,23 @@ public class Controleur {
 		String heureFin = donneesRes[2];
 		int creneau = 0;
 		switch(heureDeb) {
-			case "09:30" :
-				creneau = 0;
-				break;
-			case "11:00" :
-				creneau = 1;
-				break;
-			case "14:00" :
-				creneau = 2;
-				break;
-			case "15:30" :
-				creneau = 3;
-				break;
+		case "09:30" :
+			creneau = 0;
+			break;
+		case "11:00" :
+			creneau = 1;
+			break;
+		case "14:00" :
+			creneau = 2;
+			break;
+		case "15:30" :
+			creneau = 3;
+			break;
 		};
 		Reservation reservation = new Reservation(new Machine(donneesRes[3]), idEtudiant, jour, heureDeb, heureFin, "RESERVEE", creneau);
 		return etudiantDao.annulerReservation(reservation);
 	}
-	
+
 	/**
 	 *  Effectuer une reclamation pour une machine reservee
 	 * @param res
@@ -166,118 +166,41 @@ public class Controleur {
 		reservation.setHeureFin(heureFin);
 		return etudiantDao.signalerReservation(reservation);
 	}
-	
+
 	/****************************************/
 	/* 		METHODES POUR ENSEIGNANT 		*/
 	/****************************************/
 
 	// Demander l'annulation d'une seance
-	
+
 	// Consulter les seances a venir d'un enseignant
-	
+
 	// Consulter les reservations pour une seance
-	
-	
+
+
 	/****************************************/
 	/* 		METHODES POUR ADMIN 			*/
 	/****************************************/
-	
-	
-	/**
-	 *  Consulter les machines
-	 * @return
-	 */
-	public ArrayList<String> consulterMachines() {
-		ArrayList<Machine> machines = adminDao.tousmachine();
-		ArrayList<String> numMachines = new ArrayList<String>();
-		
-		for(int i = 0 ; i < machines.size() ; i++) {
-			numMachines.add(machines.get(i).getNumMachine());
-		}
-		
-		return numMachines;
-	}
-	
-	// Consulter les salles
-	
-	/**
-	 *  Consulter les comptes etudiants
-	 */
-	public Object[][] consulterComptes() {
-		ArrayList<Etudiant> comptes = adminDao.tousEtudiant();
-		Object[][] listeComptes = new Object[comptes.size()][];
-		
-		for(int i = 0 ; i < comptes.size() ; i++) {
-			listeComptes[i][0] = comptes.get(i).getIdentifiant();
-			listeComptes[i][1] = comptes.get(i).getNom();
-			listeComptes[i][2] = comptes.get(i).getPrenom();
-		}
-		
-		return listeComptes;
-	}
-	
-	/**
-	 *  Supprimer une machine
-	 * @param num numero de machine
-	 * @return
-	 */
-	public boolean supprimerMachine(String num) {
-		Machine machine = new Machine(num);
-		return adminDao.supprimerMachine(machine); 
-	}
-	
-	/**
-	 *  Supprimer une salle
-	 * @param num numero de salle
-	 * @return true si salle supprime, false sinon
-	 */
-	public boolean supprimerSalle(String num) {
-		Salle salle = new Salle(num);
-		//return adminDao.supprimerSalle(salle); // A implementer
-		return true;
-	}
-	
-	/**
-	 * Supprimer un compte etudiant
-	 * @param id numero etudiant
-	 * @return true si compte supprime, false sinon
-	 */
-	public boolean supprimerCompte(String id) {
-		Etudiant etu = new Etudiant(id);
-		return adminDao.supprimerEtudiant(etu);
-	}
-	
-	// Modifier une machine
 
-	// Modifier une salle
-
-	// Modifier un compte etudiant
-	
-	// Ajouter une machine
-
-	// Ajouter une salle
-
-	// Ajouter un compte etudiant	
-	
-	
 	/**
 	 *  Consulter les machines en reclamation
 	 * @return
 	 */
 	public Object[][] consulterReclamations() {
 		ArrayList<Reservation> machinesRes = adminDao.machinesSignalees();
-		Object[][] listeMachines = new Object[machinesRes.size()][];
-		
+		Object[][] listeMachines = new Object[machinesRes.size()][5];
+
 		for(int i = 0 ; i < machinesRes.size() ; i++) {
 			listeMachines[i][0] = machinesRes.get(i).getJour();
 			listeMachines[i][1] = machinesRes.get(i).getHeureDeb();
+			listeMachines[i][2] = machinesRes.get(i).getHeureFin();			
 			listeMachines[i][3] = machinesRes.get(i).getMachine().getSalle().getNomSalle();
 			listeMachines[i][4] = machinesRes.get(i).getMachine().getNumMachine();
 		}
-		
+
 		return listeMachines;
 	}
-	
+
 	/**
 	 *  Traiter une machine en reclamation
 	 * @param numMachine numero de machine en reclamation
@@ -290,8 +213,99 @@ public class Controleur {
 		reservation.setHeureDeb(heureDeb);
 		adminDao.traiterReclamation(reservation);
 	}
+
+	/**
+	 *  Consulter les machines
+	 * @return
+	 */
+	public ArrayList<String> consulterMachines() {
+		ArrayList<Machine> machines = adminDao.tousmachine();
+		ArrayList<String> numMachines = new ArrayList<String>();
+
+		for(int i = 0 ; i < machines.size() ; i++) {
+			numMachines.add(machines.get(i).getNumMachine());
+		}
+
+		return numMachines;
+	}
+
+
+	/**
+	 *  Consulter les salles
+	 * @return
+	 */
+	public ArrayList<String> consulterSalles() {
+		ArrayList<Salle> salles = adminDao.toutesSalles();
+		ArrayList<String> numSalles = new ArrayList<String>();
+
+		for(int i = 0 ; i < salles.size() ; i++) {
+			numSalles.add(salles.get(i).getNomSalle());
+		}
+
+		return numSalles;
+	}
+
+	/**
+	 *  Consulter les comptes etudiants
+	 */
+	public Object[][] consulterComptes() {
+		ArrayList<Etudiant> comptes = adminDao.tousEtudiant();
+		Object[][] listeComptes = new Object[comptes.size()][3];
+
+		for(int i = 0 ; i < comptes.size() ; i++) {
+			listeComptes[i][0] = comptes.get(i).getIdentifiant();
+			listeComptes[i][1] = comptes.get(i).getNom();
+			listeComptes[i][2] = comptes.get(i).getPrenom();
+		}
+
+		return listeComptes;
+	}
+
+	/**
+	 *  Supprimer une machine
+	 * @param num numero de machine
+	 * @return
+	 */
+	public boolean supprimerMachine(String num) {
+		Machine machine = new Machine(num);
+		return adminDao.supprimerMachine(machine); 
+	}
+
+	/**
+	 *  Supprimer une salle
+	 * @param num numero de salle
+	 * @return true si salle supprime, false sinon
+	 */
+	public boolean supprimerSalle(String num) {
+		Salle salle = new Salle(num);
+		//return adminDao.supprimerSalle(salle); // A implementer
+		return true;
+	}
+
+	/**
+	 * Supprimer un compte etudiant
+	 * @param id numero etudiant
+	 * @return true si compte supprime, false sinon
+	 */
+	public boolean supprimerCompte(String id) {
+		Etudiant etu = new Etudiant(id);
+		return adminDao.supprimerEtudiant(etu);
+	}
+
+	////// NON IMPLEMENTE
 	
-	
-	
-	
+	// Modifier une machine
+
+	// Modifier une salle
+
+	// Modifier un compte etudiant
+
+	// Ajouter une machine
+
+	// Ajouter une salle
+
+	// Ajouter un compte etudiant	
+
+
+
 }
