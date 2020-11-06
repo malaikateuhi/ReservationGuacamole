@@ -101,7 +101,7 @@ public class AdminDao {
 	 * Recuperer toutes les salles
 	 */
 	public ArrayList<Salle> toutesSalles () {
-		String sqlreserver = "select * from machine group by numsalle";
+		String sqlreserver = "select numsalle from machine group by numsalle";
 		Query(); 
 		afferentSQL(sqlreserver);
 		ArrayList<Salle> lstSalles = new ArrayList<Salle>();
@@ -149,19 +149,19 @@ public class AdminDao {
 		String sql = "UPDATE reserver "
 				+ "SET etatr = 'RESERVEE' "
 				+ "WHERE numma = ? "
-				+ "AND ide = ? "
+				//+ "AND ide = ? "
 				+ "AND jour = ? "
 				+ "AND heuredebr = ? "
-				+ "AND heurefinr = ? "
-				+ "AND creneau = ?";	
+				+ "AND heurefinr = ? ";
+				//+ "AND creneau = ?";	
 
 			Query();
 			parameter.add(reservation.getMachine().getNumMachine());
-			parameter.add(reservation.getIdee());
+			//parameter.add(reservation.getIdee());
 			parameter.add(reservation.getJour());
 			parameter.add(reservation.getHeureDeb());
 			parameter.add(reservation.getHeureFin());
-			parameter.add(reservation.getCreaneau());
+			//parameter.add(reservation.getCreaneau());
 			afferentSQL(sql);			
 			int ligne=Update();
 			return ligne >= 1;
@@ -184,12 +184,12 @@ public class AdminDao {
 			Machine pc= new Machine();
 			Reservation rr= new Reservation();//ici
 
-			pc.setSalle(new Salle((String)rowData.get("numSalle")));
+			pc.setSalle(new Salle((String)rowData.get("numsalle")));
 			pc.setNumMachine((String)rowData.get("numma"));
 			rr.setMachine(pc);//ici
 			rr.setJour((String)rowData.get("jour"));//ici
-			rr.setHeureDeb((String)rowData.get("heuredeb"));//ici
-			rr.setHeureFin((String)rowData.get("heurefin"));//ici
+			rr.setHeureDeb((String)rowData.get("heuredebr"));//ici
+			rr.setHeureFin((String)rowData.get("heurefinr"));//ici
 			machinesSignalees.add(rr);
 		}
 		System.out.println(machinesSignalees);

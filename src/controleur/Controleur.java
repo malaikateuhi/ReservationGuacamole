@@ -205,12 +205,14 @@ public class Controleur {
 	 *  Traiter une machine en reclamation
 	 * @param numMachine numero de machine en reclamation
 	 */
-	public void traiterReclamation(String numMachine, String jour, String heureDeb) {
-		Machine machine = new Machine(numMachine);
+	public void traiterReclamation(String numSalle, String numMachine, String jour, String heureDeb, String heureFin) {
+		Salle salle = new Salle(numSalle);
+		Machine machine = new Machine(numMachine, salle);
 		Reservation reservation = new Reservation();
 		reservation.setMachine(machine);
 		reservation.setJour(jour);
 		reservation.setHeureDeb(heureDeb);
+		reservation.setHeureFin(heureFin);
 		adminDao.traiterReclamation(reservation);
 	}
 
