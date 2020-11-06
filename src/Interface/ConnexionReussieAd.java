@@ -9,6 +9,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JMenuItem;
 
 public class ConnexionReussieAd extends javax.swing.JFrame {
@@ -43,8 +44,8 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
     
 	private Object [][] donneesReclam;
 	private Object [][] donneesComptes;
-	private ArrayList<String> machines;
-	private ArrayList<String> salles;
+	private String[] machines;
+	private String[] salles;
 	
 
     private Controleur control;
@@ -52,12 +53,18 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
 	
     public ConnexionReussieAd() {
         control = new Controleur();
+    	loadData();
+        initComponents();
+    	this.setSize(600, 450);
+    	this.setVisible(true);
+    	setTitle("Interface Admin");
+    }
+    
+    private void loadData() {
     	donneesReclam = control.consulterReclamations();
     	donneesComptes = control.consulterComptes();
     	machines = control.consulterMachines();
     	salles = control.consulterSalles();
-        initComponents();
-    	
     }
 
     /**
@@ -95,25 +102,9 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
         jMenu1.setBackground(new Color(255, 255, 255));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        tableReclamations.setModel(new javax.swing.table.DefaultTableModel(
-            donneesReclam,
-            new String [] {
-                "Date", "Debut", "Fin", "Salle", "Poste"
-            }
-        ) {
-            /**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        
+        //tableReclamations.setModel(modelReclam);
+        loadReclamations();
         jScrollPane1.setViewportView(tableReclamations);
         if (tableReclamations.getColumnModel().getColumnCount() > 0) {
             tableReclamations.getColumnModel().getColumn(0).setResizable(false);
@@ -163,7 +154,7 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
 
         btnModifier.setText("Modifier");
 
-        cbSalles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbSalles.setModel(new javax.swing.DefaultComboBoxModel<>(salles));
         cbSalles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSallesActionPerformed(evt);
@@ -175,8 +166,8 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-            public int getSize() { return machines.size(); }
-            public String getElementAt(int i) { return machines.get(i); }
+            public int getSize() { return machines.length; }
+            public String getElementAt(int i) { return machines[i]; }
         });
         jScrollPane2.setViewportView(jListMachines);
 
@@ -223,28 +214,11 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
 
         jTabbedPane3.addTab("Gestion des machines", jTabbedPane2);
 
-        cbGroupes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbGroupes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "M2IPMTD1", "M2IPMTD2"}));
 
         jLabel1.setText("Groupe");
 
-        tableComptes.setModel(new javax.swing.table.DefaultTableModel(
-            donneesComptes,
-            new String [] {
-                "NumEtudiant", "Nom", "Prenom"
-            }
-        ) {
-            /**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-			boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        loadComptes();
         jScrollPane3.setViewportView(tableComptes);
         if (tableComptes.getColumnModel().getColumnCount() > 0) {
             tableComptes.getColumnModel().getColumn(0).setResizable(false);
@@ -323,14 +297,109 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
 
         //pack();
-    }// </editor-fold>                        
+    }// </editor-fold>               
+    
+    /**
+     * Charger les reclamations depuis BD
+     * 
+     */
+    private void loadReclamations() {
+    	loadData();
+    	DefaultTableModel modelReclam = new javax.swing.table.DefaultTableModel(
+                donneesReclam,
+                new String [] {
+                    "Date", "Debut", "Fin", "Salle", "Poste"
+                }
+            ) {
+                /**
+    			 * 
+    			 */
+    			private static final long serialVersionUID = 1L;
+    			boolean[] canEdit = new boolean [] {
+                    false, false, false, false
+                };
 
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            };
+         tableReclamations.setModel(modelReclam);
+    }
+    
+    /**
+     * Vider le tableau de reclamations
+     * 
+     */
+    private void clearReclamations() {
+    	DefaultTableModel modelReclam = new javax.swing.table.DefaultTableModel(
+                null,
+                new String [] {
+                    "Date", "Debut", "Fin", "Salle", "Poste"
+                }
+            ) {
+                /**
+    			 * 
+    			 */
+    			private static final long serialVersionUID = 1L;
+    			boolean[] canEdit = new boolean [] {
+                    false, false, false, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            };
+         tableReclamations.setModel(modelReclam);
+    }
+    
+    private void loadComptes() {
+    	loadData();
+    	tableComptes.setModel(new javax.swing.table.DefaultTableModel(
+                donneesComptes,
+                new String [] {
+                    "NumEtudiant", "Nom", "Prenom"
+                }
+            ) {
+                /**
+    			 * 
+    			 */
+    			private static final long serialVersionUID = 1L;
+    			boolean[] canEdit = new boolean [] {
+                    false, false, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            });
+    }
+    
+    private void clearComptes() {
+    	tableComptes.setModel(new javax.swing.table.DefaultTableModel(
+                null,
+                new String [] {
+                    "NumEtudiant", "Nom", "Prenom"
+                }
+            ) {
+                /**
+    			 * 
+    			 */
+    			private static final long serialVersionUID = 1L;
+    			boolean[] canEdit = new boolean [] {
+                    false, false, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            });
+    }
+    
     private void btnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
     }                                            
 
     private void btnReglerActionPerformed(java.awt.event.ActionEvent evt) {     
-    	AbstractTableModel model = (AbstractTableModel) tableReclamations.getModel();
     	int row = tableReclamations.getSelectedRow();    	
     	String jour = (String) tableReclamations.getValueAt(row, 0);
     	String heureDeb = (String) tableReclamations.getValueAt(row, 1);
@@ -338,11 +407,11 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
     	String numSalle = (String) tableReclamations.getValueAt(row, 3);
     	String numMachine = (String) tableReclamations.getValueAt(row, 4);
 
-        this.control.traiterReclamation(numSalle, numMachine, jour, heureDeb, heureFin);        
+        this.control.traiterReclamation(numSalle, numMachine, jour, heureDeb, heureFin);  
+        clearReclamations();
+        loadReclamations();
         
-        model.fireTableDataChanged();
-        
-    }                                         
+    }                                        
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {                                       
         dispose();
@@ -354,8 +423,5 @@ public class ConnexionReussieAd extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                        
 
-    public static void main(String args[]) {
-        ConnexionReussieAd co = new ConnexionReussieAd();
-     }
                   
 }

@@ -220,12 +220,12 @@ public class Controleur {
 	 *  Consulter les machines
 	 * @return
 	 */
-	public ArrayList<String> consulterMachines() {
+	public String[] consulterMachines() {
 		ArrayList<Machine> machines = adminDao.tousmachine();
-		ArrayList<String> numMachines = new ArrayList<String>();
+		String[] numMachines = new String[machines.size()];
 
 		for(int i = 0 ; i < machines.size() ; i++) {
-			numMachines.add(machines.get(i).getNumMachine());
+			numMachines[i] = machines.get(i).getNumMachine();
 		}
 
 		return numMachines;
@@ -236,12 +236,12 @@ public class Controleur {
 	 *  Consulter les salles
 	 * @return
 	 */
-	public ArrayList<String> consulterSalles() {
+	public String[] consulterSalles() {
 		ArrayList<Salle> salles = adminDao.toutesSalles();
-		ArrayList<String> numSalles = new ArrayList<String>();
+		String[] numSalles = new String[salles.size()];
 
 		for(int i = 0 ; i < salles.size() ; i++) {
-			numSalles.add(salles.get(i).getNomSalle());
+			numSalles[i] = salles.get(i).getNomSalle();
 		}
 
 		return numSalles;
