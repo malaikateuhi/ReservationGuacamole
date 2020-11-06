@@ -29,7 +29,8 @@ public class EnseignantDao {
 	 * Authentification d'un enseignant
 	 */
 	public Enseignant login(String id,String password) {
-		String sqlen = "select * from Enseignant where iden=? and passworden=? ";//faut corriger le password dans bd admin
+		String sqlen = "select * from enseignant where iden=? and passworden=? ";
+
 		Enseignant enres = null;
 		Query();
 		parameter.add(id);
@@ -50,6 +51,10 @@ public class EnseignantDao {
 			return null;}
 	}
 	
+	/**
+	 * 	Afficher les seances donnees par un enseignant et le salle se trouve  
+	 * @return ArrayList de un liste qui contient l'objet seance et l'objet salle 
+	 */	
 	public ArrayList<TempsDeSeance > donnerCours(Enseignant enseigant){
 		  
 		  ArrayList<TempsDeSeance> lstseance = new ArrayList<TempsDeSeance>();
@@ -73,28 +78,24 @@ public class EnseignantDao {
 			   tps.setHeureFin((String)rowData.get("heureFin"));
 			   lstseance.add(tps);
 
-			  }		  
+		  }		  
 		  return lstseance;
-		 }
+	}
 	public boolean annulerSeance(Seance seance, TempsDeSeance tpSeance) {
-		  String sql = "delete from passer "
-		    + "WHERE numseance = ? "
-		    + "AND jour = ? AND creneau=? "
-		    + "AND numsalle = ?";
-		  
-		  Query(); 
-		  parameter.add(seance.getNumSeance());
-		  parameter.add(tpSeance.getJour());
-		  parameter.add(tpSeance.getCreneau());
-		  parameter.add(tpSeance.getHmSeanceSalle().get(seance).getNomSalle());   
-		  afferentSQL(sql);   
-		  int ligne=Update();
-		  return ligne >= 1;
-		 }
-	/**
-	 * 	Afficher les seances donnees par un enseignant
-	 * @return ArrayList d'objets de type Seance
-	 */		
+		String sql = "delete from passer "
+				+ "WHERE numseance = ? "
+				+ "AND jour = ? AND creneau=? "
+				+ "AND numsalle = ?";
+
+		Query(); 
+		parameter.add(seance.getNumSeance());
+		parameter.add(tpSeance.getJour());
+		parameter.add(tpSeance.getCreneau());
+		parameter.add(tpSeance.getHmSeanceSalle().get(seance).getNomSalle());   
+		afferentSQL(sql);   
+		int ligne=Update();
+		return ligne >= 1;
+	}
 
 
 	/**
@@ -152,9 +153,10 @@ public class EnseignantDao {
 	ArrayList<Reservation> lstreservation1;
 	public ArrayList<Reservation> machineReserver(Salle salle){
 		String sql ="select * from reserver,machine,passer "
-			    + "where reserver.numma = machine.numma"
+			    + "where reserver.numma = machine.numma "
 			    + "and machine.numsalle = passer.numsalle and passer.jour=reserver.jour "
 			    + "and passer.creneau=reserver.creneau and salle.numsalle = ?";
+
 		Query(); 
 		parameter.add(salle.getNomSalle());
 		afferentSQL(sql);
@@ -181,8 +183,7 @@ public class EnseignantDao {
 	 * @return ArrayList<Reservation>
 	 */
 	public ArrayList<Reservation> reservationsSeance(Seance seance, TempsDeSeance tpSeance) {
-		ArrayList<Reservation> reservations = new ArrayList<Reservation>();
-		
+		ArrayList<Reservation> reservations = new ArrayList<Reservation>();	
 		String sql = "SELECT * FROM reserver r, machine m, passer p "
 				+ "WHERE r.numma = m.numma AND m.numsalle = p.numsalle "
 				+ "AND r.jour = p.jour AND r.heureDeb = p.heureDeb "
@@ -198,7 +199,7 @@ public class EnseignantDao {
 		afferentSQL(sql);
 		List<Object> objs = Select();
 
-		for (int i = 0; i < objs.size(); i++) {								// Recuperation de chaque reservation dans un objet Reservation
+		for (int i = 0; i < objs.size(); i++) {	// Recuperation de chaque reservation dans un objet Reservation
 			Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
 			Salle s = new Salle((String)rowData.get("p.numsalle"));
         	Machine m = new Machine((String)rowData.get("numma"), s);
@@ -231,7 +232,7 @@ public class EnseignantDao {
 		ArrayList<Reservation> reservations = reservationsSeance(seance, tpSeance);			
 		int lignes = 0;
 		
-		for (Reservation reservation : reservations) {			// Changement d'etat de chaque reservation
+		for (Reservation reservation : reservations) {	// Changement d'etat de chaque reservation
 			Query();
 			parameter.add(reservation.getMachine().getNumMachine());
 			parameter.add(reservation.getIdee());

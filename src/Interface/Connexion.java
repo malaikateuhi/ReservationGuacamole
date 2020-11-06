@@ -49,8 +49,9 @@ public class Connexion extends JFrame {
 	private JTextField txtId;
 	private JPasswordField passwordField;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	protected int typeUtilisateur = 0; //1-->etu, 2-->enseignant, 3-->admin 
 
+	private QueryLogin queryLogin = new QueryLogin();
+	public int typeUtilisateur = 0; //1-->etu, 2-->enseignant, 3-->admin 
 	//private BackgroundPanel bgp;
 	/**
 	 * Launch the application.
@@ -230,7 +231,7 @@ public class Connexion extends JFrame {
 		AdminDao ad = new AdminDao();
 
 		if(typeUtilisateur == 0) {
-			JOptionPane.showMessageDialog(null, "Veuillez choisir votre rôle!");
+			JOptionPane.showMessageDialog(null, "Veuillez choisir votre rï¿½le!");
 		}
 		
 		if(StringUtil.isEmpty(txtId.getText()) || StringUtil.isEmpty(String.valueOf(passwordField.getPassword()))) {
@@ -254,9 +255,10 @@ public class Connexion extends JFrame {
 
 			else if(ad.login(id, mdp) != null && this.typeUtilisateur == 3) {
 				//page de l'admin
-//				dispose();
-//				ConnexionReussieAd pageConnexionReussieAd = new ConnexionReussieAd();
-//				pageConnexionReussieAd.lblNomAd.setText(this.txtId.getText());
+				dispose();
+				ConnexionReussieAd crad = new ConnexionReussieAd();
+				crad.setVisible(true);
+				//crad.lblIdEn.setText(ad.login(id, mdp).getNom()+" "+end.login(id, mdp).getPrenom());
 			}
 			else {
 				JOptionPane.showMessageDialog(null,"Votre identifiant ou mot de passe semble incorrect");

@@ -52,32 +52,34 @@ public class EtudiantDao {
 		}
 	}
 
+
 	/**
-	 *  Si l'��l��ve a une classe, recommander une machine 
-	 *  S'il y a une seance dans la p��riode sp��cifi��e, v��rifiez la salle o�� le cours a eu lieu
+	 *  Si l'锟斤拷l锟斤拷ve a une classe, recommander une machine 
+	 *  S'il y a une seance dans la p锟斤拷riode sp锟斤拷cifi锟斤拷e, v锟斤拷rifiez la salle o锟斤拷 le cours a eu lieu
 	 * @return
 	 */
 	public Salle recommande(Etudiant etudiant, String jour,int time) {
-		  String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup "
-		    + "and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? and etats <> 'Annulee'";
-		  Query(); 
-		  parameter.add(etudiant.getIdentifiant());
-		  parameter.add(jour);
-		  parameter.add(time);
-		  afferentSQL(avoircours);
-		  List<Object> objs = Select();
-		  if (objs.size()!=0) {
-			   Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
-			   Salle salle = new Salle();
-			   salle.setNomSalle((String)rowData.get("numsalle"));   
-			   System.out.println(salle.getNomSalle());
-			   Seance seance =new Seance();
+		String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup "
+				+ "and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? and etats <> 'Annulee'";
+		Query(); 
+		parameter.add(etudiant.getIdentifiant());
+		parameter.add(jour);
+		parameter.add(time);
+		afferentSQL(avoircours);
+		List<Object> objs = Select();
+		if (objs.size()!=0) {
+			Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
+			Salle salle = new Salle();
+			salle.setNomSalle((String)rowData.get("numsalle"));   
+			System.out.println(salle.getNomSalle());
+			Seance seance =new Seance();
 
-			   return salle;
-		  }
-		  else 
-		  {return null;}
-		 }
+			return salle;
+		}
+		else 
+		{return null;}
+	}
+
 	/**
 	 * Verifier si un etudiant a une seance prevue aux jour et creneau donnes 
 	 * @param time nombre de creneaux de la seance
@@ -119,7 +121,6 @@ public class EtudiantDao {
 		Query(); 
 		parameter.add(salle.getNomSalle());
 		parameter.add(jour);
-
 		parameter.add(time);
 		afferentSQL(sqlmachine);
 		List<Object> objs = Select();
@@ -132,31 +133,38 @@ public class EtudiantDao {
 		return null;
 	}
 
+
+	/**
+	 * Recommander une machine pour une reservation en acces libre (hors seance de TP)	
+	 * @param jour date de la seance
+	 * @param time nombre de creneaux de la seance
+	 */
 	public Machine choisi(Etudiant etudiant,String jour,int time) {
-		  // Si l'etudiant n'a pas de seance pendant le creneau ou il veut ,
-		  // alors recommander une machine qui n'est pas occupee pendant cette periode, 
-		  // et cette machine n'est pas dans la classe qui a des cours pendant cette periode
-		  String pascours ="select * from machine "
-		    + "where machine.numma not in(select numma from reserver where ide=? and jour=?and creneau=?) "
-		    + "and numsalle not in (select numsalle from passer where jour=?and creneau=? and etats<>'Annulle')";
-		  Query(); 
-		  parameter.add(etudiant.getIdentifiant());
-		  parameter.add(jour);
-		  parameter.add(time);
-		  parameter.add(jour);
-		  parameter.add(time);
-		  afferentSQL(pascours);
-		  List<Object> objs = Select();
-		  System.out.println(objs.get(0));
-		  if (objs.size()!=0) {
-		   Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
-		   Machine machine = new Machine();
-		   machine.setNumMachine((String)rowData.get("numma")); 
-		   machine.setSalle(new Salle((String)rowData.get("numsalle")));
-		   return machine;
-		  }
-		  else {return null;}
-		 }
+		// Si l'etudiant n'a pas de seance pendant le creneau ou il veut ,
+		// alors recommander une machine qui n'est pas occupee pendant cette periode, 
+		// et cette machine n'est pas dans la classe qui a des cours pendant cette periode
+		String pascours ="select * from machine "
+				+ "where machine.numma not in(select numma from reserver where ide=? and jour=?and creneau=?) "
+				+ "and numsalle not in (select numsalle from passer where jour=?and creneau=? and etats<>'Annulle')";
+		Query(); 
+		parameter.add(etudiant.getIdentifiant());
+		parameter.add(jour);
+		parameter.add(time);
+		parameter.add(jour);
+		parameter.add(time);
+		afferentSQL(pascours);
+		List<Object> objs = Select();
+		System.out.println(objs.get(0));
+		if (objs.size()!=0) {
+			Map<String, Object> rowData =(Map<String, Object>)objs.get(0);
+			Machine machine = new Machine();
+			machine.setNumMachine((String)rowData.get("numma")); 
+			machine.setSalle(new Salle((String)rowData.get("numsalle")));
+			return machine;
+		}
+		else {return null;}
+	}
+
 	/**
 	 * Enregistrer une reservation en BD
 	 * @return true si l'enregistrement a bien ete effectue, false sinon
@@ -173,7 +181,7 @@ public class EtudiantDao {
 		parameter.add(reservation.getEtat());
 		parameter.add(reservation.getCreaneau());
 		int ligne=Update();
-		if(ligne>=1){ //nombre de lignes affect�es (c'est-�-dire le nombre de mises � jour
+		if(ligne>=1){ //nombre de lignes affect锟絜s (c'est-锟�-dire le nombre de mises 锟� jour
 			return true;
 		}else {
 			return false;
@@ -209,7 +217,7 @@ public class EtudiantDao {
 		}
 		return lstreservation;
 	}
-	
+
 	/**
 	 * Suppression d'une reservation
 	 * @return true si la reservation est supprimee, false sinon
@@ -223,13 +231,14 @@ public class EtudiantDao {
 		parameter.add(reservation.getJour());
 		parameter.add(reservation.getCreaneau());
 		int ligne=Update();
-		if(ligne>=1){ //Nombre de lignes affect��es (c'est-��-dire le nombre de mises �� jour
+		if(ligne>=1){ 
 			return true;
 
 		}else {
 			return false;
 		}
 	}
+
 	/** 
 	 *  Mettre une reservation EN RECLAMATION
 	 *  @return true si la reservation, false sinon
@@ -243,7 +252,6 @@ public class EtudiantDao {
 				+ "AND heuredebr = ? "
 				+ "AND heurefinr = ?"
 				+ "AND creneau = ?";	
-
 		Query();
 		parameter.add(reservation.getMachine().getNumMachine());
 		parameter.add(reservation.getIdee());
@@ -255,5 +263,7 @@ public class EtudiantDao {
 		int ligne=Update();
 		return ligne >= 1;
 	}
+
+}
 
 }

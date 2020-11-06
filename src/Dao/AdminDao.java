@@ -142,7 +142,7 @@ public class AdminDao {
 	}
 	
 
-/*  Mettre une reservation EN RECLAMATION reservation
+/*  Mettre une reservation EN RECLAMATION � reserv�
 	*  @return true si la reservation, false sinon
 	*/
 	public boolean traiterReclamation(Reservation reservation) {
@@ -167,7 +167,7 @@ public class AdminDao {
 			return ligne >= 1;
 		}
 	
-	/* recuperer les machines qui sont passees en reclamation*/
+	/* recuperer les machines qui sont pass�es en r�clamation*/
 
 	ArrayList<Reservation> machinesSignalees;
 	public ArrayList<Reservation> machinesSignalees(){
