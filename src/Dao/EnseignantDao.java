@@ -57,15 +57,16 @@ public class EnseignantDao {
 	 */		
 	
 	public ArrayList<TempsDeSeance > donnerCours(Enseignant enseigant){
-		HashMap<Seance,Salle> hmSeanceSalle;
+		
 		ArrayList<TempsDeSeance> lstseance = new ArrayList<TempsDeSeance>();
-		String sql ="SELECT *from donner,passer where passer.numseance=donner.numseance and iden=?";
+		String sql ="SELECT * from seance,passer where seance.numseance=passer.numseance and iden=?";
 		Query(); 
 		parameter.add(enseigant.getIdentifiant());
 		afferentSQL(sql);
 		List<Object> objs = Select();			  
 		for (int i = 0; i < objs.size(); i++) {
-				Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+			HashMap<Seance,Salle> hmSeanceSalle;
+			Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
 			TempsDeSeance tps = new TempsDeSeance();
 			Salle sa = new Salle((String)rowData.get("numsalle"));
 			Seance se =new Seance((String)rowData.get("numseance"));
@@ -263,6 +264,8 @@ public class EnseignantDao {
 		EnseignantDao en1 = new EnseignantDao();	
 		Enseignant enenget=en1.login("en2","en2");
 		en1.donnerCours(enenget);
+		 
+	
 		//Seance s1 =new Seance();
 		//s1.setNumSeance("TP1");
 		//en1.groupeEtudiants(s1);

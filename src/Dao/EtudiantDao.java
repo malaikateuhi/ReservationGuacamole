@@ -260,7 +260,7 @@ public class EtudiantDao {
 		t1.login("1","1");
 
 		//t1.recommande(e1, "2020-11-10", 0);
-		//t1.avoirseance(e1, "2020-11-10", 0);
+		t1.avoirseance(e1, "2020-11-10", 0);				
 		//t1.choisi(e1, "2020-11-10", 0);
 		//Reservation r1= new Reservation("ma1","1","2020-11-10","9:30","10:30","reserve",0);
 
