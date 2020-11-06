@@ -44,12 +44,10 @@ public class EtudiantDao {
 			etures.setMdp((String)rowData.get("passwode"));
 			etures.setNom((String)rowData.get("nome"));
 			etures.setPrenom((String)rowData.get("prenome"));   
-			System.out.println("welcom "+rowData.get("nome"));
 			return etures;    	  
 		}
 		else {
-
-			System.out.println("erreur");
+			//System.out.println("login erreur");
 			return null;
 		}
 	}
@@ -62,7 +60,7 @@ public class EtudiantDao {
 	 */
 	public Salle recommande(Etudiant etudiant, String jour,int time) {
 		String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup "
-				+ "and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? and etats<>'Annulle'";
+				+ "and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? and etats <> 'Annulee'";
 		Query(); 
 		parameter.add(etudiant.getIdentifiant());
 		parameter.add(jour);
@@ -130,14 +128,13 @@ public class EtudiantDao {
 			Map<String, Object> rowData =(Map<String, Object>) objs.get(0);
 			Machine machine = new Machine();
 			machine.setNumMachine((String)rowData.get("numma")); 
-			//machine.setEtat((String)rowData.get("etatm"));
-			System.out.println(machine.getNumMachine());
 			return machine;
 		}
 		return null;
 	}
 
-	  /**
+
+	/**
 	 * Recommander une machine pour une reservation en acces libre (hors seance de TP)	
 	 * @param jour date de la seance
 	 * @param time nombre de creneaux de la seance
@@ -210,19 +207,17 @@ public class EtudiantDao {
 			Salle sa = new Salle((String)rowData.get("numsalle"));
 			Machine ma = new Machine((String)rowData.get("numma"),sa);
 			rr.setMachine(ma);
-			//rr.setMachine(new Machine((String)rowData.get("numma"),new Salle((String)rowData.get("numsalle"))));
 			rr.setCreaneau((int)rowData.get("creneau"));
-			rr.setHeureDeb((String)rowData.get("heuredebr"));
-			rr.setHeureFin((String)rowData.get("heurefinr"));
+			rr.setHeureDeb((String)rowData.get("heureDeb"));
+			rr.setHeureFin((String)rowData.get("heureFin"));
 			rr.setEtat((String)rowData.get("etatr"));
 			rr.setIdee((String)rowData.get("ide"));
 			rr.setJour((String)rowData.get("jour"));
 			lstreservation.add(rr);
 		}
-		System.out.println(lstreservation);
 		return lstreservation;
 	}
-	
+
 	/**
 	 * Suppression d'une reservation
 	 * @return true si la reservation est supprimee, false sinon
@@ -257,7 +252,6 @@ public class EtudiantDao {
 				+ "AND heuredebr = ? "
 				+ "AND heurefinr = ?"
 				+ "AND creneau = ?";	
-
 		Query();
 		parameter.add(reservation.getMachine().getNumMachine());
 		parameter.add(reservation.getIdee());
@@ -270,29 +264,6 @@ public class EtudiantDao {
 		return ligne >= 1;
 	}
 
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		EtudiantDao t1 = new EtudiantDao();	
-		Etudiant e1= new Etudiant();
-		e1.setIdentifiant("1");
-		//t1.login("a","b");
-		Salle salle1=new Salle();
-		salle1.setNomSalle("M1");
-		//t1.machinelibre(salle1, "2020-11-10", 0);
-		t1.recommande(e1, "2020-11-10", 0);
-
-		t1.login("1","1");
-
-		//t1.recommande(e1, "2020-11-10", 0);
-		t1.avoirseance(e1, "2020-11-10", 0);				
-		//t1.choisi(e1, "2020-11-10", 0);
-		//Reservation r1= new Reservation("ma1","1","2020-11-10","9:30","10:30","reserve",0);
-
-		//t1.annulerReservation(r1);
-		//t1.prendreserver(r1);
-		//t1.inforeserver(e1);
-	}
-
+}
 
 }

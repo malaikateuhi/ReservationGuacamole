@@ -18,6 +18,16 @@ public class Seance {
 	}
 
 
+	public Seance(String numSeance) {
+		 this.numSeance = numSeance;
+	}
+	public Seance() {
+		// TODO Auto-generated constructor stub
+	}
+	public Seance(String nums, String nomc) {
+		this(nums);
+		this.nomCours = nomc;
+	}
 	public String getNumSeance() {
 		return numSeance;
 	}
