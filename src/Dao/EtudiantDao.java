@@ -44,7 +44,6 @@ public class EtudiantDao {
 			etures.setMdp((String)rowData.get("passwode"));
 			etures.setNom((String)rowData.get("nome"));
 			etures.setPrenom((String)rowData.get("prenome"));   
-			System.out.println("welcom "+rowData.get("nome"));
 			return etures;    	  
 		}
 		else {

@@ -37,7 +37,6 @@ public class ConsultationReservation extends JFrame {
 	protected JLabel lblNom3;
 	protected String id3;
 	protected ArrayList<Reservation> lstReser = new ArrayList();
-	private JButton btnNewButton;
 	/**
 	 * Launch the application.
 	 */
@@ -112,34 +111,24 @@ public class ConsultationReservation extends JFrame {
 		});
 		
 		listReser = new JList();
-		
-		btnNewButton = new JButton("D\u00E9connexion");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-        		Connexion conn = new Connexion();
-			}
-		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(25)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(btnAnnulerReser)
+							.addPreferredGap(ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panel.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 									.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(lblNom3, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addGap(18)
+								.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
 									.addComponent(btnRetour, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE)
-									.addGap(30)
-									.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))))
-						.addComponent(listReser, GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
+									.addGap(43))))
+						.addComponent(listReser, GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
 						.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
@@ -157,8 +146,7 @@ public class ConsultationReservation extends JFrame {
 					.addGap(30)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAnnulerReser)
-						.addComponent(btnRetour)
-						.addComponent(btnNewButton))
+						.addComponent(btnRetour))
 					.addGap(27))
 		);
 		panel.setLayout(gl_panel);
