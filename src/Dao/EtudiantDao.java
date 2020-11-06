@@ -208,8 +208,8 @@ public class EtudiantDao {
 			Machine ma = new Machine((String)rowData.get("numma"),sa);
 			rr.setMachine(ma);
 			rr.setCreaneau((int)rowData.get("creneau"));
-			rr.setHeureDeb((String)rowData.get("heureDeb"));
-			rr.setHeureFin((String)rowData.get("heureFin"));
+			rr.setHeureDeb((String)rowData.get("heuredebr"));
+			rr.setHeureFin((String)rowData.get("heurefinr"));
 			rr.setEtat((String)rowData.get("etatr"));
 			rr.setIdee((String)rowData.get("ide"));
 			rr.setJour((String)rowData.get("jour"));
