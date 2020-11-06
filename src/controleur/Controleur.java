@@ -77,7 +77,7 @@ public class Controleur {
 	 * @param jour date de la reservation
 	 * @param creneau creneau de reservation
 <<<<<<< HEAD
-	 * @return HashMap avec le numéro de machine et la salle
+	 * @return HashMap avec le numï¿½ro de machine et la salle
 =======
 	 * @return HashMap avec le numÃ©ro de machine et la salle
 >>>>>>> dev
@@ -224,21 +224,13 @@ public class Controleur {
 	 *  Consulter les machines
 	 * @return
 	 */
-<<<<<<< HEAD
-	public ArrayList<String> consulterMachines() {
-		ArrayList<Machine> machines = adminDao.tousmachine();
-		ArrayList<String> numMachines = new ArrayList<String>();
 
-		for(int i = 0 ; i < machines.size() ; i++) {
-			numMachines.add(machines.get(i).getNumMachine());
-=======
 	public String[] consulterMachines() {
 		ArrayList<Machine> machines = adminDao.tousmachine();
 		String[] numMachines = new String[machines.size()];
 
 		for(int i = 0 ; i < machines.size() ; i++) {
 			numMachines[i] = machines.get(i).getNumMachine();
->>>>>>> dev
 		}
 
 		return numMachines;
@@ -249,21 +241,12 @@ public class Controleur {
 	 *  Consulter les salles
 	 * @return
 	 */
-<<<<<<< HEAD
-	public ArrayList<String> consulterSalles() {
-		ArrayList<Salle> salles = adminDao.toutesSalles();
-		ArrayList<String> numSalles = new ArrayList<String>();
-
-		for(int i = 0 ; i < salles.size() ; i++) {
-			numSalles.add(salles.get(i).getNomSalle());
-=======
 	public String[] consulterSalles() {
 		ArrayList<Salle> salles = adminDao.toutesSalles();
 		String[] numSalles = new String[salles.size()];
 
 		for(int i = 0 ; i < salles.size() ; i++) {
 			numSalles[i] = salles.get(i).getNomSalle();
->>>>>>> dev
 		}
 
 		return numSalles;
@@ -332,8 +315,4 @@ public class Controleur {
 
 
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> dev
