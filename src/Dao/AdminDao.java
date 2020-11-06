@@ -96,36 +96,51 @@ public class AdminDao {
 		}
 		return lstEtudiant;
 	}
+	
+	/**
+	 * Recuperer toutes les salles
+	 */
+	public ArrayList<Salle> toutesSalles () {
+		String sqlreserver = "select * from machine group by numsalle";
+		Query(); 
+		afferentSQL(sqlreserver);
+		ArrayList<Salle> lstSalles = new ArrayList<Salle>();
+		List<Object> objs = Select();
+		for (int i = 0; i < objs.size(); i++) {
+			Map<String, Object> rowData = (Map<String, Object>) objs.get(i);
+			Salle salle = new Salle((String)rowData.get("numsalle"));
+			lstSalles.add(salle);
+		}
+
+		return lstSalles;
+	}
 
 	/**
 	 * Supprimer un compte etudiant
+	 * @return true si compte supprime, false sinon
 	 */
-	public void supprimerEtudiant(Etudiant etu) {
+	public boolean supprimerEtudiant(Etudiant etu) {
 		String sql="DELETE FROM etudiant WHERE ide=?";
 		Query();
 		afferentSQL(sql);
 		parameter.add(etu.getIdentifiant());
 		int ligne=Update();
-		if(ligne>=1){ //Nombre de lignes affect��es (c'est-��-dire le nombre de mises �� jour
-			System.out.println("succcess");
-		}
+		return ligne >= 1;
 	}
 
 	/**
 	 * Supprimer une machine
+	 * @return true si machine supprime, false sinon
 	 */
-	public void supprimerMachine(Machine machine) {
+	public boolean supprimerMachine(Machine machine) {
 		String sql="DELETE FROM machine WHERE numma=?";
 		Query();
 		afferentSQL(sql);
 		parameter.add(machine.getNumMachine());
 		int ligne=Update();
-		if(ligne>=1){ //Nombre de lignes affect��es (c'est-��-dire le nombre de mises �� jour
-			System.out.println("succcess");
-		};  
-
+		return ligne >= 1;
 	}
-
+	
 
 	// tester
 	public static void main(String[] args) {
