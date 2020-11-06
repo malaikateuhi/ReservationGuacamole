@@ -167,7 +167,7 @@ public class EnseignantDao {
 			Reservation rr= new Reservation();
 			rr.setMachine(new Machine((String)rowData.get("numma"), salle));
 			rr.setCreaneau((int)rowData.get("creneau"));
-			rr.setHeureDeb((String)rowData.get("heuredeb"));
+			rr.setHeureDeb((String)rowData.get("heuredebr"));
 			rr.setHeureFin((String)rowData.get("heurefinr"));
 			rr.setEtat((String)rowData.get("etatr"));
 			rr.setIdee((String)rowData.get("ide"));
