@@ -186,7 +186,7 @@ public class EnseignantDao {
 		ArrayList<Reservation> reservations = new ArrayList<Reservation>();	
 		String sql = "SELECT * FROM reserver r, machine m, passer p "
 				+ "WHERE r.numma = m.numma AND m.numsalle = p.numsalle "
-				+ "AND r.jour = p.jour AND r.heureDeb = p.heureDeb "
+				+ "AND r.jour = p.jour AND r.heuredebr = p.heuredeb "
 				+ "AND p.numseance = ? "
 				+ "AND p.jour = ? "
 				+ "AND p.heuredeb = ? "
