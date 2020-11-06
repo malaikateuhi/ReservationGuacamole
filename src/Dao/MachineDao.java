@@ -44,7 +44,6 @@ public class MachineDao {
 
 
 
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		MachineDao m1 = new MachineDao();	

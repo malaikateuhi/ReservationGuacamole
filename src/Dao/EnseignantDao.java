@@ -52,20 +52,21 @@ public class EnseignantDao {
 	}
 
 	/**
-	 * 	Afficher les seances donnees par un enseignant et le salle se trouve
-	 * @return ArrayList d'objets de type Seance
+	 * 	Afficher les seances donnees par un enseignant et le salle se trouve  
+	 * @return ArrayList de un liste qui contient l'objet seance et l'objet salle 
 	 */		
 	
 	public ArrayList<TempsDeSeance > donnerCours(Enseignant enseigant){
-		HashMap<Seance,Salle> hmSeanceSalle;
+		
 		ArrayList<TempsDeSeance> lstseance = new ArrayList<TempsDeSeance>();
-		String sql ="SELECT *from donner,passer where passer.numseance=donner.numseance and iden=?";
+		String sql ="SELECT * from seance,passer where seance.numseance=passer.numseance and iden=?";
 		Query(); 
 		parameter.add(enseigant.getIdentifiant());
 		afferentSQL(sql);
 		List<Object> objs = Select();			  
 		for (int i = 0; i < objs.size(); i++) {
-				Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
+			HashMap<Seance,Salle> hmSeanceSalle;
+			Map<String, Object> rowData =(Map<String, Object>) objs.get(i);
 			TempsDeSeance tps = new TempsDeSeance();
 			Salle sa = new Salle((String)rowData.get("numsalle"));
 			Seance se =new Seance((String)rowData.get("numseance"));
@@ -74,8 +75,8 @@ public class EnseignantDao {
 			tps.setHmSeanceSalle(hmSeanceSalle); 
 			tps.setJour((String)rowData.get("jour"));
 			tps.setCreaneau((int)rowData.get("creneau"));
-			tps.setHeureDeb((String)rowData.get("creneau"));
-			tps.setHeureFin((String)rowData.get("creneau"));
+			tps.setHeureDeb((String)rowData.get("heuredeb"));
+			tps.setHeureFin((String)rowData.get("heurefin"));
 			lstseance.add(tps);
 
 		}
@@ -141,9 +142,9 @@ public class EnseignantDao {
 	 */
 	ArrayList<Reservation> lstreservation1;
 	public ArrayList<Reservation> machineReserver(Salle salle){
-		String sql ="select * from reserver,machine,salle,passer "
-				+ "where reserver.numma = machine.numma and machine.numsalle =salle.numsalle "
-				+ "and salle.numsalle = passer.numsalle and passer.jour=reserver.jour "
+		String sql ="select * from reserver,machine,passer "
+				+ "where reserver.numma = machine.numma"
+				+ "and machine.numsalle = passer.numsalle and passer.jour=reserver.jour "
 				+ "and passer.creneau=reserver.creneau and salle.numsalle = ?";
 		Query(); 
 		parameter.add(salle.getNomSalle());
@@ -172,8 +173,7 @@ public class EnseignantDao {
 	 * @return ArrayList<Reservation>
 	 */
 	public ArrayList<Reservation> reservationsSeance(Seance seance, TempsDeSeance tpSeance) {
-		ArrayList<Reservation> reservations = new ArrayList<Reservation>();
-		
+		ArrayList<Reservation> reservations = new ArrayList<Reservation>();	
 		String sql = "SELECT * FROM reserver r, machine m, passer p "
 				+ "WHERE r.numma = m.numma AND m.numsalle = p.numsalle "
 				+ "AND r.jour = p.jour AND r.heuredebr = p.heuredeb "
@@ -243,7 +243,7 @@ public class EnseignantDao {
 		ArrayList<Reservation> reservations = reservationsSeance(seance, tpSeance);			
 		int lignes = 0;
 		
-		for (Reservation reservation : reservations) {			// Changement d'etat de chaque reservation
+		for (Reservation reservation : reservations) {	// Changement d'etat de chaque reservation
 			Query();
 			parameter.add(reservation.getMachine().getNumMachine());
 			parameter.add(reservation.getIdee());
@@ -262,15 +262,17 @@ public class EnseignantDao {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		EnseignantDao en1 = new EnseignantDao();	
-		Enseignant enenget=en1.login("en1","en1");
+		Enseignant enenget=en1.login("en2","en2");
 		en1.donnerCours(enenget);
-		Seance s1 =new Seance();
-		s1.setNumSeance("TP1");
-		en1.groupeEtudiants(s1);
-		en1.sallesOccupees(s1);
-		Salle sa1 =new Salle();
-		sa1.setNomSalle("M1");
-		en1.machineReserver(sa1);		
+		 
+	
+		//Seance s1 =new Seance();
+		//s1.setNumSeance("TP1");
+		//en1.groupeEtudiants(s1);
+		//en1.sallesOccupees(s1);
+		//Salle sa1 =new Salle();
+		//sa1.setNomSalle("M1");
+		//en1.machineReserver(sa1);		
 
 	    // Test Annulation des réservations d'une seance => OK
 	   // TempsDeSeance tpS1 = new TempsDeSeance();

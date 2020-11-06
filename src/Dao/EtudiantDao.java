@@ -55,29 +55,6 @@ public class EtudiantDao {
 	}
 
 
-	/*	//Historique des reservations de l'etudiant
-	ArrayList<Reservation> lstreservation;
-	public ArrayList<Reservation> hisreserver (Etudiant etudiant)
-	{
-		String sqlreserver = "select * from reserver where ide=? ";
-		Query(); 
-		parameter.add(etudiant.getIdentifiant());
-		afferentSQL(sqlreserver);
-		this.lstreservation= new ArrayList<Reservation>();
-		  List<Object> objs = Select();
-	        for (int i = 0; i < objs.size(); i++) {
-	        	Map<String, Object> rowData = (Map<String, Object>) objs.get(i);
-	        	Reservation reserver= new Reservation();
-	        	reserver.setJour((String)rowData.get("jour"));
-	            reserver.setEtat((String)rowData.get("etatr"));
-	            reserver.setHeureDeb((String)rowData.get("heuredebr"));
-	            reserver.setHeureFin((String)rowData.get("heurefinr"));
-	            lstreservation.add(reserver);
-	        }
-		return lstreservation;
-	}*/
-
-
 	/**
 	 *  Si l'锟斤拷l锟斤拷ve a une classe, recommander une machine 
 	 *  S'il y a une seance dans la p锟斤拷riode sp锟斤拷cifi锟斤拷e, v锟斤拷rifiez la salle o锟斤拷 le cours a eu lieu
@@ -85,7 +62,7 @@ public class EtudiantDao {
 	 */
 	public Salle recommande(Etudiant etudiant, String jour,int time) {
 		String avoircours ="select * from passer,etudiant,seance where etudiant.numgroup =seance.numgroup "
-				+ "and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? ";
+				+ "and seance.numseance =passer.numseance and ide=? and jour=? and creneau=? and etats<>'Annulle'";
 		Query(); 
 		parameter.add(etudiant.getIdentifiant());
 		parameter.add(jour);
@@ -160,7 +137,7 @@ public class EtudiantDao {
 		return null;
 	}
 
-	/**
+	  /**
 	 * Recommander une machine pour une reservation en acces libre (hors seance de TP)	
 	 * @param jour date de la seance
 	 * @param time nombre de creneaux de la seance
@@ -171,7 +148,7 @@ public class EtudiantDao {
 		// et cette machine n'est pas dans la classe qui a des cours pendant cette periode
 		String pascours ="select * from machine "
 				+ "where machine.numma not in(select numma from reserver where ide=? and jour=?and creneau=?) "
-				+ "and numsalle not in (select numsalle from passer where jour=?and creneau=?)";
+				+ "and numsalle not in (select numsalle from passer where jour=?and creneau=? and etats<>'Annulle')";
 		Query(); 
 		parameter.add(etudiant.getIdentifiant());
 		parameter.add(jour);
@@ -259,7 +236,7 @@ public class EtudiantDao {
 		parameter.add(reservation.getJour());
 		parameter.add(reservation.getCreaneau());
 		int ligne=Update();
-		if(ligne>=1){ //Nombre de lignes affect锟斤拷es (c'est-锟斤拷-dire le nombre de mises 锟斤拷 jour
+		if(ligne>=1){ 
 			return true;
 
 		}else {
@@ -308,7 +285,7 @@ public class EtudiantDao {
 		t1.login("1","1");
 
 		//t1.recommande(e1, "2020-11-10", 0);
-		t1.avoirseance(e1, "2020-11-10", 0);
+		t1.avoirseance(e1, "2020-11-10", 0);				
 		//t1.choisi(e1, "2020-11-10", 0);
 		//Reservation r1= new Reservation("ma1","1","2020-11-10","9:30","10:30","reserve",0);
 
