@@ -24,7 +24,7 @@ public class AdminDao {
 	 * Authentification d'un admin
 	 */
 	public Admin login(String id,String password) {
-		String sqladmin = "select * from admin where ida=? and passworda=? ";
+		String sqladmin = "select * from admin where ida=? and passworda=? ";//faut coorriger le password dans bd admin
 		Admin ares = null;
 		Query();
 		parameter.add(id);
@@ -52,7 +52,6 @@ public class AdminDao {
 
 	/**
 	 *  Afficher toutes les machines
-	 *  L'administrateur peut g¨¦rer toutes les machines et tous les ¨¦tudiants et d¨¦cider de les supprimer
 	 */
 	ArrayList<Machine> lstMachine;
 	ArrayList<Etudiant> lstEtudiant;
@@ -97,42 +96,57 @@ public class AdminDao {
 		}
 		return lstEtudiant;
 	}
+	
+	/**
+	 * Recuperer toutes les salles
+	 */
+	public ArrayList<Salle> toutesSalles () {
+		String sqlreserver = "select * from machine group by numsalle";
+		Query(); 
+		afferentSQL(sqlreserver);
+		ArrayList<Salle> lstSalles = new ArrayList<Salle>();
+		List<Object> objs = Select();
+		for (int i = 0; i < objs.size(); i++) {
+			Map<String, Object> rowData = (Map<String, Object>) objs.get(i);
+			Salle salle = new Salle((String)rowData.get("numsalle"));
+			lstSalles.add(salle);
+		}
+
+		return lstSalles;
+	}
 
 	/**
-	 * Supprimer un compte d'etudiant
+	 * Supprimer un compte etudiant
+	 * @return true si compte supprime, false sinon
 	 */
-	public void supprimerEtudiant(Etudiant etu) {
+	public boolean supprimerEtudiant(Etudiant etu) {
 		String sql="DELETE FROM etudiant WHERE ide=?";
 		Query();
 		afferentSQL(sql);
 		parameter.add(etu.getIdentifiant());
 		int ligne=Update();
-		if(ligne>=1){ //Nombre de lignes affectees  c'est a dire le nombre de mises a jour
-			System.out.println("succcess");
-		}
+		return ligne >= 1;
 	}
 
 	/**
 	 * Supprimer une machine
+	 * @return true si machine supprime, false sinon
 	 */
-	public void supprimerMachine(Machine machine) {
+	public boolean supprimerMachine(Machine machine) {
 		String sql="DELETE FROM machine WHERE numma=?";
 		Query();
 		afferentSQL(sql);
 		parameter.add(machine.getNumMachine());
 		int ligne=Update();
-		if(ligne>=1){ 
-			System.out.println("succcess");
-		};  
-
+		return ligne >= 1;
 	}
+	
 
-
-	// tester ce page 
+	// tester
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		AdminDao a1 = new AdminDao();	
-		a1.login("1","2");
+		//a1.login("1","2");
 		//a1.tousmachine();
 		//a1.tousetudiant();
 		Etudiant etu1 =new Etudiant();
